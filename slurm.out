@@ -1,0 +1,16 @@
+begin
+T1>={1989/01/01}
+T2<={2009/12/29}
+stash=3332
+lbproc=128
+end
+### select, command-id=689904228, estimated-cost=4066645440byte(s), files=242, media=2
+begin
+T1>={1989/01/01}
+T2<={2009/12/29}
+stash=30201
+lbproc=128
+lblev=850
+end
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: get_exit_code task 0 died by signal
