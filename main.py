@@ -1,5 +1,5 @@
 #!/opt/scitools/environments/default/2018_05_22-1/bin/python
-import retrieve_SEA_data as retrieve
+import src.retrieve_SEA_data as retrieve
 import do_sea as do_sea
 
 if __name__ == '__main__':
@@ -30,4 +30,4 @@ if __name__ == '__main__':
     # 2. Do MJO
     # put obs=None if you do not wish to compute obs every time
     do_sea.sea_compute(varnames, control=None, expt=None, obs=obs,
-                       cs_level1=True, level2=False, level3=False)
+                       cs_level1=False, eqw_level2=True, level3=False)

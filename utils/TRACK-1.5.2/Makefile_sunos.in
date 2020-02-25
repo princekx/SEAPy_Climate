@@ -1,0 +1,120 @@
+#
+# Makefile for track
+#
+# 
+#
+# usage='make [comp_opt]'
+#
+#
+# where comp_opt = "" or "all"  complete build
+#                = "libs"       libraries only built
+#                = "src"        main source only built
+#                = "surfit"     include surface fitting libraries
+#                = "lopt"       include surface fitting and local optimization libraries
+#
+
+#
+
+ PROGRAM = track
+
+      CC = gcc
+  SYSTEM = SUNOS4
+  LIBGCC = $(GCCLIB)
+LOCALLIB = ./lib
+INCLUDES = include
+    MAKE = make
+  TARGET =
+  MDEBUG = NMDB
+ MUNIRAS = HAVEUNIRAS
+  MNAMEL = NONAMELISTS
+F77APPEND = UNDERSCORE
+  FFLAGS = -g
+
+ADLIBS = -L$(LOCALLIB) -lchisqr
+
+LIBS =  -lm -lc -L$(LIBGCC) -lgcc -L$(F77) -lF77 -lm
+
+#
+# uniras libraries, comment as required
+#
+#UNILIBS =
+
+# Use for older versions of uniras, i.e. 6v3 and less.
+#
+UNILIBS = -luni -lcgm -luni -ldum  -lX11 -L/usr/lib/ -lsuntool -lsunwindow -lpixrect
+
+LDFLAGS = -e start -dc -dp -X -o $@ -L$(F77) $(F77)/crt0.o -L$(F77)/cg89 $(F77)/cg89/_crt1.o
+
+SOURCE = src
+OBJS = $(SOURCE)/*.o
+
+all: PROGRAM1
+surfit lopt: PROGRAM2
+
+# edit target dependency for target memdb as required
+
+memdb: lopt
+
+# additional target for dynamic memory debugging
+
+memdb:= MDEBUG = MDB
+memdb:= OBJS += /usr/lib/debug/malloc.o /usr/lib/debug/mallocmap.o
+
+surfit:= TARGET = surfit
+surfit:= LIBS += -L$(LOCALLIB) -lsmp
+
+lopt:= TARGET = lopt
+lopt:= LIBS += -L$(LOCALLIB) -lopt -lsmp
+
+
+MAKEARGS = TARGET=$(TARGET) MDEBUG=$(MDEBUG) MUNI=$(MUNIRAS) MNAME=$(MNAMEL) SYSTEM=$(SYSTEM) USAPPEND=$(F77APPEND) N_FFLAGS='$(FFLAGS)'
+
+LIB_MAKEARGS = CC=$(CC) MDEBUG=$(MDEBUG) SYSTEM='$(SYSTEM)' USAPPEND='$(F77APPEND)' N_FFLAGS='$(FFLAGS)'
+
+.KEEP_STATE:
+
+
+include: FORCE
+	cd $@; $(MAKE); rm -f *%
+
+f77_param: FORCE
+	cd $@ ; $(MAKE) MNAME=$(MNAMEL); rm -f *%
+
+SRC: 
+	$(MAKE) $(SOURCE) $(MAKEARGS)
+
+$(SOURCE): include f77_param FORCE
+	cd $@; $(MAKE) $(TARGRT) $(MAKEARGS); rm -f *%
+	
+libs:
+	$(MAKE) $(LOCALLIB) $(LIB_MAKEARGS)
+
+$(LOCALLIB): FORCE
+	cd $@; $(MAKE) $(LIB_MAKEARGS); rm -f *%
+
+PROGRAM1: $(PROGRAM)
+
+PROGRAM2: libs $(PROGRAM)
+
+$(PROGRAM): SRC FORCE
+	rm -f src/sincos.o
+	$(FC) ${FFLAGS} ${OBJS} ${UNILIBS} ${LIBS} ${ADLIBS}
+#
+# link mallocmap to provide a print out of the heap for debugging
+#
+#	ld ${LDFLAGS} ${OBJS} /usr/lib/debug/mallocmap.o ${LIBS}
+	mv $@ bin
+	rm -f *%
+#	cd $(SOURCE); rm -f *.o
+
+depend: depend_src depend_libs
+
+
+depend_src: f77_param
+	cd $(SOURCE); $(MAKE) $(TARGET) $(MAKEARGS) depend
+
+depend_libs:
+	cd $(LOCALLIB); $(MAKE) $(LIB_MAKEARGS) depend
+
+
+FORCE:

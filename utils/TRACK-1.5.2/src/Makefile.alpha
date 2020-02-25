@@ -1,0 +1,2327 @@
+# Makefile for track
+#
+
+    MAKE = make
+
+  INCGCC = $(GCCINC)
+ ADDINCS =
+AD_C_FLAGS =
+
+
+# 
+# Include for gcc compilation
+INCLUDES = -I../include -I../lib/include -I$(INCGCC) -I/usr/include -nostdinc $(ADDINCS)
+
+#INCLUDES = -I../include -I../lib/include $(ADDINCS)
+
+
+#
+# CFLAGS for gcc, add -Wno-unknown-pragmas for egcs or gcc-2.95
+CFLAGS = -ansi -g -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) -D$(HAVNETC) -O2 -Wall -Wshadow -Wpointer-arith -Wnested-externs $(INCLUDES) -DREGULAR -DOPT -DFFTLIB $(AD_C_FLAGS)
+
+
+FFLAGS = -c ${N_FFLAGS} -D$(MUNI) -D$(MNAME) -I../f77_param
+
+SFLAGS = -c $(CFLAGS)
+OFLAGS = -c $(CFLAGS)
+
+include Makefile.include
+
+C_SOURCES = $(CSOURCES)
+
+#surfit:= CFLAGS += -DREGULAR
+
+#lopt:= CFLAGS += -DREGULAR -DOPT
+
+
+C_OBJECTS = $(C_SOURCES:.c=.o)
+
+.KEEP_STATE: 
+
+all surfit lopt: C_OBJS F_OBJS
+
+C_OBJS: $(C_OBJECTS) sincos.o
+
+F_OBJS:
+	$(FC) $(FFLAGS) $(P_SOURCES)
+
+
+depend:
+	makedepend -f Makefile.alpha -- $(CFLAGS) -- $(C_SOURCES)
+	../sfmakedepend -f Makefile.alpha $(P_SOURCES)
+# DO NOT DELETE
+
+add_point_to_object.o: ../include/Stdio.h
+add_point_to_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+add_point_to_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+add_point_to_object.o: /usr/include/standards.h /usr/include/sys/seek.h
+add_point_to_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+add_point_to_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+add_point_to_object.o: /usr/include/time_t.h /usr/include/getopt.h
+add_point_to_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+add_point_to_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+add_point_to_object.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+add_point_to_object.o: /usr/include/sys/signalmisc.h
+add_point_to_object.o: /usr/include/sys/timemisc.h
+add_point_to_object.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+add_point_to_object.o: /usr/include/sys/select.h ../include/mem_er.h
+add_point_to_object.o: ../include/st_obj.h
+adj.o: ../include/Stdio.h
+adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+adj.o: /usr/include/standards.h /usr/include/sys/seek.h
+adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+adj.o: /usr/include/time_t.h /usr/include/getopt.h
+alloc_mem_hierarc.o: ../include/Stdio.h
+alloc_mem_hierarc.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+alloc_mem_hierarc.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+alloc_mem_hierarc.o: /usr/include/standards.h /usr/include/sys/seek.h
+alloc_mem_hierarc.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+alloc_mem_hierarc.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+alloc_mem_hierarc.o: /usr/include/time_t.h /usr/include/getopt.h
+alloc_mem_hierarc.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+alloc_mem_hierarc.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+alloc_mem_hierarc.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+alloc_mem_hierarc.o: /usr/include/sys/signalmisc.h
+alloc_mem_hierarc.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+alloc_mem_hierarc.o: /usr/include/sys/time.h /usr/include/sys/select.h
+alloc_mem_hierarc.o: ../include/mem_er.h /usr/include/errno.h
+alloc_mem_hierarc.o: ../include/st_im.h
+anisotropy.o: ../include/Stdio.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+anisotropy.o: /usr/include/standards.h /usr/include/sys/seek.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+anisotropy.o: /usr/include/time_t.h /usr/include/getopt.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+anisotropy.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+anisotropy.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+anisotropy.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+anisotropy.o: /usr/include/sys/select.h ../include/Math.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+anisotropy.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+anisotropy.o: ../include/mem_er.h ../include/st_obj.h ../include/st_fo.h
+anisotropy.o: ../include/grid.h ../include/complex.h ../include/statistic.h
+anisotropy.o: ../include/m_values.h ../include/proj.h ../include/p_vecs.h
+anisotropy.o: ../include/boundary.h
+arrayd.o: ../include/Stdio.h
+arrayd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+arrayd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+arrayd.o: /usr/include/standards.h /usr/include/sys/seek.h
+arrayd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+arrayd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+arrayd.o: /usr/include/time_t.h /usr/include/getopt.h
+arrayd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+arrayd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+arrayd.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+arrayd.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+arrayd.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+arrayd.o: /usr/include/sys/select.h ../include/st_im.h ../include/grid.h
+arrayd.o: ../include/complex.h
+assign_label.o: ../include/Stdio.h
+assign_label.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+assign_label.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+assign_label.o: /usr/include/standards.h /usr/include/sys/seek.h
+assign_label.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+assign_label.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+assign_label.o: /usr/include/time_t.h /usr/include/getopt.h
+assign_label.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+assign_label.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+assign_label.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+assign_label.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+assign_label.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+assign_label.o: /usr/include/sys/select.h ../include/st_im.h
+assign_node.o: ../include/Stdio.h
+assign_node.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+assign_node.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+assign_node.o: /usr/include/standards.h /usr/include/sys/seek.h
+assign_node.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+assign_node.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+assign_node.o: /usr/include/time_t.h /usr/include/getopt.h
+assign_points_to_objects.o: ../include/Stdio.h
+assign_points_to_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+assign_points_to_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+assign_points_to_objects.o: /usr/include/standards.h /usr/include/sys/seek.h
+assign_points_to_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+assign_points_to_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+assign_points_to_objects.o: /usr/include/time_t.h /usr/include/getopt.h
+assign_points_to_objects.o: ../include/st_obj.h ../include/grid.h
+assign_points_to_objects.o: ../include/complex.h
+assign_object.o: ../include/Stdio.h
+assign_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+assign_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+assign_object.o: /usr/include/standards.h /usr/include/sys/seek.h
+assign_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+assign_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+assign_object.o: /usr/include/time_t.h /usr/include/getopt.h
+assign_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+assign_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+assign_object.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+assign_object.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+assign_object.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+assign_object.o: /usr/include/sys/select.h ../include/mem_er.h
+assign_object.o: ../include/st_im.h ../include/st_fo.h ../include/boundary.h
+assign_object.o: ../include/st_obj.h
+azimuthal.o: ../include/Stdio.h
+azimuthal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+azimuthal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+azimuthal.o: /usr/include/standards.h /usr/include/sys/seek.h
+azimuthal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+azimuthal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+azimuthal.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+azimuthal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+azimuthal.o: ../include/m_values.h
+back_to_sphere.o: ../include/Stdio.h
+back_to_sphere.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+back_to_sphere.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+back_to_sphere.o: /usr/include/standards.h /usr/include/sys/seek.h
+back_to_sphere.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+back_to_sphere.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+back_to_sphere.o: /usr/include/time_t.h /usr/include/getopt.h
+back_to_sphere.o: ../include/grid.h ../include/complex.h ../include/st_fo.h
+back_to_sphere.o: ../include/st_obj.h ../include/proj.h
+bel_mge.o: ../include/Stdio.h
+bel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+bel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+bel_mge.o: /usr/include/standards.h /usr/include/sys/seek.h
+bel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+bel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+bel_mge.o: /usr/include/time_t.h /usr/include/getopt.h
+bel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+bel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+bel_mge.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+bel_mge.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+bel_mge.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+bel_mge.o: /usr/include/sys/select.h ../include/mem_er.h ../include/st_obj.h
+bel_mge.o: ../include/st_fo.h ../include/st_track.h ../include/zones.h
+blackman_tukey.o: ../include/Stdio.h
+blackman_tukey.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+blackman_tukey.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+blackman_tukey.o: /usr/include/standards.h /usr/include/sys/seek.h
+blackman_tukey.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+blackman_tukey.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+blackman_tukey.o: /usr/include/time_t.h /usr/include/getopt.h
+blackman_tukey.o: ../include/Math.h
+blackman_tukey.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+blackman_tukey.o: ../include/complex.h ../include/m_values.h
+border_expand_object.o: ../include/Stdio.h
+border_expand_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+border_expand_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+border_expand_object.o: /usr/include/standards.h /usr/include/sys/seek.h
+border_expand_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+border_expand_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+border_expand_object.o: /usr/include/time_t.h /usr/include/getopt.h
+border_expand_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+border_expand_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+border_expand_object.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+border_expand_object.o: /usr/include/sys/signalmisc.h
+border_expand_object.o: /usr/include/sys/timemisc.h
+border_expand_object.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+border_expand_object.o: /usr/include/sys/select.h ../include/mem_er.h
+border_expand_object.o: ../include/st_obj.h ../include/grid.h
+border_expand_object.o: ../include/complex.h
+border_obj_fet_filter.o: ../include/Stdio.h
+border_obj_fet_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+border_obj_fet_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+border_obj_fet_filter.o: /usr/include/standards.h /usr/include/sys/seek.h
+border_obj_fet_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+border_obj_fet_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+border_obj_fet_filter.o: /usr/include/time_t.h /usr/include/getopt.h
+border_obj_fet_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+border_obj_fet_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+border_obj_fet_filter.o: /usr/include/sys/procset.h
+border_obj_fet_filter.o: /usr/include/sys/siginfo.h
+border_obj_fet_filter.o: /usr/include/sys/signalmisc.h
+border_obj_fet_filter.o: /usr/include/sys/timemisc.h
+border_obj_fet_filter.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+border_obj_fet_filter.o: /usr/include/sys/select.h ../include/mem_er.h
+border_obj_fet_filter.o: ../include/st_im.h ../include/st_obj.h
+border_obj_fet_filter.o: ../include/st_fo.h
+border_search.o: ../include/Stdio.h
+border_search.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+border_search.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+border_search.o: /usr/include/standards.h /usr/include/sys/seek.h
+border_search.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+border_search.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+border_search.o: /usr/include/time_t.h /usr/include/getopt.h
+border_search.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+border_search.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+border_search.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+border_search.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+border_search.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+border_search.o: /usr/include/sys/select.h ../include/st_obj.h
+border_search.o: ../include/grid.h ../include/complex.h
+boundary_find.o: ../include/Stdio.h
+boundary_find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+boundary_find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+boundary_find.o: /usr/include/standards.h /usr/include/sys/seek.h
+boundary_find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+boundary_find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+boundary_find.o: /usr/include/time_t.h /usr/include/getopt.h
+boundary_find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+boundary_find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+boundary_find.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+boundary_find.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+boundary_find.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+boundary_find.o: /usr/include/sys/select.h ../include/Math.h
+boundary_find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+boundary_find.o: ../include/st_fo.h ../include/boundary.h ../include/st_obj.h
+boundary_find.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+boundary_find.o: ../include/m_values.h
+c_e.o: ../include/Stdio.h
+c_e.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+c_e.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+c_e.o: /usr/include/standards.h /usr/include/sys/seek.h
+c_e.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+c_e.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+c_e.o: /usr/include/time_t.h /usr/include/getopt.h
+c_e.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+c_e.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+c_e.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+c_e.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+c_e.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+c_e.o: /usr/include/sys/select.h ../include/err.h
+centroid.o: ../include/Stdio.h
+centroid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+centroid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+centroid.o: /usr/include/standards.h /usr/include/sys/seek.h
+centroid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+centroid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+centroid.o: /usr/include/time_t.h /usr/include/getopt.h
+centroid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+centroid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+centroid.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+centroid.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+centroid.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+centroid.o: /usr/include/sys/select.h ../include/Math.h
+centroid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+centroid.o: ../include/mem_er.h ../include/st_im.h ../include/st_obj.h
+centroid.o: ../include/st_fo.h ../include/grid.h ../include/complex.h
+cholesky.o: ../include/Stdio.h
+cholesky.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+cholesky.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+cholesky.o: /usr/include/standards.h /usr/include/sys/seek.h
+cholesky.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+cholesky.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+cholesky.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+cholesky.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+close_file.o: ../include/Stdio.h
+close_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+close_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+close_file.o: /usr/include/standards.h /usr/include/sys/seek.h
+close_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+close_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+close_file.o: /usr/include/time_t.h /usr/include/getopt.h
+close_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+close_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+close_file.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+close_file.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+close_file.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+close_file.o: /usr/include/sys/select.h
+const_density.o: ../include/Stdio.h
+const_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+const_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+const_density.o: /usr/include/standards.h /usr/include/sys/seek.h
+const_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+const_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+const_density.o: /usr/include/time_t.h /usr/include/getopt.h
+const_density.o: ../include/statistic.h
+convert.o: ../include/Stdio.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+convert.o: /usr/include/standards.h /usr/include/sys/seek.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+convert.o: /usr/include/time_t.h /usr/include/getopt.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+convert.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+convert.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+convert.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+convert.o: /usr/include/sys/select.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+convert.o: ../include/Math.h
+convert.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+convert.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+convert.o: ../include/file_handle.h ../include/files_out.h
+convert.o: ../include/file_path.h ../include/pp.h ../include/utf.h
+create_spherical_basis.o: ../include/Stdio.h
+create_spherical_basis.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+create_spherical_basis.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+create_spherical_basis.o: /usr/include/standards.h /usr/include/sys/seek.h
+create_spherical_basis.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+create_spherical_basis.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+create_spherical_basis.o: /usr/include/time_t.h /usr/include/getopt.h
+create_spherical_basis.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+create_spherical_basis.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+create_spherical_basis.o: /usr/include/sys/procset.h
+create_spherical_basis.o: /usr/include/sys/siginfo.h
+create_spherical_basis.o: /usr/include/sys/signalmisc.h
+create_spherical_basis.o: /usr/include/sys/timemisc.h
+create_spherical_basis.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+create_spherical_basis.o: /usr/include/sys/select.h ../include/Math.h
+create_spherical_basis.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+create_spherical_basis.o: ../include/mem_er.h ../include/m_values.h
+create_spherical_basis.o: ../include/grid.h ../include/complex.h
+cross_validate.o: ../include/Stdio.h
+cross_validate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+cross_validate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+cross_validate.o: /usr/include/standards.h /usr/include/sys/seek.h
+cross_validate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+cross_validate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+cross_validate.o: /usr/include/time_t.h /usr/include/getopt.h
+cross_validate.o: ../include/statistic.h ../include/p_vecs.h
+cvalln_fisher.o: ../include/Stdio.h
+cvalln_fisher.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+cvalln_fisher.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+cvalln_fisher.o: /usr/include/standards.h /usr/include/sys/seek.h
+cvalln_fisher.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+cvalln_fisher.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+cvalln_fisher.o: /usr/include/time_t.h /usr/include/getopt.h
+cvalln_fisher.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+cvalln_fisher.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+cvalln_fisher.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+cvalln_fisher.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+cvalln_fisher.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+cvalln_fisher.o: /usr/include/sys/select.h ../include/Math.h
+cvalln_fisher.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+cvalln_fisher.o: ../include/statistic.h ../include/mem_er.h
+cvalln_fisher.o: ../include/m_values.h
+cvalln_const.o: ../include/Stdio.h
+cvalln_const.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+cvalln_const.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+cvalln_const.o: /usr/include/standards.h /usr/include/sys/seek.h
+cvalln_const.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+cvalln_const.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+cvalln_const.o: /usr/include/time_t.h /usr/include/getopt.h
+cvalln_const.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+cvalln_const.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+cvalln_const.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+cvalln_const.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+cvalln_const.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+cvalln_const.o: /usr/include/sys/select.h ../include/Math.h
+cvalln_const.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+cvalln_const.o: ../include/statistic.h ../include/mem_er.h
+cvalln_const.o: ../include/m_values.h
+cvalln_linear.o: ../include/Stdio.h
+cvalln_linear.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+cvalln_linear.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+cvalln_linear.o: /usr/include/standards.h /usr/include/sys/seek.h
+cvalln_linear.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+cvalln_linear.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+cvalln_linear.o: /usr/include/time_t.h /usr/include/getopt.h
+cvalln_linear.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+cvalln_linear.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+cvalln_linear.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+cvalln_linear.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+cvalln_linear.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+cvalln_linear.o: /usr/include/sys/select.h ../include/Math.h
+cvalln_linear.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+cvalln_linear.o: ../include/statistic.h ../include/mem_er.h
+cvalln_linear.o: ../include/m_values.h
+cvalln_non_iso.o: ../include/Stdio.h
+cvalln_non_iso.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+cvalln_non_iso.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+cvalln_non_iso.o: /usr/include/standards.h /usr/include/sys/seek.h
+cvalln_non_iso.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+cvalln_non_iso.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+cvalln_non_iso.o: /usr/include/time_t.h /usr/include/getopt.h
+cvalln_non_iso.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+cvalln_non_iso.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+cvalln_non_iso.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+cvalln_non_iso.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+cvalln_non_iso.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+cvalln_non_iso.o: /usr/include/sys/select.h ../include/Math.h
+cvalln_non_iso.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+cvalln_non_iso.o: ../include/statistic.h ../include/mem_er.h
+cvalln_non_iso.o: ../include/m_values.h ../include/p_vecs.h
+cvalln_quad.o: ../include/Stdio.h
+cvalln_quad.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+cvalln_quad.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+cvalln_quad.o: /usr/include/standards.h /usr/include/sys/seek.h
+cvalln_quad.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+cvalln_quad.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+cvalln_quad.o: /usr/include/time_t.h /usr/include/getopt.h
+cvalln_quad.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+cvalln_quad.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+cvalln_quad.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+cvalln_quad.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+cvalln_quad.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+cvalln_quad.o: /usr/include/sys/select.h ../include/Math.h
+cvalln_quad.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+cvalln_quad.o: ../include/statistic.h ../include/mem_er.h
+cvalln_quad.o: ../include/m_values.h
+devn.o: ../include/Stdio.h
+devn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+devn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+devn.o: /usr/include/standards.h /usr/include/sys/seek.h
+devn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+devn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+devn.o: /usr/include/time_t.h /usr/include/getopt.h
+devn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+devn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+devn.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+devn.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+devn.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+devn.o: /usr/include/sys/select.h ../include/st_fo.h ../include/st_obj.h
+devn.o: ../include/st_track.h
+dfft.o: ../include/Stdio.h
+dfft.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+dfft.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+dfft.o: /usr/include/standards.h /usr/include/sys/seek.h
+dfft.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+dfft.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+dfft.o: /usr/include/time_t.h /usr/include/getopt.h
+dfft.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+dfft.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+dfft.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+dfft.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+dfft.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+dfft.o: /usr/include/sys/select.h ../include/Math.h
+dfft.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+dfft.o: ../include/complex.h ../include/m_values.h ../include/mem_er.h
+disp.o: ../include/Stdio.h
+disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+disp.o: /usr/include/standards.h /usr/include/sys/seek.h
+disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+disp.o: /usr/include/time_t.h /usr/include/getopt.h
+disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+disp.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+disp.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+disp.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+disp.o: /usr/include/sys/select.h ../include/st_obj.h ../include/st_fo.h
+disp.o: ../include/st_track.h
+disp_filter.o: ../include/Stdio.h
+disp_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+disp_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+disp_filter.o: /usr/include/standards.h /usr/include/sys/seek.h
+disp_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+disp_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+disp_filter.o: /usr/include/time_t.h /usr/include/getopt.h
+disp_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+disp_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+disp_filter.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+disp_filter.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+disp_filter.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+disp_filter.o: /usr/include/sys/select.h ../include/st_fo.h
+disp_filter.o: ../include/st_track.h ../include/complex.h ../include/splice.h
+disp_filter.o: ../include/m_values.h ../include/mem_er.h
+dist_trans.o: ../include/mem_er.h
+dmaxx.o: ../include/Stdio.h
+dmaxx.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+dmaxx.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+dmaxx.o: /usr/include/standards.h /usr/include/sys/seek.h
+dmaxx.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+dmaxx.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+dmaxx.o: /usr/include/time_t.h /usr/include/getopt.h ../include/st_fo.h
+dmaxx.o: ../include/st_obj.h ../include/m_values.h ../include/grid.h
+dmaxx.o: ../include/complex.h ../include/zones.h
+edge_neighbour.o: ../include/Stdio.h
+edge_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+edge_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+edge_neighbour.o: /usr/include/standards.h /usr/include/sys/seek.h
+edge_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+edge_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+edge_neighbour.o: /usr/include/time_t.h /usr/include/getopt.h
+edge_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+edge_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+edge_neighbour.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+edge_neighbour.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+edge_neighbour.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+edge_neighbour.o: /usr/include/sys/select.h ../include/st_im.h
+eq_area.o: ../include/Stdio.h
+eq_area.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+eq_area.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+eq_area.o: /usr/include/standards.h /usr/include/sys/seek.h
+eq_area.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+eq_area.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+eq_area.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+eq_area.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+eq_area.o: ../include/m_values.h
+eq_rect.o: ../include/Stdio.h
+eq_rect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+eq_rect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+eq_rect.o: /usr/include/standards.h /usr/include/sys/seek.h
+eq_rect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+eq_rect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+eq_rect.o: /usr/include/time_t.h /usr/include/getopt.h ../include/m_values.h
+error_stats.o: ../include/Stdio.h
+error_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+error_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+error_stats.o: /usr/include/standards.h /usr/include/sys/seek.h
+error_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+error_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+error_stats.o: /usr/include/time_t.h /usr/include/getopt.h
+estimate_vectors.o: ../include/Stdio.h
+estimate_vectors.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+estimate_vectors.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+estimate_vectors.o: /usr/include/standards.h /usr/include/sys/seek.h
+estimate_vectors.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+estimate_vectors.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+estimate_vectors.o: /usr/include/time_t.h /usr/include/getopt.h
+estimate_vectors.o: ../include/Math.h
+estimate_vectors.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+estimate_vectors.o: ../include/p_vecs.h ../include/statistic.h
+euclid.o: ../include/Stdio.h
+euclid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+euclid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+euclid.o: /usr/include/standards.h /usr/include/sys/seek.h
+euclid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+euclid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+euclid.o: /usr/include/time_t.h /usr/include/getopt.h
+euclid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+euclid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+euclid.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+euclid.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+euclid.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+euclid.o: /usr/include/sys/select.h ../include/st_fo.h ../include/st_obj.h
+euclid.o: ../include/grid.h ../include/complex.h
+euclid_dev.o: ../include/Stdio.h
+euclid_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+euclid_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+euclid_dev.o: /usr/include/standards.h /usr/include/sys/seek.h
+euclid_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+euclid_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+euclid_dev.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+euclid_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+euclid_dev.o: ../include/st_fo.h ../include/grid.h ../include/complex.h
+eval_fisher_stat.o: ../include/Stdio.h
+eval_fisher_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+eval_fisher_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+eval_fisher_stat.o: /usr/include/standards.h /usr/include/sys/seek.h
+eval_fisher_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+eval_fisher_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+eval_fisher_stat.o: /usr/include/time_t.h /usr/include/getopt.h
+eval_fisher_stat.o: ../include/Math.h
+eval_fisher_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+eval_fisher_stat.o: ../include/statistic.h ../include/m_values.h
+eval_const_stat.o: ../include/Stdio.h
+eval_const_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+eval_const_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+eval_const_stat.o: /usr/include/standards.h /usr/include/sys/seek.h
+eval_const_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+eval_const_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+eval_const_stat.o: /usr/include/time_t.h /usr/include/getopt.h
+eval_const_stat.o: ../include/Math.h
+eval_const_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+eval_const_stat.o: ../include/statistic.h ../include/m_values.h
+eval_linear_stat.o: ../include/Stdio.h
+eval_linear_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+eval_linear_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+eval_linear_stat.o: /usr/include/standards.h /usr/include/sys/seek.h
+eval_linear_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+eval_linear_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+eval_linear_stat.o: /usr/include/time_t.h /usr/include/getopt.h
+eval_linear_stat.o: ../include/Math.h
+eval_linear_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+eval_linear_stat.o: ../include/statistic.h ../include/m_values.h
+eval_non_iso_stat.o: ../include/Stdio.h
+eval_non_iso_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+eval_non_iso_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+eval_non_iso_stat.o: /usr/include/standards.h /usr/include/sys/seek.h
+eval_non_iso_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+eval_non_iso_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+eval_non_iso_stat.o: /usr/include/time_t.h /usr/include/getopt.h
+eval_non_iso_stat.o: ../include/Math.h
+eval_non_iso_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+eval_non_iso_stat.o: ../include/statistic.h ../include/m_values.h
+eval_non_iso_stat.o: ../include/p_vecs.h
+eval_quad_stat.o: ../include/Stdio.h
+eval_quad_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+eval_quad_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+eval_quad_stat.o: /usr/include/standards.h /usr/include/sys/seek.h
+eval_quad_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+eval_quad_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+eval_quad_stat.o: /usr/include/time_t.h /usr/include/getopt.h
+eval_quad_stat.o: ../include/Math.h
+eval_quad_stat.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+eval_quad_stat.o: ../include/statistic.h ../include/m_values.h
+extnpts_to_domain.o: ../include/Stdio.h
+extnpts_to_domain.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+extnpts_to_domain.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+extnpts_to_domain.o: /usr/include/standards.h /usr/include/sys/seek.h
+extnpts_to_domain.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+extnpts_to_domain.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+extnpts_to_domain.o: /usr/include/time_t.h /usr/include/getopt.h
+extnpts_to_domain.o: ../include/st_obj.h ../include/st_fo.h
+extnpts_to_domain.o: ../include/boundary.h ../include/grid.h
+extnpts_to_domain.o: ../include/complex.h
+extract.o: ../include/Stdio.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+extract.o: /usr/include/standards.h /usr/include/sys/seek.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+extract.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+extract.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+extract.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+extract.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+extract.o: /usr/include/sys/select.h
+extract.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+extract.o: ../include/grid.h ../include/complex.h ../include/files_out.h
+extract.o: ../include/file_path.h ../include/file_handle.h ../include/pp.h
+extract.o: ../include/mem_er.h
+featd.o: ../include/Stdio.h
+featd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+featd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+featd.o: /usr/include/standards.h /usr/include/sys/seek.h
+featd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+featd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+featd.o: /usr/include/time_t.h /usr/include/getopt.h
+featd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+featd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+featd.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+featd.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+featd.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+featd.o: /usr/include/sys/select.h ../include/mem_er.h ../include/st_obj.h
+featd.o: ../include/st_fo.h ../include/st_track.h ../include/grid.h
+featd.o: ../include/complex.h
+feature_pt_filter.o: ../include/Stdio.h
+feature_pt_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+feature_pt_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+feature_pt_filter.o: /usr/include/standards.h /usr/include/sys/seek.h
+feature_pt_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+feature_pt_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+feature_pt_filter.o: /usr/include/time_t.h /usr/include/getopt.h
+feature_pt_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+feature_pt_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+feature_pt_filter.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+feature_pt_filter.o: /usr/include/sys/signalmisc.h
+feature_pt_filter.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+feature_pt_filter.o: /usr/include/sys/time.h /usr/include/sys/select.h
+feature_pt_filter.o: ../include/mem_er.h ../include/st_obj.h
+feature_pt_filter.o: ../include/st_fo.h
+fel_mge.o: ../include/Stdio.h
+fel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+fel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+fel_mge.o: /usr/include/standards.h /usr/include/sys/seek.h
+fel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+fel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+fel_mge.o: /usr/include/time_t.h /usr/include/getopt.h
+fel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+fel_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+fel_mge.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+fel_mge.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+fel_mge.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+fel_mge.o: /usr/include/sys/select.h ../include/mem_er.h ../include/st_obj.h
+fel_mge.o: ../include/st_fo.h ../include/st_track.h ../include/zones.h
+fexist.o: ../include/Stdio.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+fexist.o: /usr/include/standards.h /usr/include/sys/seek.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+fexist.o: /usr/include/time_t.h /usr/include/getopt.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+fexist.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+fexist.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+fexist.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+fexist.o: /usr/include/sys/select.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+fexist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/dirent.h
+fexist.o: ../include/file_handle.h
+file_exist.o: ../include/Stdio.h
+file_exist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+file_exist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+file_exist.o: /usr/include/standards.h /usr/include/sys/seek.h
+file_exist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+file_exist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+file_exist.o: /usr/include/time_t.h /usr/include/getopt.h
+file_exist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+file_exist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+file_exist.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+file_exist.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+file_exist.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+file_exist.o: /usr/include/sys/select.h
+file_exist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+file_exist.o: ../include/file_handle.h
+fill_holes.o: ../include/Stdio.h
+fill_holes.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+fill_holes.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+fill_holes.o: /usr/include/standards.h /usr/include/sys/seek.h
+fill_holes.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+fill_holes.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+fill_holes.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+fill_holes.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+fill_holes.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+filtd.o: ../include/Stdio.h
+filtd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+filtd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+filtd.o: /usr/include/standards.h /usr/include/sys/seek.h
+filtd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+filtd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+filtd.o: /usr/include/time_t.h /usr/include/getopt.h
+filtd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+filtd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+filtd.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+filtd.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+filtd.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+filtd.o: /usr/include/sys/select.h ../include/mem_er.h ../include/st_fo.h
+filtd.o: ../include/boundary.h ../include/st_obj.h ../include/proj.h
+filtd.o: ../include/grid.h ../include/complex.h
+find.o: ../include/Stdio.h
+find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+find.o: /usr/include/standards.h /usr/include/sys/seek.h
+find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+find.o: /usr/include/time_t.h /usr/include/getopt.h
+find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+find.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+find.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+find.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+find.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+find.o: /usr/include/sys/select.h ../include/st_im.h
+fisher_density.o: ../include/Stdio.h
+fisher_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+fisher_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+fisher_density.o: /usr/include/standards.h /usr/include/sys/seek.h
+fisher_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+fisher_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+fisher_density.o: /usr/include/time_t.h /usr/include/getopt.h
+fisher_density.o: ../include/Math.h
+fisher_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+fisher_density.o: ../include/statistic.h
+form_objects.o: ../include/Stdio.h
+form_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+form_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+form_objects.o: /usr/include/standards.h /usr/include/sys/seek.h
+form_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+form_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+form_objects.o: /usr/include/time_t.h /usr/include/getopt.h
+form_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+form_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+form_objects.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+form_objects.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+form_objects.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+form_objects.o: /usr/include/sys/select.h ../include/st_im.h
+form_objects.o: ../include/st_obj.h
+fpt_intensity.o: ../include/Stdio.h
+fpt_intensity.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+fpt_intensity.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+fpt_intensity.o: /usr/include/standards.h /usr/include/sys/seek.h
+fpt_intensity.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+fpt_intensity.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+fpt_intensity.o: /usr/include/time_t.h /usr/include/getopt.h
+fpt_intensity.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+fpt_intensity.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+fpt_intensity.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+fpt_intensity.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+fpt_intensity.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+fpt_intensity.o: /usr/include/sys/select.h ../include/st_obj.h
+fpt_intensity.o: ../include/st_fo.h
+frame_boundaries.o: ../include/Stdio.h
+frame_boundaries.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+frame_boundaries.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+frame_boundaries.o: /usr/include/standards.h /usr/include/sys/seek.h
+frame_boundaries.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+frame_boundaries.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+frame_boundaries.o: /usr/include/time_t.h /usr/include/getopt.h
+frame_boundaries.o: ../include/st_obj.h ../include/st_fo.h
+frame_boundaries.o: ../include/boundary.h ../include/grid.h
+frame_boundaries.o: ../include/complex.h
+gauss_grid.o: ../include/Stdio.h
+gauss_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+gauss_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+gauss_grid.o: /usr/include/standards.h /usr/include/sys/seek.h
+gauss_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+gauss_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+gauss_grid.o: /usr/include/time_t.h /usr/include/getopt.h
+gauss_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+gauss_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+gauss_grid.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+gauss_grid.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+gauss_grid.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+gauss_grid.o: /usr/include/sys/select.h ../include/Math.h
+gauss_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+gauss_grid.o: ../include/grid.h ../include/complex.h ../include/m_values.h
+gauss_grid.o: ../include/mem_er.h
+geo_conv.o: ../include/Stdio.h
+geo_conv.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+geo_conv.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+geo_conv.o: /usr/include/standards.h /usr/include/sys/seek.h
+geo_conv.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+geo_conv.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+geo_conv.o: /usr/include/time_t.h /usr/include/getopt.h
+geo_conv.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+geo_conv.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+geo_conv.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+geo_conv.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+geo_conv.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+geo_conv.o: /usr/include/sys/select.h ../include/Math.h
+geo_conv.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+geo_conv.o: ../include/st_fo.h ../include/st_obj.h ../include/grid.h
+geo_conv.o: ../include/complex.h ../include/m_values.h ../include/mem_er.h
+geod_dev.o: ../include/Stdio.h
+geod_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+geod_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+geod_dev.o: /usr/include/standards.h /usr/include/sys/seek.h
+geod_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+geod_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+geod_dev.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+geod_dev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+geod_dev.o: ../include/st_fo.h
+geod_dist.o: ../include/Stdio.h
+geod_dist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+geod_dist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+geod_dist.o: /usr/include/standards.h /usr/include/sys/seek.h
+geod_dist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+geod_dist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+geod_dist.o: /usr/include/time_t.h /usr/include/getopt.h
+geod_dist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+geod_dist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+geod_dist.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+geod_dist.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+geod_dist.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+geod_dist.o: /usr/include/sys/select.h ../include/Math.h
+geod_dist.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+geod_dist.o: ../include/st_fo.h ../include/st_obj.h ../include/m_values.h
+geod_dist.o: ../include/grid.h ../include/complex.h
+hemi_grid.o: ../include/Stdio.h
+hemi_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+hemi_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+hemi_grid.o: /usr/include/standards.h /usr/include/sys/seek.h
+hemi_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+hemi_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+hemi_grid.o: /usr/include/time_t.h /usr/include/getopt.h
+hemi_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+hemi_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+hemi_grid.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+hemi_grid.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+hemi_grid.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+hemi_grid.o: /usr/include/sys/select.h ../include/Math.h
+hemi_grid.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+hemi_grid.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+hemi_grid.o: ../include/proj.h
+hierarc_segment.o: ../include/Stdio.h
+hierarc_segment.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+hierarc_segment.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+hierarc_segment.o: /usr/include/standards.h /usr/include/sys/seek.h
+hierarc_segment.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+hierarc_segment.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+hierarc_segment.o: /usr/include/time_t.h /usr/include/getopt.h
+hierarc_segment.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+hierarc_segment.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+hierarc_segment.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+hierarc_segment.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+hierarc_segment.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+hierarc_segment.o: /usr/include/sys/select.h ../include/st_im.h
+hierarc_segment.o: ../include/st_obj.h
+hoskins_filt.o: ../include/Stdio.h
+hoskins_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+hoskins_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+hoskins_filt.o: /usr/include/standards.h /usr/include/sys/seek.h
+hoskins_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+hoskins_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+hoskins_filt.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+hoskins_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+householder.o: ../include/Stdio.h
+householder.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+householder.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+householder.o: /usr/include/standards.h /usr/include/sys/seek.h
+householder.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+householder.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+householder.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+householder.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+householder.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+householder.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+householder.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+householder.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+householder.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+householder.o: /usr/include/sys/select.h ../include/mem_er.h
+hprint.o: ../include/Stdio.h
+hprint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+hprint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+hprint.o: /usr/include/standards.h /usr/include/sys/seek.h
+hprint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+hprint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+hprint.o: /usr/include/time_t.h /usr/include/getopt.h
+hprint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+hprint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+hprint.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+hprint.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+hprint.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+hprint.o: /usr/include/sys/select.h ../include/st_im.h
+initialize_mge.o: ../include/Stdio.h
+initialize_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+initialize_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+initialize_mge.o: /usr/include/standards.h /usr/include/sys/seek.h
+initialize_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+initialize_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+initialize_mge.o: /usr/include/time_t.h /usr/include/getopt.h
+initialize_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+initialize_mge.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+initialize_mge.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+initialize_mge.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+initialize_mge.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+initialize_mge.o: /usr/include/sys/select.h ../include/mem_er.h
+initialize_mge.o: ../include/st_obj.h ../include/st_fo.h
+initialize_mge.o: ../include/st_track.h
+inv_dist_trans.o: ../include/mem_er.h
+label_adj.o: ../include/Stdio.h
+label_adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+label_adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+label_adj.o: /usr/include/standards.h /usr/include/sys/seek.h
+label_adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+label_adj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+label_adj.o: /usr/include/time_t.h /usr/include/getopt.h ../include/st_im.h
+lagcor.o: ../include/Stdio.h
+lagcor.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+lagcor.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+lagcor.o: /usr/include/standards.h /usr/include/sys/seek.h
+lagcor.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+lagcor.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+lagcor.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+lagcor.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+lagcor.o: ../include/complex.h
+lanczos_create.o: ../include/Stdio.h
+lanczos_create.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+lanczos_create.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+lanczos_create.o: /usr/include/standards.h /usr/include/sys/seek.h
+lanczos_create.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+lanczos_create.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+lanczos_create.o: /usr/include/time_t.h /usr/include/getopt.h
+lanczos_create.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+lanczos_create.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+lanczos_create.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+lanczos_create.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+lanczos_create.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+lanczos_create.o: /usr/include/sys/select.h ../include/Math.h
+lanczos_create.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+lanczos_create.o: ../include/mem_er.h ../include/m_values.h
+lanczos_create.o: ../include/file_handle.h ../include/files_out.h
+lanczos_create.o: ../include/file_path.h
+least_sq_nm.o: ../include/Stdio.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+least_sq_nm.o: /usr/include/standards.h /usr/include/sys/seek.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+least_sq_nm.o: /usr/include/time_t.h /usr/include/getopt.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+least_sq_nm.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+least_sq_nm.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+least_sq_nm.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+least_sq_nm.o: /usr/include/sys/select.h ../include/Math.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+least_sq_nm.o: /usr/include/sys/mman.h /usr/include/sys/stat.h
+least_sq_nm.o: /usr/include/sys/mode.h /usr/include/fcntl.h
+least_sq_nm.o: /usr/include/sys/fcntl.h
+least_sq_nm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/unistd.h
+least_sq_nm.o: /usr/include/sys/access.h ../include/mem_er.h
+least_sq_nm.o: ../include/grid.h ../include/complex.h
+least_sq_nm.o: ../include/file_handle.h ../include/files_out.h
+least_sq_nm.o: ../include/file_path.h
+legendre_p.o: ../include/Stdio.h
+legendre_p.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+legendre_p.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+legendre_p.o: /usr/include/standards.h /usr/include/sys/seek.h
+legendre_p.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+legendre_p.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+legendre_p.o: /usr/include/time_t.h /usr/include/getopt.h
+linear_density.o: ../include/Stdio.h
+linear_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+linear_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+linear_density.o: /usr/include/standards.h /usr/include/sys/seek.h
+linear_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+linear_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+linear_density.o: /usr/include/time_t.h /usr/include/getopt.h
+linear_density.o: ../include/statistic.h
+malloc_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+malloc_init.o: /usr/include/standards.h
+malloc_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+malloc_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+malloc_init.o: /usr/include/time_t.h /usr/include/sys/procset.h
+malloc_init.o: /usr/include/sys/siginfo.h /usr/include/sys/signalmisc.h
+malloc_init.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+malloc_init.o: /usr/include/sys/time.h /usr/include/sys/select.h
+malloc_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+map_project.o: ../include/Stdio.h
+map_project.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+map_project.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+map_project.o: /usr/include/standards.h /usr/include/sys/seek.h
+map_project.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+map_project.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+map_project.o: /usr/include/time_t.h /usr/include/getopt.h ../include/proj.h
+meantrd.o: ../include/Stdio.h
+meantrd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+meantrd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+meantrd.o: /usr/include/standards.h /usr/include/sys/seek.h
+meantrd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+meantrd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+meantrd.o: /usr/include/time_t.h /usr/include/getopt.h
+meantrd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+meantrd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+meantrd.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+meantrd.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+meantrd.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+meantrd.o: /usr/include/sys/select.h ../include/grid.h ../include/complex.h
+meantrd.o: ../include/splice.h ../include/file_handle.h
+measure.o: ../include/Stdio.h
+measure.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+measure.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+measure.o: /usr/include/standards.h /usr/include/sys/seek.h
+measure.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+measure.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+measure.o: /usr/include/time_t.h /usr/include/getopt.h ../include/st_fo.h
+mercator.o: ../include/Stdio.h
+mercator.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+mercator.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+mercator.o: /usr/include/standards.h /usr/include/sys/seek.h
+mercator.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+mercator.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+mercator.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+mercator.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+mercator.o: ../include/m_values.h
+merge_objects.o: ../include/Stdio.h
+merge_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+merge_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+merge_objects.o: /usr/include/standards.h /usr/include/sys/seek.h
+merge_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+merge_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+merge_objects.o: /usr/include/time_t.h /usr/include/getopt.h
+merge_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+merge_objects.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+merge_objects.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+merge_objects.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+merge_objects.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+merge_objects.o: /usr/include/sys/select.h ../include/mem_er.h
+merge_objects.o: ../include/st_obj.h ../include/grid.h ../include/complex.h
+merge_periodic_object.o: ../include/Stdio.h
+merge_periodic_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+merge_periodic_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+merge_periodic_object.o: /usr/include/standards.h /usr/include/sys/seek.h
+merge_periodic_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+merge_periodic_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+merge_periodic_object.o: /usr/include/time_t.h /usr/include/getopt.h
+merge_periodic_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+merge_periodic_object.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+merge_periodic_object.o: /usr/include/sys/procset.h
+merge_periodic_object.o: /usr/include/sys/siginfo.h
+merge_periodic_object.o: /usr/include/sys/signalmisc.h
+merge_periodic_object.o: /usr/include/sys/timemisc.h
+merge_periodic_object.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+merge_periodic_object.o: /usr/include/sys/select.h ../include/mem_er.h
+merge_periodic_object.o: ../include/st_obj.h ../include/grid.h
+merge_periodic_object.o: ../include/complex.h
+mfilt_obj.o: ../include/Stdio.h
+mfilt_obj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+mfilt_obj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+mfilt_obj.o: /usr/include/standards.h /usr/include/sys/seek.h
+mfilt_obj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+mfilt_obj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+mfilt_obj.o: /usr/include/time_t.h /usr/include/getopt.h
+mfilt_obj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+mfilt_obj.o: ../include/st_obj.h ../include/st_fo.h ../include/mem_er.h
+mge_tracks.o: ../include/Stdio.h
+mge_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+mge_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+mge_tracks.o: /usr/include/standards.h /usr/include/sys/seek.h
+mge_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+mge_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+mge_tracks.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+mge_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+mge_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+mge_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+mge_tracks.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+mge_tracks.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+mge_tracks.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+mge_tracks.o: /usr/include/sys/select.h ../include/st_obj.h
+mge_tracks.o: ../include/st_fo.h ../include/st_track.h ../include/files_out.h
+mge_tracks.o: ../include/file_path.h ../include/m_values.h ../include/grid.h
+mge_tracks.o: ../include/complex.h ../include/mem_er.h ../include/zones.h
+mge_tracks.o: ../include/file_handle.h
+miller.o: ../include/Stdio.h
+miller.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+miller.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+miller.o: /usr/include/standards.h /usr/include/sys/seek.h
+miller.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+miller.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+miller.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+miller.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+miller.o: ../include/m_values.h
+non_iso_adapt.o: ../include/Stdio.h
+non_iso_adapt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+non_iso_adapt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+non_iso_adapt.o: /usr/include/standards.h /usr/include/sys/seek.h
+non_iso_adapt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+non_iso_adapt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+non_iso_adapt.o: /usr/include/time_t.h /usr/include/getopt.h
+non_iso_adapt.o: ../include/Math.h
+non_iso_adapt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+non_iso_adapt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+non_iso_adapt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+non_iso_adapt.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+non_iso_adapt.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+non_iso_adapt.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+non_iso_adapt.o: /usr/include/sys/select.h ../include/mem_er.h
+non_iso_adapt.o: ../include/statistic.h ../include/p_vecs.h
+non_iso_adapt.o: ../include/m_values.h
+non_iso_density.o: ../include/Math.h
+non_iso_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+non_iso_density.o: /usr/include/standards.h ../include/statistic.h
+non_iso_density.o: ../include/p_vecs.h
+non_lin_opt.o: ../include/Stdio.h
+non_lin_opt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+non_lin_opt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+non_lin_opt.o: /usr/include/standards.h /usr/include/sys/seek.h
+non_lin_opt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+non_lin_opt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+non_lin_opt.o: /usr/include/time_t.h /usr/include/getopt.h
+non_lin_opt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+non_lin_opt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+non_lin_opt.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+non_lin_opt.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+non_lin_opt.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+non_lin_opt.o: /usr/include/sys/select.h ../include/Math.h
+non_lin_opt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+non_lin_opt.o: ../include/mem_er.h ../lib/include/constraint.h
+non_lin_opt.o: ../include/file_path.h ../include/file_handle.h
+non_lin_opt.o: ../lib/include/reg_dat.h ../lib/include/sphery_dat.h
+non_lin_opt.o: ../include/st_obj.h ../include/st_fo.h ../include/bisp.h
+non_lin_opt.o: ../include/m_values.h ../include/grid.h ../include/complex.h
+objectd.o: ../include/Stdio.h
+objectd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+objectd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+objectd.o: /usr/include/standards.h /usr/include/sys/seek.h
+objectd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+objectd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+objectd.o: /usr/include/time_t.h /usr/include/getopt.h
+objectd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+objectd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+objectd.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+objectd.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+objectd.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+objectd.o: /usr/include/sys/select.h ../include/st_fo.h ../include/st_obj.h
+objectd.o: ../include/boundary.h ../include/mem_er.h
+object_filter.o: ../include/Stdio.h
+object_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+object_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+object_filter.o: /usr/include/standards.h /usr/include/sys/seek.h
+object_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+object_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+object_filter.o: /usr/include/time_t.h /usr/include/getopt.h
+object_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+object_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+object_filter.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+object_filter.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+object_filter.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+object_filter.o: /usr/include/sys/select.h ../include/mem_er.h
+object_filter.o: ../include/st_obj.h
+object_dist_trans.o: ../include/Stdio.h
+object_dist_trans.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+object_dist_trans.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+object_dist_trans.o: /usr/include/standards.h /usr/include/sys/seek.h
+object_dist_trans.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+object_dist_trans.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+object_dist_trans.o: /usr/include/time_t.h /usr/include/getopt.h
+object_dist_trans.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+object_dist_trans.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+object_dist_trans.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+object_dist_trans.o: /usr/include/sys/signalmisc.h
+object_dist_trans.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+object_dist_trans.o: /usr/include/sys/time.h /usr/include/sys/select.h
+object_dist_trans.o: ../include/mem_er.h ../include/st_obj.h
+object_dist_trans.o: ../include/st_fo.h ../include/st_im.h ../include/grid.h
+object_dist_trans.o: ../include/complex.h ../include/boundary.h
+object_local_maxs.o: ../include/Stdio.h
+object_local_maxs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+object_local_maxs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+object_local_maxs.o: /usr/include/standards.h /usr/include/sys/seek.h
+object_local_maxs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+object_local_maxs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+object_local_maxs.o: /usr/include/time_t.h /usr/include/getopt.h
+object_local_maxs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+object_local_maxs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+object_local_maxs.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+object_local_maxs.o: /usr/include/sys/signalmisc.h
+object_local_maxs.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+object_local_maxs.o: /usr/include/sys/time.h /usr/include/sys/select.h
+object_local_maxs.o: ../include/mem_er.h ../include/st_im.h
+object_local_maxs.o: ../include/st_obj.h ../include/st_fo.h ../include/grid.h
+object_local_maxs.o: ../include/complex.h
+object_realf.o: ../include/Stdio.h
+object_realf.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+object_realf.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+object_realf.o: /usr/include/standards.h /usr/include/sys/seek.h
+object_realf.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+object_realf.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+object_realf.o: /usr/include/time_t.h /usr/include/getopt.h
+object_realf.o: ../include/st_obj.h ../include/st_fo.h ../include/grid.h
+object_realf.o: ../include/complex.h
+object_smint.o: ../include/Stdio.h
+object_smint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+object_smint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+object_smint.o: /usr/include/standards.h /usr/include/sys/seek.h
+object_smint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+object_smint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+object_smint.o: /usr/include/time_t.h /usr/include/getopt.h
+object_smint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+object_smint.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+object_smint.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+object_smint.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+object_smint.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+object_smint.o: /usr/include/sys/select.h ../include/st_obj.h
+object_smint.o: ../include/st_fo.h ../include/bisp.h ../lib/include/reg_dat.h
+object_smint.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+object_split.o: ../include/Stdio.h
+object_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+object_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+object_split.o: /usr/include/standards.h /usr/include/sys/seek.h
+object_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+object_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+object_split.o: /usr/include/time_t.h /usr/include/getopt.h
+object_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+object_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+object_split.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+object_split.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+object_split.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+object_split.o: /usr/include/sys/select.h ../include/Math.h
+object_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+object_split.o: ../include/mem_er.h ../include/st_im.h ../include/st_obj.h
+object_split.o: ../include/st_fo.h ../include/grid.h ../include/complex.h
+object_split_init.o: ../include/Stdio.h
+object_split_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+object_split_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+object_split_init.o: /usr/include/standards.h /usr/include/sys/seek.h
+object_split_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+object_split_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+object_split_init.o: /usr/include/time_t.h /usr/include/getopt.h
+object_split_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+object_split_init.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+object_split_init.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+object_split_init.o: /usr/include/sys/signalmisc.h
+object_split_init.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+object_split_init.o: /usr/include/sys/time.h /usr/include/sys/select.h
+object_split_init.o: ../include/mem_er.h ../include/st_im.h
+object_split_init.o: ../include/st_obj.h ../include/st_fo.h ../include/grid.h
+object_split_init.o: ../include/complex.h
+obj_xreal.o: ../include/Stdio.h
+obj_xreal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+obj_xreal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+obj_xreal.o: /usr/include/standards.h /usr/include/sys/seek.h
+obj_xreal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+obj_xreal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+obj_xreal.o: /usr/include/time_t.h /usr/include/getopt.h ../include/grid.h
+obj_xreal.o: ../include/complex.h
+open_file.o: ../include/Stdio.h
+open_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+open_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+open_file.o: /usr/include/standards.h /usr/include/sys/seek.h
+open_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+open_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+open_file.o: /usr/include/time_t.h /usr/include/getopt.h
+open_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+open_file.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+open_file.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+open_file.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+open_file.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+open_file.o: /usr/include/sys/select.h ../include/file_handle.h
+periodic_boundary.o: ../include/Stdio.h
+periodic_boundary.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+periodic_boundary.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+periodic_boundary.o: /usr/include/standards.h /usr/include/sys/seek.h
+periodic_boundary.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+periodic_boundary.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+periodic_boundary.o: /usr/include/time_t.h /usr/include/getopt.h
+periodic_boundary.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+periodic_boundary.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+periodic_boundary.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+periodic_boundary.o: /usr/include/sys/signalmisc.h
+periodic_boundary.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+periodic_boundary.o: /usr/include/sys/time.h /usr/include/sys/select.h
+periodic_boundary.o: ../include/mem_er.h ../include/st_obj.h
+periodic_boundary.o: ../include/grid.h ../include/complex.h
+periodogram.o: ../include/Stdio.h
+periodogram.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+periodogram.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+periodogram.o: /usr/include/standards.h /usr/include/sys/seek.h
+periodogram.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+periodogram.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+periodogram.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+periodogram.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+periodogram.o: ../include/complex.h
+phase.o: ../include/Stdio.h
+phase.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+phase.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+phase.o: /usr/include/standards.h /usr/include/sys/seek.h
+phase.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+phase.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+phase.o: /usr/include/time_t.h /usr/include/getopt.h
+phase.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+phase.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+phase.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+phase.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+phase.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+phase.o: /usr/include/sys/select.h ../include/Math.h
+phase.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+phase.o: ../include/mem_er.h ../include/st_fo.h ../include/geo_values.h
+phase.o: ../include/m_values.h ../include/grid.h ../include/complex.h
+phase.o: ../include/splice.h
+phi.o: ../include/zones.h
+powi.o: ../include/Stdio.h
+powi.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+powi.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+powi.o: /usr/include/standards.h /usr/include/sys/seek.h
+powi.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+powi.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+powi.o: /usr/include/time_t.h /usr/include/getopt.h
+power_int_mn.o: ../include/Stdio.h
+power_int_mn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+power_int_mn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+power_int_mn.o: /usr/include/standards.h /usr/include/sys/seek.h
+power_int_mn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+power_int_mn.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+power_int_mn.o: /usr/include/time_t.h /usr/include/getopt.h
+power_norm.o: ../include/Stdio.h
+power_norm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+power_norm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+power_norm.o: /usr/include/standards.h /usr/include/sys/seek.h
+power_norm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+power_norm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+power_norm.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+power_norm.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+power_norm.o: ../include/m_values.h
+plot_stats.o: ../include/Stdio.h
+plot_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+plot_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+plot_stats.o: /usr/include/standards.h /usr/include/sys/seek.h
+plot_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+plot_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+plot_stats.o: /usr/include/time_t.h /usr/include/getopt.h
+plot_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+plot_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+plot_stats.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+plot_stats.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+plot_stats.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+plot_stats.o: /usr/include/sys/select.h ../include/statistic.h
+plot_stats.o: ../include/mem_er.h ../include/proj.h ../include/grid.h
+plot_stats.o: ../include/complex.h ../include/file_handle.h
+proj_assign.o: ../include/Stdio.h
+proj_assign.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+proj_assign.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+proj_assign.o: /usr/include/standards.h /usr/include/sys/seek.h
+proj_assign.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+proj_assign.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+proj_assign.o: /usr/include/time_t.h /usr/include/getopt.h ../include/proj.h
+proj_group.o: ../include/Stdio.h
+proj_group.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+proj_group.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+proj_group.o: /usr/include/standards.h /usr/include/sys/seek.h
+proj_group.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+proj_group.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+proj_group.o: /usr/include/time_t.h /usr/include/getopt.h
+proj_group.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+proj_group.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+proj_group.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+proj_group.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+proj_group.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+proj_group.o: /usr/include/sys/select.h ../include/grid.h
+proj_group.o: ../include/complex.h ../include/proj.h ../include/mem_er.h
+proj_interp.o: ../include/Stdio.h
+proj_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+proj_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+proj_interp.o: /usr/include/standards.h /usr/include/sys/seek.h
+proj_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+proj_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+proj_interp.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+proj_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+proj_interp.o: ../include/grid.h ../include/complex.h
+proj_interp.o: ../lib/include/reg_dat.h ../lib/include/sphery_dat.h
+proj_interp.o: ../include/bisp.h ../include/proj.h ../include/m_values.h
+proj_point.o: ../include/Stdio.h
+proj_point.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+proj_point.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+proj_point.o: /usr/include/standards.h /usr/include/sys/seek.h
+proj_point.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+proj_point.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+proj_point.o: /usr/include/time_t.h /usr/include/getopt.h
+proj_point.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+proj_point.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+proj_point.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+proj_point.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+proj_point.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+proj_point.o: /usr/include/sys/select.h ../include/proj.h
+proj_report.o: ../include/Stdio.h
+proj_report.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+proj_report.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+proj_report.o: /usr/include/standards.h /usr/include/sys/seek.h
+proj_report.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+proj_report.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+proj_report.o: /usr/include/time_t.h /usr/include/getopt.h
+prop_filt.o: ../include/Stdio.h
+prop_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+prop_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+prop_filt.o: /usr/include/standards.h /usr/include/sys/seek.h
+prop_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+prop_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+prop_filt.o: /usr/include/time_t.h /usr/include/getopt.h
+prop_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+prop_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+prop_filt.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+prop_filt.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+prop_filt.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+prop_filt.o: /usr/include/sys/select.h ../include/Math.h
+prop_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+prop_filt.o: ../include/complex.h ../include/splice.h ../include/st_fo.h
+prop_filt.o: ../include/m_values.h
+ql.o: ../include/Stdio.h
+ql.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+ql.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+ql.o: /usr/include/standards.h /usr/include/sys/seek.h
+ql.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+ql.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+ql.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+ql.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+ql.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+ql.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+ql.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+ql.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+ql.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+ql.o: /usr/include/sys/select.h ../include/mem_er.h
+pp_header.o: ../include/Stdio.h
+pp_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+pp_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+pp_header.o: /usr/include/standards.h /usr/include/sys/seek.h
+pp_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+pp_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+pp_header.o: /usr/include/time_t.h /usr/include/getopt.h
+pp_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+pp_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+pp_header.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+pp_header.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+pp_header.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+pp_header.o: /usr/include/sys/select.h ../include/Math.h
+pp_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+pp_header.o: ../include/pp.h ../include/mem_er.h ../include/grid.h
+pp_header.o: ../include/complex.h
+pp_read.o: ../include/Stdio.h
+pp_read.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+pp_read.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+pp_read.o: /usr/include/standards.h /usr/include/sys/seek.h
+pp_read.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+pp_read.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+pp_read.o: /usr/include/time_t.h /usr/include/getopt.h
+pp_read.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+pp_read.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+pp_read.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+pp_read.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+pp_read.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+pp_read.o: /usr/include/sys/select.h ../include/pp.h ../include/grid.h
+pp_read.o: ../include/complex.h
+quad_density.o: ../include/Stdio.h
+quad_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+quad_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+quad_density.o: /usr/include/standards.h /usr/include/sys/seek.h
+quad_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+quad_density.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+quad_density.o: /usr/include/time_t.h /usr/include/getopt.h
+quad_density.o: ../include/statistic.h
+query_interp.o: ../include/Stdio.h
+query_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+query_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+query_interp.o: /usr/include/standards.h /usr/include/sys/seek.h
+query_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+query_interp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+query_interp.o: /usr/include/time_t.h /usr/include/getopt.h
+read_adptp.o: ../include/Stdio.h
+read_adptp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+read_adptp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+read_adptp.o: /usr/include/standards.h /usr/include/sys/seek.h
+read_adptp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+read_adptp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+read_adptp.o: /usr/include/time_t.h /usr/include/getopt.h
+read_adptp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+read_adptp.o: ../include/zones.h ../include/files_in.h ../include/file_path.h
+read_adptp.o: ../include/file_handle.h ../include/mem_er.h
+read_adptp.o: ../include/m_values.h
+read_field.o: ../include/Stdio.h
+read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+read_field.o: /usr/include/standards.h /usr/include/sys/seek.h
+read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+read_field.o: /usr/include/time_t.h /usr/include/getopt.h
+read_obd.o: ../include/Stdio.h
+read_obd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+read_obd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+read_obd.o: /usr/include/standards.h /usr/include/sys/seek.h
+read_obd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+read_obd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+read_obd.o: /usr/include/time_t.h /usr/include/getopt.h
+read_obd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+read_obd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+read_obd.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+read_obd.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+read_obd.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+read_obd.o: /usr/include/sys/select.h
+read_obd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+read_obd.o: ../include/st_obj.h ../include/st_fo.h ../include/boundary.h
+read_obd.o: ../include/mem_er.h ../include/file_handle.h
+read_stats.o: ../include/Stdio.h
+read_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+read_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+read_stats.o: /usr/include/standards.h /usr/include/sys/seek.h
+read_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+read_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+read_stats.o: /usr/include/time_t.h /usr/include/getopt.h
+read_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+read_stats.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+read_stats.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+read_stats.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+read_stats.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+read_stats.o: /usr/include/sys/select.h ../include/statistic.h
+read_stats.o: ../include/mem_er.h
+read_td.o: ../include/Stdio.h
+read_td.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+read_td.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+read_td.o: /usr/include/standards.h /usr/include/sys/seek.h
+read_td.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+read_td.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+read_td.o: /usr/include/time_t.h /usr/include/getopt.h
+read_td.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+read_td.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+read_td.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+read_td.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+read_td.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+read_td.o: /usr/include/sys/select.h
+read_td.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+read_td.o: ../include/mem_er.h ../include/st_track.h ../include/file_handle.h
+read_tracks.o: ../include/Stdio.h
+read_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+read_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+read_tracks.o: /usr/include/standards.h /usr/include/sys/seek.h
+read_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+read_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+read_tracks.o: /usr/include/time_t.h /usr/include/getopt.h
+read_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+read_tracks.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+read_tracks.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+read_tracks.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+read_tracks.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+read_tracks.o: /usr/include/sys/select.h /usr/include/strings.h
+read_tracks.o: ../include/complex.h ../include/splice.h ../include/mem_er.h
+read_zones.o: ../include/Stdio.h
+read_zones.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+read_zones.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+read_zones.o: /usr/include/standards.h /usr/include/sys/seek.h
+read_zones.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+read_zones.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+read_zones.o: /usr/include/time_t.h /usr/include/getopt.h
+read_zones.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+read_zones.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+read_zones.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+read_zones.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+read_zones.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+read_zones.o: /usr/include/sys/select.h
+read_zones.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+read_zones.o: ../include/files_in.h ../include/file_path.h
+read_zones.o: ../include/file_handle.h ../include/mem_er.h
+read_zones.o: ../include/m_values.h ../include/zones.h
+realloc_n.o: ../include/Stdio.h
+realloc_n.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+realloc_n.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+realloc_n.o: /usr/include/standards.h /usr/include/sys/seek.h
+realloc_n.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+realloc_n.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+realloc_n.o: /usr/include/time_t.h /usr/include/getopt.h
+realloc_n.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+realloc_n.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+realloc_n.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+realloc_n.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+realloc_n.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+realloc_n.o: /usr/include/sys/select.h ../include/mem_er.h
+rednoise.o: ../include/Stdio.h
+rednoise.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+rednoise.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+rednoise.o: /usr/include/standards.h /usr/include/sys/seek.h
+rednoise.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+rednoise.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+rednoise.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+rednoise.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+rednoise.o: ../include/m_values.h ../include/complex.h
+regfal.o: ../include/Stdio.h
+regfal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+regfal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+regfal.o: /usr/include/standards.h /usr/include/sys/seek.h
+regfal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+regfal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+regfal.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+regfal.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+reflect.o: ../include/Stdio.h
+reflect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+reflect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+reflect.o: /usr/include/standards.h /usr/include/sys/seek.h
+reflect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+reflect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+reflect.o: /usr/include/time_t.h /usr/include/getopt.h
+reflect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+reflect.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+reflect.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+reflect.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+reflect.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+reflect.o: /usr/include/sys/select.h ../include/err.h
+residual.o: ../include/Stdio.h
+residual.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+residual.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+residual.o: /usr/include/standards.h /usr/include/sys/seek.h
+residual.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+residual.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+residual.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+residual.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+residual.o: ../include/statistic.h ../include/p_vecs.h
+run_means.o: ../include/Stdio.h
+run_means.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+run_means.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+run_means.o: /usr/include/standards.h /usr/include/sys/seek.h
+run_means.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+run_means.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+run_means.o: /usr/include/time_t.h /usr/include/getopt.h
+run_means.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+run_means.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+run_means.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+run_means.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+run_means.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+run_means.o: /usr/include/sys/select.h ../include/Math.h
+run_means.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+run_means.o: ../include/statistic.h ../include/file_handle.h
+run_means.o: ../include/file_cat_out.h ../include/file_path.h
+run_means.o: ../include/mem_er.h
+search_adjacency.o: ../include/Stdio.h
+search_adjacency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+search_adjacency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+search_adjacency.o: /usr/include/standards.h /usr/include/sys/seek.h
+search_adjacency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+search_adjacency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+search_adjacency.o: /usr/include/time_t.h /usr/include/getopt.h
+search_adjacency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+search_adjacency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+search_adjacency.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+search_adjacency.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+search_adjacency.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+search_adjacency.o: /usr/include/sys/select.h ../include/st_obj.h
+search_adjacency.o: ../include/grid.h ../include/complex.h
+search_area_check.o: ../include/Stdio.h
+search_area_check.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+search_area_check.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+search_area_check.o: /usr/include/standards.h /usr/include/sys/seek.h
+search_area_check.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+search_area_check.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+search_area_check.o: /usr/include/time_t.h /usr/include/getopt.h
+secant.o: ../include/Stdio.h
+secant.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+secant.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+secant.o: /usr/include/standards.h /usr/include/sys/seek.h
+secant.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+secant.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+secant.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+secant.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+segment_maxima.o: ../include/Stdio.h
+segment_maxima.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+segment_maxima.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+segment_maxima.o: /usr/include/standards.h /usr/include/sys/seek.h
+segment_maxima.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+segment_maxima.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+segment_maxima.o: /usr/include/time_t.h /usr/include/getopt.h
+segment_maxima.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+segment_maxima.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+segment_maxima.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+segment_maxima.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+segment_maxima.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+segment_maxima.o: /usr/include/sys/select.h ../include/mem_er.h
+shape_setup.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+shape_setup.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+shape_setup.o: /usr/include/standards.h /usr/include/sys/seek.h
+shape_setup.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+shape_setup.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+shape_setup.o: /usr/include/time_t.h /usr/include/getopt.h ../include/st_fo.h
+shape_setup.o: ../include/boundary.h
+shape_vecs.o: ../include/Stdio.h
+shape_vecs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+shape_vecs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+shape_vecs.o: /usr/include/standards.h /usr/include/sys/seek.h
+shape_vecs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+shape_vecs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+shape_vecs.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+shape_vecs.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+shape_vecs.o: ../include/p_vecs.h ../include/statistic.h
+sontype.o: ../include/Stdio.h
+sontype.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+sontype.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+sontype.o: /usr/include/standards.h /usr/include/sys/seek.h
+sontype.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+sontype.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+sontype.o: /usr/include/time_t.h /usr/include/getopt.h
+sontype.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+sontype.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+sontype.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+sontype.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+sontype.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+sontype.o: /usr/include/sys/select.h ../include/st_im.h ../include/err.h
+sp_kernal_estimate.o: ../include/Stdio.h
+sp_kernal_estimate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+sp_kernal_estimate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+sp_kernal_estimate.o: /usr/include/standards.h /usr/include/sys/seek.h
+sp_kernal_estimate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+sp_kernal_estimate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+sp_kernal_estimate.o: /usr/include/time_t.h /usr/include/getopt.h
+sp_kernal_estimate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+sp_kernal_estimate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+sp_kernal_estimate.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+sp_kernal_estimate.o: /usr/include/sys/signalmisc.h
+sp_kernal_estimate.o: /usr/include/sys/timemisc.h /usr/include/sys/resource.h
+sp_kernal_estimate.o: /usr/include/sys/time.h /usr/include/sys/select.h
+sp_kernal_estimate.o: ../include/Math.h
+sp_kernal_estimate.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+sp_kernal_estimate.o: ../include/mem_er.h ../include/statistic.h
+sp_kernal_estimate.o: ../include/m_values.h ../include/p_vecs.h
+spectral_filter.o: ../include/Stdio.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+spectral_filter.o: /usr/include/standards.h /usr/include/sys/seek.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+spectral_filter.o: /usr/include/time_t.h /usr/include/getopt.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+spectral_filter.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+spectral_filter.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+spectral_filter.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+spectral_filter.o: /usr/include/sys/select.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+spectral_filter.o: ../include/Math.h
+spectral_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+spectral_filter.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+spectral_filter.o: ../include/file_handle.h ../include/files_out.h
+spectral_filter.o: ../include/file_path.h ../include/pp.h ../include/utf.h
+spec_filt.o: ../include/Stdio.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+spec_filt.o: /usr/include/standards.h /usr/include/sys/seek.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+spec_filt.o: /usr/include/time_t.h /usr/include/getopt.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+spec_filt.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+spec_filt.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+spec_filt.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+spec_filt.o: /usr/include/sys/select.h ../include/Math.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+spec_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+spec_filt.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+spec_filt.o: ../include/files_out.h ../include/file_path.h
+spec_filt.o: ../include/file_handle.h ../include/pp.h
+splice.o: ../include/Stdio.h
+splice.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+splice.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+splice.o: /usr/include/standards.h /usr/include/sys/seek.h
+splice.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+splice.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+splice.o: /usr/include/time_t.h /usr/include/getopt.h
+splice.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+splice.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+splice.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+splice.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+splice.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+splice.o: /usr/include/sys/select.h ../include/Math.h
+splice.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+splice.o: ../include/file_cat_out.h ../include/file_path.h ../include/proj.h
+splice.o: ../include/mem_er.h ../include/st_obj.h ../include/st_fo.h
+splice.o: ../include/st_track.h ../include/file_handle.h ../include/grid.h
+splice.o: ../include/complex.h ../include/splice.h
+splice_plot.o: ../include/Stdio.h
+splice_plot.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+splice_plot.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+splice_plot.o: /usr/include/standards.h /usr/include/sys/seek.h
+splice_plot.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+splice_plot.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+splice_plot.o: /usr/include/time_t.h /usr/include/getopt.h
+splice_plot.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+splice_plot.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+splice_plot.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+splice_plot.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+splice_plot.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+splice_plot.o: /usr/include/sys/select.h ../include/proj.h ../include/grid.h
+splice_plot.o: ../include/complex.h ../include/mem_er.h ../include/splice.h
+sp_harmonic.o: ../include/Stdio.h
+sp_harmonic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+sp_harmonic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+sp_harmonic.o: /usr/include/standards.h /usr/include/sys/seek.h
+sp_harmonic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+sp_harmonic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+sp_harmonic.o: /usr/include/time_t.h /usr/include/getopt.h
+sp_harmonic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+sp_harmonic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+sp_harmonic.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+sp_harmonic.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+sp_harmonic.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+sp_harmonic.o: /usr/include/sys/select.h ../include/Math.h
+sp_harmonic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+sp_harmonic.o: ../include/grid.h ../include/complex.h
+statdmp.o: ../include/Stdio.h
+statdmp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+statdmp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+statdmp.o: /usr/include/standards.h /usr/include/sys/seek.h
+statdmp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+statdmp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+statdmp.o: /usr/include/time_t.h /usr/include/getopt.h
+statdmp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+statdmp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+statdmp.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+statdmp.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+statdmp.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+statdmp.o: /usr/include/sys/select.h ../include/statistic.h ../include/grid.h
+statdmp.o: ../include/complex.h
+statistic.o: ../include/Stdio.h
+statistic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+statistic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+statistic.o: /usr/include/standards.h /usr/include/sys/seek.h
+statistic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+statistic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+statistic.o: /usr/include/time_t.h /usr/include/getopt.h
+statistic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+statistic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+statistic.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+statistic.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+statistic.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+statistic.o: /usr/include/sys/select.h ../include/Math.h
+statistic.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+statistic.o: ../include/proj.h ../include/file_cat_out.h
+statistic.o: ../include/file_path.h ../include/st_fo.h ../include/statistic.h
+statistic.o: ../include/tessel.h ../include/file_handle.h ../include/mem_er.h
+statistic.o: ../include/m_values.h ../include/grid.h ../include/complex.h
+statistic.o: ../include/splice.h
+std_read_field.o: ../include/Stdio.h
+std_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+std_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+std_read_field.o: /usr/include/standards.h /usr/include/sys/seek.h
+std_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+std_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+std_read_field.o: /usr/include/time_t.h /usr/include/getopt.h
+std_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+std_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+std_read_field.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+std_read_field.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+std_read_field.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+std_read_field.o: /usr/include/sys/select.h ../include/grid.h
+std_read_field.o: ../include/complex.h ../include/pp.h
+std_read_header.o: ../include/Stdio.h
+std_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+std_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+std_read_header.o: /usr/include/standards.h /usr/include/sys/seek.h
+std_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+std_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+std_read_header.o: /usr/include/time_t.h /usr/include/getopt.h
+std_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+std_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+std_read_header.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+std_read_header.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+std_read_header.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+std_read_header.o: /usr/include/sys/select.h ../include/Math.h
+std_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+std_read_header.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+stereog.o: ../include/Stdio.h
+stereog.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+stereog.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+stereog.o: /usr/include/standards.h /usr/include/sys/seek.h
+stereog.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+stereog.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+stereog.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+stereog.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+stereog.o: ../include/m_values.h
+surfit.o: ../include/Stdio.h
+surfit.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+surfit.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+surfit.o: /usr/include/standards.h /usr/include/sys/seek.h
+surfit.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+surfit.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+surfit.o: /usr/include/time_t.h /usr/include/getopt.h
+surfit.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+surfit.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+surfit.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+surfit.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+surfit.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+surfit.o: /usr/include/sys/select.h ../include/bisp.h
+surfit.o: ../lib/include/reg_dat.h ../lib/include/sphery_dat.h
+surfit.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+tendency.o: ../include/Stdio.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+tendency.o: /usr/include/standards.h /usr/include/sys/seek.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+tendency.o: /usr/include/time_t.h /usr/include/getopt.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+tendency.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+tendency.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+tendency.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+tendency.o: /usr/include/sys/select.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+tendency.o: ../include/Math.h
+tendency.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+tendency.o: ../include/grid.h ../include/complex.h ../include/files_out.h
+tendency.o: ../include/file_path.h ../include/file_handle.h
+tendency.o: ../include/mem_er.h ../include/utf.h ../include/pp.h
+tesselate_facet.o: ../include/Stdio.h
+tesselate_facet.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+tesselate_facet.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+tesselate_facet.o: /usr/include/standards.h /usr/include/sys/seek.h
+tesselate_facet.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+tesselate_facet.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+tesselate_facet.o: /usr/include/time_t.h /usr/include/getopt.h
+tesselate_facet.o: ../include/m_values.h ../include/tessel.h
+time_avg.o: ../include/Stdio.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+time_avg.o: /usr/include/standards.h /usr/include/sys/seek.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+time_avg.o: /usr/include/time_t.h /usr/include/getopt.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+time_avg.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+time_avg.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+time_avg.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+time_avg.o: /usr/include/sys/select.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+time_avg.o: ../include/Math.h
+time_avg.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+time_avg.o: ../include/grid.h ../include/complex.h ../include/files_out.h
+time_avg.o: ../include/file_path.h ../include/file_handle.h
+time_avg.o: ../include/mem_er.h ../include/utf.h ../include/pp.h
+time_avg.o: ../include/m_values.h ../include/periodogram.h
+time_avg.o: ../include/region.h
+time_filt.o: ../include/Stdio.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+time_filt.o: /usr/include/standards.h /usr/include/sys/seek.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+time_filt.o: /usr/include/time_t.h /usr/include/getopt.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+time_filt.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+time_filt.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+time_filt.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+time_filt.o: /usr/include/sys/select.h ../include/Math.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+time_filt.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+time_filt.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+time_filt.o: ../include/files_out.h ../include/file_path.h
+time_filt.o: ../include/file_handle.h ../include/pp.h
+threshold.o: ../include/Stdio.h
+threshold.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+threshold.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+threshold.o: /usr/include/standards.h /usr/include/sys/seek.h
+threshold.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+threshold.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+threshold.o: /usr/include/time_t.h /usr/include/getopt.h
+threshold.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+threshold.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+threshold.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+threshold.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+threshold.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+threshold.o: /usr/include/sys/select.h ../include/Math.h
+threshold.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+threshold.o: ../include/mem_er.h ../include/st_im.h ../include/st_obj.h
+threshold.o: ../include/st_fo.h ../include/files_in.h ../include/file_path.h
+threshold.o: ../include/files_out.h ../include/file_handle.h
+threshold.o: ../include/grid.h ../include/complex.h ../lib/include/reg_dat.h
+threshold.o: ../lib/include/sphery_dat.h ../include/bisp.h ../include/proj.h
+threshold.o: ../include/boundary.h
+trackd.o: ../include/Stdio.h
+trackd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+trackd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+trackd.o: /usr/include/standards.h /usr/include/sys/seek.h
+trackd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+trackd.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+trackd.o: /usr/include/time_t.h /usr/include/getopt.h ../include/st_track.h
+trans_proj.o: ../include/Stdio.h
+trans_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+trans_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+trans_proj.o: /usr/include/standards.h /usr/include/sys/seek.h
+trans_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+trans_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+trans_proj.o: /usr/include/time_t.h /usr/include/getopt.h ../include/proj.h
+trans_proj.o: ../include/grid.h ../include/complex.h
+track.o: ../include/Stdio.h
+track.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+track.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+track.o: /usr/include/standards.h /usr/include/sys/seek.h
+track.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+track.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+track.o: /usr/include/time_t.h /usr/include/getopt.h
+track.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+track.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+track.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+track.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+track.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+track.o: /usr/include/sys/select.h
+track.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+track.o: ../include/mem_er.h ../include/grid.h ../include/complex.h
+track.o: ../include/st_fo.h ../include/st_obj.h ../include/st_track.h
+track.o: ../include/files_in.h ../include/file_path.h ../include/files_out.h
+track.o: ../include/splice.h ../include/file_handle.h ../include/proj.h
+track.o: ../include/boundary.h
+track_fail.o: ../include/Stdio.h
+track_fail.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+track_fail.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+track_fail.o: /usr/include/standards.h /usr/include/sys/seek.h
+track_fail.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+track_fail.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+track_fail.o: /usr/include/time_t.h /usr/include/getopt.h
+track_fail.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+track_fail.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+track_fail.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+track_fail.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+track_fail.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+track_fail.o: /usr/include/sys/select.h ../include/st_obj.h
+track_fail.o: ../include/st_fo.h ../include/st_track.h
+track_split.o: ../include/Stdio.h
+track_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+track_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+track_split.o: /usr/include/standards.h /usr/include/sys/seek.h
+track_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+track_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+track_split.o: /usr/include/time_t.h /usr/include/getopt.h
+track_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+track_split.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+track_split.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+track_split.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+track_split.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+track_split.o: /usr/include/sys/select.h ../include/mem_er.h
+track_split.o: ../include/st_obj.h ../include/st_fo.h ../include/st_track.h
+tr_miss_frame.o: ../include/Stdio.h
+tr_miss_frame.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+tr_miss_frame.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+tr_miss_frame.o: /usr/include/standards.h /usr/include/sys/seek.h
+tr_miss_frame.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+tr_miss_frame.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+tr_miss_frame.o: /usr/include/time_t.h /usr/include/getopt.h
+tr_miss_frame.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+tr_miss_frame.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+tr_miss_frame.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+tr_miss_frame.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+tr_miss_frame.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+tr_miss_frame.o: /usr/include/sys/select.h
+tr_miss_frame.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+tr_miss_frame.o: ../include/files_in.h ../include/file_path.h
+tr_miss_frame.o: ../include/st_obj.h ../include/st_fo.h ../include/st_track.h
+tr_miss_frame.o: ../include/mem_er.h ../include/file_handle.h
+tr_miss_frame.o: ../include/m_values.h
+tr_overlap.o: ../include/Stdio.h
+tr_overlap.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+tr_overlap.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+tr_overlap.o: /usr/include/standards.h /usr/include/sys/seek.h
+tr_overlap.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+tr_overlap.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+tr_overlap.o: /usr/include/time_t.h /usr/include/getopt.h
+tr_zonal_filter.o: ../include/Stdio.h
+tr_zonal_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+tr_zonal_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+tr_zonal_filter.o: /usr/include/standards.h /usr/include/sys/seek.h
+tr_zonal_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+tr_zonal_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+tr_zonal_filter.o: /usr/include/time_t.h /usr/include/getopt.h
+tr_zonal_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+tr_zonal_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+tr_zonal_filter.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+tr_zonal_filter.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+tr_zonal_filter.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+tr_zonal_filter.o: /usr/include/sys/select.h
+tr_zonal_filter.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+tr_zonal_filter.o: ../include/files_in.h ../include/file_path.h
+tr_zonal_filter.o: ../include/st_obj.h ../include/st_fo.h
+tr_zonal_filter.o: ../include/st_track.h ../include/mem_er.h
+tr_zonal_filter.o: ../include/file_handle.h ../include/m_values.h
+tr_zonal_filter.o: ../include/zones.h
+ub_disp.o: ../include/Stdio.h
+ub_disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+ub_disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+ub_disp.o: /usr/include/standards.h /usr/include/sys/seek.h
+ub_disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+ub_disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+ub_disp.o: /usr/include/time_t.h /usr/include/getopt.h
+ub_disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+ub_disp.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+ub_disp.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+ub_disp.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+ub_disp.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+ub_disp.o: /usr/include/sys/select.h ../include/mem_er.h ../include/st_obj.h
+ub_disp.o: ../include/st_fo.h ../include/st_track.h
+unify.o: ../include/Stdio.h
+unify.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+unify.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+unify.o: /usr/include/standards.h /usr/include/sys/seek.h
+unify.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+unify.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+unify.o: /usr/include/time_t.h /usr/include/getopt.h
+unify.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+unify.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+unify.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+unify.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+unify.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+unify.o: /usr/include/sys/select.h ../include/st_im.h
+update.o: ../include/Stdio.h
+update.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+update.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+update.o: /usr/include/standards.h /usr/include/sys/seek.h
+update.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+update.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+update.o: /usr/include/time_t.h /usr/include/getopt.h ../include/st_im.h
+urmaev.o: ../include/Stdio.h
+urmaev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+urmaev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+urmaev.o: /usr/include/standards.h /usr/include/sys/seek.h
+urmaev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+urmaev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+urmaev.o: /usr/include/time_t.h /usr/include/getopt.h ../include/Math.h
+urmaev.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+urmaev.o: ../include/m_values.h
+utf3_read_field.o: ../include/Stdio.h
+utf3_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+utf3_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+utf3_read_field.o: /usr/include/standards.h /usr/include/sys/seek.h
+utf3_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+utf3_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+utf3_read_field.o: /usr/include/time_t.h /usr/include/getopt.h
+utf3_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+utf3_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+utf3_read_field.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+utf3_read_field.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+utf3_read_field.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+utf3_read_field.o: /usr/include/sys/select.h
+utf3_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+utf3_read_field.o: ../include/grid.h ../include/complex.h ../include/utf.h
+utf4_read_field.o: ../include/Stdio.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+utf4_read_field.o: /usr/include/standards.h /usr/include/sys/seek.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+utf4_read_field.o: /usr/include/time_t.h /usr/include/getopt.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+utf4_read_field.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+utf4_read_field.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+utf4_read_field.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+utf4_read_field.o: /usr/include/sys/select.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+utf4_read_field.o: ../include/Math.h
+utf4_read_field.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+utf4_read_field.o: ../include/grid.h ../include/complex.h ../include/mem_er.h
+utf4_read_field.o: ../include/utf.h
+utf3_read_header.o: ../include/Stdio.h
+utf3_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+utf3_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+utf3_read_header.o: /usr/include/standards.h /usr/include/sys/seek.h
+utf3_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+utf3_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+utf3_read_header.o: /usr/include/time_t.h /usr/include/getopt.h
+utf3_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+utf3_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+utf3_read_header.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+utf3_read_header.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+utf3_read_header.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+utf3_read_header.o: /usr/include/sys/select.h
+utf3_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+utf3_read_header.o: ../include/mem_er.h ../include/grid.h
+utf3_read_header.o: ../include/complex.h
+utf4_read_header.o: ../include/Stdio.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+utf4_read_header.o: /usr/include/standards.h /usr/include/sys/seek.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+utf4_read_header.o: /usr/include/time_t.h /usr/include/getopt.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+utf4_read_header.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+utf4_read_header.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+utf4_read_header.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+utf4_read_header.o: /usr/include/sys/select.h ../include/Math.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+utf4_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+utf4_read_header.o: ../include/mem_er.h ../include/grid.h
+utf4_read_header.o: ../include/complex.h
+utf_read_header.o: ../include/Stdio.h
+utf_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+utf_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+utf_read_header.o: /usr/include/standards.h /usr/include/sys/seek.h
+utf_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+utf_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+utf_read_header.o: /usr/include/time_t.h /usr/include/getopt.h
+utf_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+utf_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+utf_read_header.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+utf_read_header.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+utf_read_header.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+utf_read_header.o: /usr/include/sys/select.h
+utf_read_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/string.h
+utf_read_header.o: ../include/grid.h ../include/complex.h
+vect_proj.o: ../include/Stdio.h
+vect_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+vect_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+vect_proj.o: /usr/include/standards.h /usr/include/sys/seek.h
+vect_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+vect_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+vect_proj.o: /usr/include/time_t.h /usr/include/getopt.h
+vect_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+vect_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+vect_proj.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+vect_proj.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+vect_proj.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+vect_proj.o: /usr/include/sys/select.h ../include/Math.h
+vect_proj.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+vect_proj.o: ../include/statistic.h ../include/mem_er.h ../include/proj.h
+vect_proj.o: ../include/grid.h ../include/complex.h
+vertex_neighbour.o: ../include/Stdio.h
+vertex_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+vertex_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+vertex_neighbour.o: /usr/include/standards.h /usr/include/sys/seek.h
+vertex_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+vertex_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+vertex_neighbour.o: /usr/include/time_t.h /usr/include/getopt.h
+vertex_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+vertex_neighbour.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+vertex_neighbour.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+vertex_neighbour.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+vertex_neighbour.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+vertex_neighbour.o: /usr/include/sys/select.h ../include/st_im.h
+window.o: ../include/Stdio.h
+window.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+window.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+window.o: /usr/include/standards.h /usr/include/sys/seek.h
+window.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+window.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+window.o: /usr/include/time_t.h /usr/include/getopt.h
+window.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdlib.h
+window.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/wait.h
+window.o: /usr/include/sys/procset.h /usr/include/sys/siginfo.h
+window.o: /usr/include/sys/signalmisc.h /usr/include/sys/timemisc.h
+window.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+window.o: /usr/include/sys/select.h ../include/Math.h
+window.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/math.h
+window.o: ../include/m_values.h ../include/mem_er.h
+write_header.o: ../include/Stdio.h
+write_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdio.h
+write_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/stdarg.h
+write_header.o: /usr/include/standards.h /usr/include/sys/seek.h
+write_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/va_list.h
+write_header.o: /opt/TWWfsw/gcc301/lib/gcc-lib/alpha-dec-osf5.1/3.0.1/include/sys/types.h
+write_header.o: /usr/include/time_t.h /usr/include/getopt.h ../include/grid.h
+write_header.o: ../include/complex.h

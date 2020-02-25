@@ -1,0 +1,35 @@
+   to install on a linux machine do the following. 
+
+Download the latest code from:
+
+www.nerc-essc.ac.uk/~kih/TRACK/src/TRACK-1.5.2_latest.tar.gz
+
+using the login 'track' and password 'katia'.
+
+
+To install in your home directory on a linux based system do:
+
+gunzip TRACK-1.5.2_latest.tar.gz
+tar xvf TRACK-1.5.2_latest.tar
+
+rename directory:
+
+mv TRACK-1.5.2_latest TRACK-1.5.2
+     
+ go into the TRACK-1.5.2 directory and do the following.
+make sure '.' is in your PATH environment variable:
+   
+export PATH=${PATH}:.
+    
+set the following environment variables:
+     
+export CC=gcc
+export FC=gfortran
+export ARFLAGS=
+export NETCDF=[path to your netcdf installation]
+  
+run:
+    
+master -build -i=linux -f=linux
+make utils
+

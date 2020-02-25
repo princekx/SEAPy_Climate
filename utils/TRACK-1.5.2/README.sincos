@@ -1,0 +1,6 @@
+The compile using GNU compilers relies on the sincos builtin, however, on some machines this does not exist it
+seems, e.g. MACOS-X. This causes a problem for the utils program compilation. To get around this in utils copy the
+file makelinks.csh.sincos to makelinks.csh and in the utils sub-directories where a Makefile.sincos exists copy
+this to Makefile. 
+
+Another option would be to use -fno-builtin-sincos

@@ -1,0 +1,5 @@
+C
+C File-Path
+C
+      CHARACTER*32 PATH
+      PARAMETER(PATH='/users/nutis/kih/S_TRACK/outdat/')

@@ -1,0 +1,8 @@
+C
+C parameters for the smoopy.f code
+C                                                                      .
+      parameter(kx=3, ky=3, kx1=kx + 1, ky1=ky + 1, kx2=kx1 + 1, 
+     <          ky2=ky1+1, kmax=max0(kx, ky), kmax2=kmax + 2, 
+     <          k2max2=2*kmax + 2, tol=0.0001, tols=0.01, maxit=20,
+     <          nminx=2*kx1, nminy=2*ky1, nout=6)
+

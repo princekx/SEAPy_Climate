@@ -1,0 +1,107 @@
+#!/bin/sh
+#
+# Shell script to run TRACK in stats mode a multiple number of times.
+#
+
+#setenv LD_LIBRARY_PATH ${HOME}/local/lib/SUNWspro:${LD_LIBRARY_PATH}
+
+usage="[-cdir=CRDIR] [-dinp=DATAI] [-excn=EXNM] [-fext=FEXT] [-host=HOST] [-inpf=INFILE] [-outdir=DIROUT] [-upath=USPATH]"
+
+configname=$0
+
+name=`echo $configname | sed 's|/[^/]*$||'`
+
+echo "Usage: $name $usage"
+
+ USPATH=`(cd ..; pwd)`
+ TRACKD=`pwd | sed -e "s@${USPATH}/@@"`
+   EXNM=track
+DATADIR=DATA
+   HOST=`uname -n`
+   DATAI=STATS.in
+
+ INFILE=tr_trs
+  CRDIR=DJF8182_VOR
+
+
+for arg in $*;
+do
+  case $arg in
+    -cdir=* | -cdi=* | -cd=* | -c=*)
+	CRDIR=`echo $arg | sed 's/[+-]*c[a-z]*=//'`
+	;;
+    -dinp=* | -din=* | -di=* | -d=*)
+	DATAI=`echo $arg | sed 's/[+-]*d[a-z]*=//'`
+	;;
+    -excn=* | -exc=* | -ex=* | -e=*)
+	EXNM=`echo $arg | sed 's/[+-]*e[a-z]*=//'`
+	;;
+    -fext=* | -fex=* | -fe=* | -f=*)
+	FEXT=`echo $arg | sed 's/[+-]*f[a-z]*=//'`
+	;;
+    -host=* | -hos=* | -ho=* | -h=*)
+	HOST=`echo $arg | sed 's/[+-]*h[a-z]*=//'`
+	;;
+    -inpf=* | -inp=* | -in=* | -i=*)
+	INFILE=`echo $arg | sed 's/[+-]*i[a-z]*=//'`
+	;;
+    -outdir=* | -outdi=* | -outd=* | -out=* | -ou=* | -o=*)
+	DIROUT=`echo $arg | sed 's/[+-]*o[a-z]*=//'`
+	;;
+    -upath=* | -upat=* | -upa=* | -up=* | -u=*)
+	USPATH=`echo $arg | sed 's/[+-]*u[a-z]*=//'`
+	;;
+  esac
+done
+
+if test $FEXT
+then :
+else
+   FEXT=`echo $EXNM | sed 's/[a-z]*//' | sed -e 's/\.//'`
+fi
+
+   IEXT=`echo $INFILE | sed 's/tr_trs//'`
+
+ OUTDIR=$DIROUT/$CRDIR
+  TRDIR=$USPATH/$TRACKD
+  INDAT=$TRDIR/indat
+ OUTDAT=$TRDIR/outdat
+
+
+#while( ! -f $OUTDIR/${INFILE}.gz )
+#   echo "File $OUTDIR/${INFILE}.gz not created on `date`"
+#   sleep 3600
+#end
+
+gunzip $OUTDIR/${INFILE}.gz
+gunzip $OUTDIR/${EXNM}.gz
+gunzip $OUTDIR/initial.gz
+
+cp $OUTDIR/$EXNM $TRDIR/bin/
+
+#sed -e "s@initial@${OUTDIR}\/initial@;s@tr_trs@${OUTDIR}\/${INFILE}@" < $INDAT/$DATAI > $OUTDAT/STATS${IEXT}.${FEXT}
+
+sed -e "s@tr_trs@${OUTDIR}\/${INFILE}@" < $INDAT/$DATAI > $OUTDAT/STATS${IEXT}.${FEXT}
+
+
+#rsh -n $HOST "cd $TRDIR; nice +19 bin/$EXNM -f $FEXT < $OUTDAT/STATS${IEXT}.${FEXT} > $OUTDIR/STATOUT$IEXT"
+
+#/usr/bin/nice -19 bin/$EXNM -f $FEXT < $OUTDAT/STATS${IEXT}.${FEXT} > $OUTDIR/STATOUT$IEXT
+
+bin/$EXNM -f $FEXT < $OUTDAT/STATS${IEXT}.${FEXT} > $OUTDIR/STATOUT$IEXT
+
+mv $OUTDAT/phase_trs.$FEXT $OUTDIR/phase_trs$IEXT
+mv $OUTDAT/stat_trs.$FEXT $OUTDIR/stat_trs$IEXT
+mv $OUTDAT/stat_trs_scl.$FEXT $OUTDIR/stat_trs_scl$IEXT
+mv $OUTDAT/stat_trs_scl.${FEXT}_1.nc $OUTDIR/stat_trs_scl${IEXT}_1.nc
+mv $OUTDAT/STATS${IEXT}.${FEXT} $OUTDIR/STATS$IEXT
+#mv $OUTDAT/init_trs.$FEXT $OUTDIR/init_trs$IEXT
+#mv $OUTDAT/disp_trs.$FEXT $OUTDIR/disp_trs$IEXT
+
+\rm $OUTDAT/phase_trs.$FEXT
+\rm $OUTDAT/init_trs.$FEXT
+\rm $OUTDAT/disp_trs.$FEXT
+
+#cp $TRDIR/bin/$EXNM $OUTDIR/
+
+#gzip -r $OUTDIR

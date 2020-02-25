@@ -10,7 +10,7 @@ import iris.plot as iplt
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
-import data_paths
+from src import data_paths
 
 def prepare_data(u850, v850, box_type):
     # Setting up the dates on data

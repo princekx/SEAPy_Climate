@@ -1,0 +1,30 @@
+TRACK can be made into a DODS client to access remote netCDF files.
+To do this install the DODS software, the OpenDAP and DODS netCDF libraries.
+Make sure the environment variable NETCDF points to the DODS installation
+directory. Set the NETLIB environment variable (see below).
+
+Then run TRACK as:
+
+
+bin/track.{EXT} -w {HTML} -f {NEW_EXT}
+
+where EXT is the binary extension chosen when compiled, HTML is a URL possibly
+containing a username:passwd combination (for example for proxy access)
+and NEW_EXT is sone new extension chosen for unique output file extensions.
+URL's can be constructed containg a username:passwd pair, e.g.
+http://username:passwd@DODS-server/file as well as subsetting information, e.g.
+http://username:passwd@DODS-server/file?variable1[start:stride:end],variable2,
+for multi-dimensional data just repeat the [] block for each dimension. For
+these more complex URL's it is best to quote them so that any special 
+characters are nor interpreted by the shell you are issuing commands from.
+
+
+PLATFORM:
+
+SOLARIS:
+
+ Switch off incremental linker (-xildoff).
+ 
+ Set NETLIB to something like:
+
+ NETLIB = -L${NETCDF}/lib -lnc-dods -ldap++ -lnc-dods -ldap++ -lz -lpthread -lm -lsocket -lnsl -lcurl -lxml2 -lz -lssl -lcrypto -ldl -lrx -L/nerc/packages/gcc/3.1.1/lib -lstdc++ -lgcc_s

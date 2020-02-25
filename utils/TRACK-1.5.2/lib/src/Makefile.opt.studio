@@ -1,0 +1,60 @@
+#
+# Makefile for smoopy
+#
+
+    CC = gcc
+RANLIB = ranlib
+
+INCGCC = $(GCCINC)
+ADDINCS = 
+AD_C_FLAGS =
+ARFLAGS =
+
+#Includes for older gcc compilation
+#INCLUDES = -I../include -I../../include -I$(GCCINC) -I/usr/include -nostdinc $(ADDINCS)
+#
+#INCLUDES = -I../include -I../../include -I$(GCCINC) -I/usr/include $(ADDINCS)
+
+INCLUDES = -I../include -I../../include -I../lib/include $(ADDINCS)
+
+LIBRARY = ../libopt.a
+
+#
+# CFLAGS for gcc, add -Wno-unknown-pragmas for egcs or gcc-2.95
+#CFLAGS = -ansi -c -g -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) $(INCLUDES) -O2 -Wall -Wpointer-arith -Wshadow -Wnested-externs $(AD_C_FLAGS)
+
+#
+# CFLAGS for SUN cc (ANSI)
+# code does not work with SunC due to using adjustable arrays which are 
+# a GNU C extension. These must be replaced with dynamic routines to work
+# with SunC.
+CFLAGS = -c -g -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) $(INCLUDES) -I/usr/include -Xa $(AD_C_FLAGS) #-xO4
+
+SOURCES = correct_vect.c \
+          func.c \
+          gdfp_optimize.c \
+          init_vec.c \
+          swap.c \
+          update_h.c \
+          update_nn1.c
+
+OBJECTS = $(SOURCES:.c=.o)
+
+.KEEP_STATE:
+
+all: $(LIBRARY)
+
+OBJS: $(OBJECTS)
+
+$(LIBRARY): OBJS FORCE
+	rm -f $@
+	ar $(ARFLAGS) rc $@  $(OBJECTS)
+	$(RANLIB) $@
+#	rm -f $(OBJECTS)
+
+depend:
+	makedepend -f Makefile.opt.studio -- $(CFLAGS) -- $(SOURCES)
+
+FORCE:
+
+# DO NOT DELETE

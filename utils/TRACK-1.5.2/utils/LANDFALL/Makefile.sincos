@@ -1,0 +1,26 @@
+SOURCES=landfall_eps.c \
+        read_tracks.c \
+        new_time.c \
+	realloc_n.c \
+	convert_track_add.c \
+        sincos.c
+
+
+
+OBJECTS=$(SOURCES:.c=.o)
+
+#CFLAGS = -g -Xa -xsb
+
+CFLAGS = -g -ansi -Wall -I../../include -D${SYSTEM} $(AD_C_FLAGS)
+
+LIBS = -lm
+
+
+.KEEP_STATE:
+
+all: landfall
+
+
+landfall: $(OBJECTS)
+	$(CC) $(CFLAGS) -o ../bin/$@ $(OBJECTS) $(LIBS)
+

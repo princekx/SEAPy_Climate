@@ -1,0 +1,65 @@
+# Makefile for track
+#
+
+    MAKE = make
+
+  INCGCC = $(GCCINC)
+ ADDINCS =
+AD_C_FLAGS =
+
+
+# 
+# Include for gcc compilation
+INCLUDES = -I../include -I../lib/include -I$(INCGCC) -I/usr/include -nostdinc $(ADDINCS)
+
+#INCLUDES = -I../include -I../lib/include $(ADDINCS)
+
+
+#
+# CFLAGS for gcc
+CFLAGS = -ansi -g -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) -D$(HAVNETC) -O2 -Wall -Wshadow -Wpointer-arith -Wnested-externs $(INCLUDES) $(AD_C_FLAGS)
+
+FFLAGS = -c ${N_FFLAGS} -I../f77_param
+PFLAGS =  -F -D$(MUNI) -D$(MNAME) -I../f77_param
+SFLAGS = -c $(CFLAGS)
+OFLAGS = -c $(CFLAGS)
+
+include Makefile.include
+
+C_SOURCES = $(CSOURCES)
+
+# conditional macros are not supported in versions of HPUX lower than 10,
+# comment as required.
+
+# --------------------Conditional Macros---------------------------
+
+surfit:= CFLAGS = $(CFLAGS) -DREGULAR
+
+lopt:= CFLAGS = $(CFLAGS) -DREGULAR -DOPT -DFFTLIB
+
+# ----------------Alternative to Conditional macros----------------
+
+#CFLAGS = -ansi -g -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) -O2 -Wall -Wshadow -Wpointer-arith -Wnested-externs $(INCLUDES) $(AD_C_FLAGS) -DREGULAR -DOPT
+
+# --------------------End of Conditional Macros--------------------
+
+C_OBJECTS = $(C_SOURCES:.c=.o)
+F_SOURCES = $(P_SOURCES:.F=.f)
+F_OBJECTS = $(F_SOURCES:.f=.o)
+
+.KEEP_STATE: 
+
+all surfit lopt: C_OBJS F_OBJS
+
+C_OBJS: $(C_OBJECTS) sincos.o
+
+F_OBJS:
+	if [ "${FC}" = "g77" ]; then $(FC) $(FFLAGS) $(P_SOURCES); \
+	else \
+	  $(FC) $(PFLAGS) $(P_SOURCES); \
+	  $(FC) $(FFLAGS) $(F_SOURCES); \
+	fi
+
+depend:
+	makedepend -f Makefile.hpux10 -- $(CFLAGS) -- $(C_SOURCES)
+	../sfmakedepend -f Makefile.hpux10 $(P_SOURCES)

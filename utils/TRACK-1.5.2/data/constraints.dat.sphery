@@ -1,0 +1,45 @@
+4  0
+
+  0.0     1.0     0.0                  -1.0
+  1.0     0.0    -1.0                   0.0
+
+  0.0     0.0    -6.28318530717959     -3.1415926535896
+
+
+
+
+#
+# This is a constraint file for the local optimization using an
+# spherical interpolated surface from sphery.f (see Dierckx).
+#
+
+
+#############################################################################
+
+    Data file for constraints used for non linear optimization.
+
+    FORMAT:
+
+    NC  NEQC
+
+    C11  C21 C31 .........
+    C12  c22 c32 .........
+     .    .   .  .........
+     .    .   .  .........
+     .    .   .  .........
+
+     KEY:
+
+     NC   - Total number of constraints.
+     NEQC - Number of equality constraints.
+     Cij  - Constarint vector entry, i - constraint id, j - entry id.
+
+    NEQC constraints are first columns.
+
+    Last four positivity constraints (if used) must be in the order
+
+    x-left  y-bottom  x-right  y-top
+
+    and with the correct signs.
+
+#############################################################################

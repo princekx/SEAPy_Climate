@@ -1,0 +1,3 @@
+#!/bin/sh
+APP_HOME=${SORTPP_HOME:-/project/ukmo/rhel7/apps}
+PATH=$APP_HOME/bin:$PATH exec $APP_HOME/bin/$(basename $0) "$@"

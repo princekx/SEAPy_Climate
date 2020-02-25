@@ -1,0 +1,167 @@
+#
+# Makefile for track.2
+#
+# 
+#
+# usage='make [comp_opt]'
+#
+#
+# where comp_opt = "" or "all"  complete build
+#                = "libs"       libraries only built
+#                = "src"        main source only built
+#                = "surfit"     include surface fitting libraries
+#                = "lopt"       include surface fitting and local optimization libraries
+#
+
+#
+
+ PROGRAM = track
+
+      CC    = gcc
+     G77    = G77
+  SYSTEM    = AIX
+  LIBGCC    = $(GCCLIB)
+LOCALLIB    = ./lib
+INCLUDES    = include
+    MAKE    = make
+  RANLIB    = "ls"
+  TARGET    =
+  MDEBUG    = NMDB
+ MUNIRAS    = NOUNIRAS
+  MNAMEL    = NONAMELISTS
+F77APPEND   = UNDERSCORE
+HAVE_NETCDF = NETCDF
+
+  FFLAGS    = -g
+#
+# Large file support and 64 bit compilation
+#
+# FFLAGS    = -g -D_ALL_SOURCE -D_LARGE_FILE_API -D_LARGE_FILE -D_LARGE_FILES -maix64
+
+#
+# NETCDF includes and libraries
+#
+
+NETINC = -I${NETCDF}/include
+NETLIB = -L${NETCDF}/lib -lnetcdf
+
+
+# Additional compilation flags for compiling with egcs or gcc-2.95
+  AD_C_FLAGS=-Wno-unknown-pragmas -D_POSIX_SOURCE -D_XOPEN_SOURCE_EXTENDED=1
+#
+#Large file support and 64 bit compilation
+# AD_C_FLAGS=-Wno-unknown-pragmas -D_POSIX_SOURCE -D_XOPEN_SOURCE_EXTENDED=1 -D_ALL_SOURCE -D_LARGE_FILE_API -D_LARGE_FILE -D_LARGE_FILES -maix64
+  
+
+ADLIBS = -L$(LOCALLIB) -lchisqr -lopt -lsmp -lfft $(NETLIB) -lC
+ADDINCS = $(NETINC)
+LIB_ADDINCS =
+
+#
+# gcc libs
+#
+#GCCLIBS = 
+
+GCCLIBS = -L$(LIBGCC) -lgcc
+
+#LIBS = -lm -lc $(GCCLIBS) -L$(F77)/lib -lF77 -lm
+LIBS = $(GCCLIBS)
+
+#
+# uniras libraries, comment as required
+#
+UNILIBS =
+
+# Use for older versions of uniras, i.e. 6v3 and less.
+#
+#UNILIBS =  -luni -Bdynamic -lXm -Bstatic -lXt -Bdynamic -lX11 -lF77 -lM77 -lF77_mt -lsunmath -L/usr/ccs/lib -lgen -lnsl -lsocket -lm -lc -ldum
+
+# Use for uniras 6v4.
+#
+#UNILIBS = -lagx -llic -Bdynamic -lXm -Bstatic -lXt -Bdynamic -lX11 -lF77 -lM77 -lF77_mt -lsunmath -L/usr/ccs/lib -lgen -lnsl -lsocket -lintl -lm -lc -ldum -lICE -lSM
+
+# Use for static linking of UNIRAS 6v4 in conjuction with the LDFLAGS
+#
+#UNILIBS = -lagx -llic -Bdynamic -lXm -lXt -lX11 -Bdynamic -lF77 -lM77 -lsunmath -Bdynamic -L/usr/ccs/lib -lgen -lnsl -lsocket -lintl -lm -lc -Bstatic -ldum
+
+# 
+# Comment the LDFLAGS as required
+# 
+# Use the following line for explicit ld linking, not reccomended unless 
+# you know what you ar doing. Probably out of date.
+#
+
+#LDFLAGS = -t -o $@ $(F77)/lib/crt1.o $(F77)/lib/crti.o $(F77)/lib/crtn.o $(F77)/lib/values-xi.o $(F77)/lib/cg89/__fstd.o
+
+#
+# Use the following line for static linking of UNIRAS libraries.
+#
+
+#LDFLAGS = -Bstatic -L${UNIDIR}/lib -L/usr/dt/lib -L${OPENWINHOME}/lib -L${F77}/lib
+
+
+#
+# LDFLAGS variable, use '-z muldefs' for condor_compile to circumvent multiply defined objects 
+# in F77 and condor library
+#
+
+LDFLAGS =
+
+SOURCE = src
+OBJS = $(SOURCE)/*.o
+
+all lopt surfit: PROGRAM1
+condor: CONDOR
+
+MAKEARGS = TARGET=$(TARGET) CC='$(CC)' MDEBUG=$(MDEBUG) MUNI=$(MUNIRAS) MNAME=$(MNAMEL) SYSTEM=$(SYSTEM) ADDINCS='$(ADDINCS)' USAPPEND=$(F77APPEND) HAVNETC=$(HAVE_NETCDF) N_FFLAGS='$(FFLAGS)' AD_C_FLAGS='$(AD_C_FLAGS)'
+
+LIB_MAKEARGS = TARGET=$(TARGET) CC='$(CC)' G77=$(G77) MDEBUG=$(MDEBUG) RANLIB='$(RANLIB)' SYSTEM='$(SYSTEM)' ADDINCS='$(LIB_ADDINCS)' USAPPEND='$(F77APPEND)' N_FFLAGS='$(FFLAGS)' AD_C_FLAGS='$(AD_C_FLAGS)'
+
+
+include: FORCE
+	cd $@; $(MAKE); rm -f *%
+
+f77_param: FORCE
+	cd $@ ; $(MAKE) MNAME=$(MNAMEL); rm -f *%
+
+SRC: 
+	$(MAKE) $(SOURCE) $(MAKEARGS)
+
+$(SOURCE): include f77_param FORCE
+	cd $@; $(MAKE) -f Makefile.aix $(TARGET) $(MAKEARGS); rm -f *%
+	
+libs:
+	$(MAKE) $(LOCALLIB) $(LIB_MAKEARGS)
+
+$(LOCALLIB): FORCE
+	cd $@; $(MAKE) $(TARGET) $(LIB_MAKEARGS); rm -f *%
+
+PROGRAM1: $(PROGRAM)
+
+CONDOR: libs CONDOR_COMPILE
+
+$(PROGRAM): libs SRC FORCE
+	${FC} ${FFLAGS} -o $@ ${OBJS} ${UNILIBS} ${LIBS} ${ADLIBS}
+	mv $@ bin
+	rm -f *%
+
+CONDOR_COMPILE: SRC FORCE
+#	rm -f src/sincos.o
+	condor_compile ${FC} ${LDFLAGS} -o $(PROGRAM) ${OBJS} ${UNILIBS} ${LIBS} ${ADLIBS}
+	mv $(PROGRAM) bin
+	rm -f *%
+
+utils: FORCE
+	cd utils; make -e SYSTEM='${SYSTEM}' CC='${CC}' HAVNETC='${HAVE_NETCDF}' ADDINCS='${NETINC}' ADLIBS='${NETLIB}' AD_C_FLAGS='$(AD_C_FLAGS)'
+
+depend: depend_src depend_libs
+
+
+depend_src: f77_param
+	cd $(SOURCE); $(MAKE) $(TARGET) $(MAKEARGS) depend
+
+depend_libs:
+	cd $(LOCALLIB); $(MAKE) $(LIB_MAKEARGS) depend
+
+
+FORCE:

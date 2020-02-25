@@ -1,0 +1,57 @@
+/* header for UKMO PP format */
+
+typedef struct pphead {
+  int lbyr;     
+  int lbmon;    
+  int lbdat;  
+  int lbhr;      
+  int lbmin;
+  int lbday;    
+  int lbyrd;    
+  int lbmond; 
+  int lbdatd;    
+  int lbhrd;
+  int lbmind;   
+  int lbdayd;   
+  int lbtim;  
+  int lbft;      
+  int lblrec;
+  int lbcode;   
+  int lbhem;    
+  int lbrow;  
+  int lbnpt;     
+  int lbext;
+  int lbpack;   
+  int lbrel;    
+  int lbfc;   
+  int lbcfc;     
+  int lbproc;
+  int lbvc;     
+  int lbrvc;    
+  int lbexp;  
+  int lbegin;    
+  int lbnrec;
+  int lbproj;   
+  int lbtyp;    
+  int lblev;  
+  int lbrsvd[4]; 
+  int lbsrce;
+  int lbuser[7];
+  float brsvd[4]; 
+  float bdatum; 
+  float bacc;   
+  float blev;   
+  float brlev;    
+  float bhlev;  
+  float bhrlev; 
+  float bplat;
+  float bplon;    
+  float bgor;   
+  float bzy;    
+  float bdy;
+  float bzx;      
+  float bdx;    
+  float bmdi;   
+  float bmks;
+}PP;
+

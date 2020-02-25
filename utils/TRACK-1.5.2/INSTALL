@@ -1,0 +1,118 @@
+You will require at least the GNU gcc compiler or an ISO/IEC 9899-1999 
+(C99) compatable C compiler, the FORTRAN f77 compiler, and for
+graphical output UNIRAS 6v2a or greater. Makefiles are used to control
+the compilation so make sure your PATH enviroment variable is correct to 
+find the 'make' command (see platform specific information).
+
+Compilation has now been tested on SUNOS 4 and 5 (solaris 2) as well as Linux,
+SGI (32 bit compilation), DEC ALPHA and other DEC's (HPUX). It should be OK on 
+other machines with a bit of tinkering with the shell scripts and Makefiles.
+
+The TRACK directory is best put in your toplevel (HOME) directory as
+the HOME enviroment variable is used for some paths.
+
+To install edit the 'master' shell script variable OUTDAT, this is the main 
+output directory used for large runs split into smaller jobs, although this 
+can be overriden with the master shell script.
+You may also want to edit the shell script variables MACRO1 and MACRO2.
+The first of these controls whether to build the executable with the
+UNIRAS plotting routines, if you set this to NOUNIRAS then no graphical
+output will be available and you will have to find some other means
+of plotting the output data form TRACK. The MACRO2 variable controls
+whether the namelist FORTRAN facility for parameter input is used.
+Set MACRO2=NAMELISTS if you want to use namelists instead of parameter
+statements. The benefit in using namelists
+is that the code does not have to be re-compiled everytime a plotting 
+parameter is changed. The master shell script will set a symbolic link
+from this directory, where TRACK is usually run from, to the namelist file
+(f77_param/NAMELIST). Finaly edit the file file_path.in in the include 
+directory to the path where the TRACK directory resides.
+
+Make sure that /usr/bin appears before /usr/ucb on Sun systems.
+
+Create the following enviroment variables (see system administrator if you
+have problems), i.e. for csh:-
+
+setenv CC  gcc
+setenv GCCINC (wherever the gcc includes reside).
+setenv GCCLIB (wherever the gcc library resides).
+
+setenv ARFLAGS (set this to -X 64 for IBM 64 bit build) and to nothing for other systems.
+
+You may need also:-
+
+setenv F77 (wherever your f77 libs reside). This should not be needed on SGI's
+
+Might also need:-
+
+setenv NETCDF (wherever your NETCDF root directory resides).
+
+Make sure the program sfmakedepend knows where to find perl, i.e.
+edit the first line to your installation.
+
+If you need large file support, i.e. data files are larger than 2GB then uncomment the lines for large file
+support in the relevent Makefile_*.in.
+
+Next run 'master' with suitable arguments (see master for explanation 
+of inputs):-
+
+master [-build] [-cdir=CRDIR] [-date=DATE] [-excn=EXNM] [-fext=FEXT] [-host=HOST] [-inpf=INFILE] [-jd=JOBDCK] [-nums=N1,N2,N3] [-rfil=RUNFIL] [-tavr=TIMAVR] [-upath=USPATH]
+
+
+most of the arguments are optional, but [-fext=FEXT], [-inpf=INFILE], 
+[-upath=USPATH] should be specified. For a first build without submitting
+a job the [-build] argument should be used.
+
+In the TRACK directory a Makefile should have been created configured
+for your machine (SUNOS 4.1 or 5.3 (solaris 2.3)), and in the bin directory
+an executable suitably configured for the machine and input.
+
+Run 'make utils' to build the utility programs.
+
+Before using TRACK you will need suitably configured RUNDATIN files to
+control the program execution. Examples of these are in the indat directory,
+althouth they may not be upto date. It is best to use these as a basis for 
+creating your own by running TRACK manually and checking the inputs in your
+RUNDATIN files.
+
+
+Platform Specific:
+
+SUN, solaris: make sure that /usr/bin comes before /usr/ucb in your PATH variable otherwize the wrong echo command is picked up. Also make sure to
+use the make in /usr/ccs/bin by putting this path in your PATH variable.
+
+If using GNU sed, change any use of the special character from ? to # in
+the shell scripts and input files
+
+Now builds with GNU tools, use the Linux makefile and set enviroment
+variables CC to gcc, FC to g77 and the makefile variable G77 to G77. 
+If using gcc-4* and gfortran set F77APPEND = NOUNDERSCORE and add
+-fno-underscoring to FFLAGS in the Makefile for linux machines, may also
+need to tweek this for other machines. 
+
+For large file support make sure that -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+are appended to CFLAGS and FFLAGS in the Makefile. For solaris 9 this works best 
+with the Sun compilers, for solaris 10 it works Ok for the GNU compilers as well. 
+
+HP, hp-ux: latest version of make supports conditional macros, available in
+/usr/ccs/bin. The master script should do a makedepend when it builds the code
+but if you just use the make command be sure to issue a the makedepend target
+first, i.e. make -e depend.
+
+IBM, AIX: currently builds using GNU gcc and g77 or gfortran (alias g77 to gfortran), 
+set the environment variables CC to gcc
+and FC to g77. For some reason there is no sh command in /bin/sh on the machine I
+have tested the code on so edit master, config.make and config.RUN to change the first
+line from #!/bin/sh to #!/usr/bin/sh. The make system on AIX does not appear to like
+the target .KEEP_STATE: in the makefiles so that the build fails. This target is Sun 
+specific but most other make systems ignore it. Edit the Makefiles in f77_param, include,
+lib, lib/include, lib/src and lib/chisqr.src to remove this target. For large file support
+add -D_LARGE_FILE -D_LARGE_FILES -maix64 to FFLAGS and AD_C_FLAGS in the Makefile_aix.in.For
+64bit compilation add -maix64 to FFLAGS and AD_C_FLAGS in the Makefile_aix.in, also need to
+to set the environment variable ARFLAGS to -X 64 to. If the g77 or gfortran
+is not available the code will build with the IBM xlf compiler as long as F77APPEND in the
+Makefile_aix.in is set to NOUNDERSCORE and Makefile.aix in src is modified to cope with the
+preprocesing of the .F files.
+
+Linux, keep moving include files to different places so you might need the GCCINC variable or not
+depending on the version of linux and gcc, might also need to modify Makefiles to pickup GCCINC.

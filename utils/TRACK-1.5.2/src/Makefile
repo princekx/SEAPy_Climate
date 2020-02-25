@@ -1,0 +1,67 @@
+# Makefile for track
+#
+
+    MAKE = make
+
+  INCGCC = $(GCCINC)
+ ADDINCS =
+AD_C_FLAGS =
+
+# 
+# Include for older gcc compilation
+#INCLUDES = -I../include -I../lib/include -I$(INCGCC) -I/usr/include -nostdinc $(ADDINCS)
+
+#INCLUDES = -I../include -I../lib/include -I$(INCGCC) -I/usr/include $(ADDINCS)
+
+INCLUDES = -I../include -I../lib/include $(ADDINCS)
+
+
+#
+# CFLAGS for gcc, add -Wno-unknown-pragmas for egcs or gcc-2.95
+#CFLAGS = -ansi -gstabs -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) -D$(HAVNETC) -O2 -Wall -Wshadow -Wpointer-arith -Wnested-externs $(INCLUDES) $(AD_C_FLAGS)
+CFLAGS = -ansi -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) -D$(HAVNETC) -O2 -Wall -Wshadow -Wpointer-arith -Wnested-externs $(INCLUDES) $(AD_C_FLAGS)
+
+#
+# CFLAGS for SUN cc (ANSI)
+# code does not work with SunC due to using adjustable arrays which are 
+# a GNU C extension. These must be replaced with dynamic routines to work
+# with SunC.
+#CFLAGS = -c -g -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) $(INCLUDES) -D$(HAVNETC) -I/usr/include -Xa $(AD_C_FLAGS) #-xc99 #-xO4
+# CFLAGS for SUN cc (64 bit, ANSI)
+#CFLAGS = -c -g -D$(MDEBUG) -D$(SYSTEM) -D$(USAPPEND) -D$(HAVNETC) $(INCLUDES) -I/usr/include -xarch=v9 $(AD_C_FLAGS)
+
+FFLAGS = -c ${N_FFLAGS} -I../f77_param
+PFLAGS = -F -D$(MUNI) -D$(MNAME) -I../f77_param
+SFLAGS = -c $(CFLAGS)
+OFLAGS = -c $(CFLAGS)
+
+include Makefile.include
+
+C_SOURCES = $(CSOURCES)
+
+surfit:= CFLAGS += -DREGULAR
+
+lopt:= CFLAGS += -DREGULAR -DOPT -DFFTLIB
+
+C_OBJECTS = $(C_SOURCES:.c=.o)
+F_SOURCES = $(P_SOURCES:.F=.f)
+F_OBJECTS = $(F_SOURCES:.f=.o)
+
+.KEEP_STATE: 
+
+all surfit lopt: C_OBJS F_OBJS
+
+C_OBJS: $(C_OBJECTS)
+
+F_OBJS:
+	if [ "${FC}" = "g77" ]; then $(FC) $(FFLAGS) $(P_SOURCES); \
+	else \
+	  $(FC) $(PFLAGS) $(P_SOURCES); \
+	  $(FC) $(FFLAGS) $(F_SOURCES); \
+	fi
+
+
+depend:
+	makedepend -- $(CFLAGS) -- $(C_SOURCES)
+	../sfmakedepend $(P_SOURCES)
+

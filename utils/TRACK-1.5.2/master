@@ -1,0 +1,634 @@
+#!/bin/sh
+#
+# Master shell script for running the TRACK program.
+#
+#
+# Type of remote shell to use, i.e. rsh or remsh
+
+#set -x
+
+RSH="rsh -n"
+
+#
+# Determine if a master lock file exists and reset if required.
+#
+
+if test -f .master.lock$$
+then
+   echo "A master lock file has been detected, possible causes:
+     (a) master shell script is being executed somewhere.
+     (b) lock file is redundent due to aborted master script.
+
+     Do you want to reset the lock or wait for it to be released?
+         0 ----  wait.
+         1 ----  reset."
+
+#
+# Read from stdin
+#
+#         read rlock
+
+#
+# Read from file
+#
+
+         read rlock < .wait
+
+         case "$rlock" in
+              0) # wait for lock to be released
+                 echo "Waiting for master lock to be released."
+                 while test -f .master.lock$$
+                 do
+                   sleep 120
+                 done
+                 ;;
+              1) # reset lock
+                 rm -f .master.lock$$
+                 ;;
+          esac 
+fi
+
+echo "#  master lock file
+# Created by `who am i`
+# Created on `date` " > .master.lock$$
+
+# 
+#  Check for IO directories
+#
+
+if [ ! -d bin ]; then mkdir bin; fi
+if [ ! -d indat ]; then mkdir indat; fi
+if [ ! -d outdat ]; then mkdir outdat; fi
+if [ ! -d spectral ]; then mkdir spectral; fi
+
+#
+# Determine machine and operating system for makefile templates.
+#
+  MACHINE=`uname -m`
+   SYSTEM=`uname -s`
+  RELEASE=`uname -r`
+
+
+case "${MACHINE}:${SYSTEM}:${RELEASE}" in
+       *:AIX:*)
+        echo "${MACHINE}-${SYSTEM}-${RELEASE}"
+	cp Makefile_aix.in Makefile$$.in
+	;;
+   alpha:OSF1:V5.*)
+        echo "${MACHINE}-${SYSTEM}-${RELEASE}"
+        cp Makefile_alpha.in Makefile$$.in
+        ;;
+       *:CYGWIN*:*)
+        echo "${MACHINE}-${SYSTEM}-${RELEASE}"
+        cp Makefile_cygwin.in Makefile$$.in
+        ;;
+   sun4*:SunOS:4.*)
+	echo sparc-sun-${RELEASE}
+	cp Makefile_sunos.in Makefile$$.in
+	;;
+   sun4*:SunOS:5.* | i86pc:SunOS:5.*)
+	echo sparc-sun-solaris2`echo ${RELEASE}|sed -e 's/[^.]*//'`
+	cp Makefile_solaris.in Makefile$$.in
+	;;
+       *:HP-UX:A.09.*)
+	echo ${SYSTEM}
+	cp Makefile_hpux9nn.in Makefile$$.in
+        ;;
+       *:HP-UX:B.10.*)
+        echo ${SYSTEM}
+        cp Makefile_hpux10nn.in Makefile$$.in
+        ;;
+       *:HP-UX:B.11.*)
+        echo ${SYSTEM}
+        cp Makefile_hpux11nn.in Makefile$$.in
+        ;;
+       *:IRIX*:*)
+        echo ${SYSTEM}-${RELEASE}
+        cp Makefile_irix.in Makefile$$.in
+	;;
+    F300:UNIX*:4.*)
+	echo ${MACHINE}-${SYSTEM}-${RELEASE}
+	cp Makefile_fuji.in Makefile$$.in
+        ;;
+       *:Linux:*)
+        echo ${MACHINE}-${SYSTEM}-${RELEASE}
+        cp Makefile_linux.in Makefile$$.in
+        ;;
+       *:Darwin:*)
+        echo ${MACHINE}-${SYSTEM}-${RELEASE}
+        cp Makefile_mac.in Makefile$$.in
+        ln -s src/Makefile.linux src/Makefile.mac
+        ;;
+esac
+
+if test -f Makefile$$.in
+then
+   echo "MAKE configured for ${MACHINE} ${SYSTEM} ${RELEASE}"
+else
+   echo "No Makefile.in to configure"
+   rm -f .master.lock$$
+   exit 1
+fi
+
+
+#
+# set optional command line input variables.
+#
+#   BUILD  -  build switch, if set only program build is performed.
+#   CRDIR  -  output sub-directory
+#    DATE  -  time and date at which to run job under at
+#    EXNM  -  exec name
+#    FEXT  -  file extensions parameter
+#    HOST  -  host machine on which to run
+#  INFILE  -  input data file name
+#  JOBDCK  -  input job control file
+#    NUMS  -  numbers to control how a job is split up
+#  OUTDIR  -  main output directory (may need full path)
+#  PRIORITY-  set run time priority of program.
+#  RUNFIL  -  base name for batch script
+#  RUNDAT  -  base name for file with input control data
+#  TIMAVR  -  input file for time average
+#  USPATH  -  user path
+#  NQS     -  NQS options
+# CONDOR   -  condor compile
+# INITIAL  -  initial.dat file for RUNDATIN
+#
+#
+# other settings
+#
+#    EXEC  -  full exec name
+# MAKEOPT  -  make option
+#  OUTDIR  -  main output directory
+#
+
+usage="master [-build] [-cdir=CRDIR] [-clean] [-condor] [-date=DATE] [-excn=EXNM] [-fext=FEXT] [-help] [-host=HOST] [-init=INITIAL] [-inpf=INFILE] [-jd=JOBDCK] [-nums=N1,N2,N3,(N4),(N5),(N6)] [-outdir=OUTDIR] [-prio=PRIORITY] [-q=NQS] [-rfil=RUNFIL] [-s=RUNDAT] [-tavr=TIMAVR] [-upath=USPATH] [-usage]
+
+	-build		Build program only, no job submission
+	-cdir		Output directory
+        -clean		Clean object files before compilation
+	-condor		Compile for condor
+	-date		Time for batch submission
+	-execn		Executable name
+	-fext		File extension
+	-help		This message
+	-host		Job Submission host
+	-inpf		Input data file
+	-jd		Job script (gets modified to RFIL.FEXT)
+        -kinit          File initial.dat for RUNDATIN
+	-nums		Data sampling control
+	-outdir		Path for output directory
+	-prio		Program run priority
+	-q		NQS parameters
+	-rfil		Job control file stub
+	-s		Program input file (RUNDATIN)
+	-tavr		Time average file
+	-upath		User path
+	-usage		This message"
+	
+
+configname=$0
+
+#name=`echo $configname | sed 's|/[^/]*$||'`
+name=$0
+
+echo " " >> master.log
+echo "$name $*" >> master.log
+
+#
+# If uniras is available edit next two lines accordinaly
+# MACRO1=HAVEUNIRAS if UNIRAS is available, MACRO1=NOUNIRAS otherwise
+# If the f77 compiler supports NAMELISTS, MACRO2=NAMELISTS otherwise
+# MACRO2=NONAMELISTS
+
+# MACRO1=HAVEUNIRAS
+# MACRO2=NAMELISTS
+
+ MACRO1=NOUNIRAS
+ MACRO2=NONAMELISTS
+
+
+#
+# Default input parameters, these can be overidded on the command line.
+#
+
+ OUTDIR=$HOME/DATA
+
+     BUILD=
+    CONDOR=
+EXEC_EXIST=
+
+     NQS="-r track -lM 1500MB -lT 30000 -lV 1100MB -s /bin/csh -eo"
+    DATE=now
+  TRACKD=`pwd | sed -e "s@${HOME}/@@"`
+    EXNM=track
+    EXEC=
+    FEXT=djf8182
+  JOBDCK=RUN_AT.in
+  RUNDAT=
+PRIORITY="+19"
+
+    HOST=`uname -n`
+
+  INFILE=vor850_djf8182
+   CRDIR=DJF8182_VOR
+  USPATH=${HOME}/
+  RUNFIL=RUN_
+  TIMAVR="TIME_AVG"
+      N1=1
+      N2=31
+      N3=12
+  INNUMS="$N1,$N2,$N3"
+ INITIAL=initial.dat
+
+for arg in "$@";
+do
+  case $arg in
+    -build | -buil | -bui | -bu | -b)
+	BUILD=build
+	;;
+    -clean | -cl )
+	CLEAN=clean
+	;;
+    -cdir=* | -cdi=* | -cd=* | -c=*)
+	CRDIR=`echo $arg | sed 's/[+-]*c[a-z]*=//'`
+	;;
+    -condor | -condo | -cond | -con | -co)
+	CONDOR=condor
+	;;
+    -date=* | -dat=* | -da=* | -d=*)
+	DATE=`echo $arg | sed 's/[+-]*d[a-z]*=//'`
+	;;
+    -excn=* | -exc=* | -ex=* | -e=*)
+	EXEC=`echo $arg | sed 's/[+-]*e[a-z]*=//'`
+	;;
+    -fext=* | -fex=* | -fe=* | -f=*)
+	FEXT=`echo $arg | sed 's/[+-]*f[a-z]*=//'`
+	;;
+    -help)
+	echo "master Usage: 
+	$usage"
+	rm -f Makefile$$.in
+	rm -f .master.lock$$
+	exit 0	
+	;;
+    -host=* | -hos=* | -ho=* | -h=*)
+	HOST=`echo $arg | sed 's/[+-]*h[a-z]*=//'`
+	;;
+    -inpf=* | -inp=* | -in=* | -i=*)
+	INFILE=`echo $arg | sed 's/[+-]*i[a-z]*=//'`
+	;;
+    -jd=* | -j=*)
+	JOBDCK=`echo $arg | sed 's/[+-]*j[a-z]*=//'`
+	if test -r $JOBDCK
+	then  :
+	else
+	  echo "Job control file does not exist"
+	  rm -f .master.lock$$
+	  exit 1
+	fi
+	;;
+    -kinit=* | -kini=* | -kin=* | -ki=* | -k=*)
+        INITIAL=`echo $arg | sed 's/[+-]*k[a-z]*=//'`
+        ;;
+    -nums=* | -num=* | -nu=* | -n=*)
+	INNUMS=`echo $arg | sed 's/[+-]*n[a-z]*=//'`
+	N1=`echo "$INNUMS" | cut -f1 -d, `
+	N2=`echo "$INNUMS" | cut -f2 -d, `
+	N3=`echo "$INNUMS" | cut -f3 -d, `
+	if (test $N1 && test $N2 && test $N3)
+	then  :
+	else
+	   echo "Insufficient numerical input: See Usage"
+	   rm -f .master.lock$$
+	   exit 1
+	fi
+	;;
+    -outdir=* | -outdi=* | -outd=* | -out=* | -ou=* | -o=*)
+	OUTDIR=`echo $arg | sed 's/[+-]*o[a-z]*=//'`
+	;;
+    -prio=* | -pri=* | -pr=* | -p=*)
+	PRIORITY=`echo $arg | sed 's/[+-]*p[a-z]*=//'`
+	;;
+    -q=*)
+	NQS=`echo $arg | sed 's/[+-]*o[a-z]*=//'`
+	;;
+    -rfil=* | -rfi=* | -rf=* | -r=*)
+	RUNFIL=`echo $arg | sed 's/[+-]*r[a-z]*=//'`
+	;;
+    -s=*)
+	RUNDAT=`echo $arg | sed 's/[+-]*s=//'`
+	;;
+    -tavr=* | -tav=* | -ta=* | -t=*)
+	TIMAVR=`echo $arg | sed 's/[+-]*t[a-z]*=//'`
+	;;    
+    -upath=* | -upat=* | -upa=* | -up=* | -u=*)
+	USPATH=`echo $arg | sed 's/[+-]*u[a-z]*=//'`
+	;;
+    -usage | -usag | -usa | -us)
+	echo "master Usage: 
+	$usage"
+	rm -f Makefile$$.in
+	rm -f .master.lock$$
+	exit 0	
+	;;
+  esac
+done
+
+if [ -z "$EXEC" ]
+then
+   EXEC=${EXNM}.${FEXT}
+fi
+
+#
+# Check if an exec file already exists or is to be re-built
+#
+
+if [ ! -x bin/$EXEC ] || [ $BUILD ]
+then
+   EXEC_EXIST=
+else
+   echo "The existing exectable $EXEC will be used."
+   EXEC_EXIST=exist
+fi
+
+export EXEC_EXIST
+
+
+# Clean out old library and object files (.o) before compiling
+
+if [ "$CLEAN" ]
+then
+   echo "Removing old library and object files before compiling"
+   rm -f f77_param/*.ptr
+   rm -f src/*.o
+   rm -f lib/*.a
+   rm -f lib/src/*.o
+   rm -f lib/chisqr.src/*.o
+   rm -f lib/FFT/*.o
+   rm -f utils/*/*.o
+   if [ ! "$BUILD" ] && [ ! "$RUNDAT" ]
+   then
+     rm -f .master.lock$$
+     exit 1
+   fi
+fi
+
+
+MAKEOPT=lopt
+
+if test $CONDOR
+then
+   MAKEOPT=condor
+fi
+
+MACROS="MUNIRAS=$MACRO1 MNAMEL=$MACRO2"
+
+#
+#
+# Need to set a sybolic link if using FORTRAN namelists for UNIRAS 
+# plotting routines. Note this assumes TRACK is being run from this
+# directory. i.e. the directory containing this file.
+#
+
+for arg in $MACROS
+do
+case $arg in
+       MUNIRAS=*)
+            D1=`echo $arg | sed 's/MUNIRAS=//'`
+            if [ "$D1" -a  "$D1" != "HAVEUNIRAS" ]
+            then
+               break
+            fi
+            ;;
+       MNAMEL=*)
+            D1=`echo $arg | sed 's/MNAMEL=//'`
+            if [ "$D1" -a "$D1" = "NAMELISTS" ]
+            then
+                if [ ! -h fort.20 -o ! -f fort.20 ]
+                then
+                  rm -f fort.20
+                  ln -s f77_param/NAMELIST fort.20
+                fi
+            fi
+            ;;
+esac
+done
+
+if [ ! "$EXEC_EXIST" ] 
+then
+   if config.make Makefile$$.in -e=$EXEC -f=$FEXT -i=$INFILE -t=$TIMAVR -u=$USPATH
+   then
+     rm -f Makefile$$.in
+     echo "Make configuration ok"
+   else
+     rm -f Makefile$$.in
+     echo "ERROR configuring Makefile and input files for TRACK"
+     rm -f .master.lock$$
+     exit 1
+   fi
+fi
+
+
+if [ "$SYSTEM" != "SunOS" ] && [ "$SYSTEM" != "AIX" ] && [ ! "$EXEC_EXIST" ]
+then
+   make $MACROS depend
+fi
+
+if [ ! "$EXEC_EXIST" ]
+then 
+   make -e $MACROS $MAKEOPT
+fi
+
+# Exit if build only
+
+if [ "$BUILD" ]
+then
+   rm -f .master.lock$$
+   exit 0
+fi
+
+echo "config.RUN -d=$INFILE -e=$EXEC -f=$FEXT -i=$CRDIR -j=$JOBDCK -k=$INITIAL -o=$OUTDIR -nums=$INNUMS -p=$PRIORITY -r=$RUNFIL -s=$RUNDAT"
+
+if config.RUN -d=$INFILE -e=$EXEC -f=$FEXT -i=$CRDIR -j=$JOBDCK -k=$INITIAL -o=$OUTDIR -nums=$INNUMS -p=$PRIORITY -r=$RUNFIL -s=$RUNDAT
+then
+  echo "RUN configuration ok"
+else
+  echo "ERROR configuring scripts for TRACK"
+  rm -f .master.lock$$
+  exit 1
+fi
+
+#
+# to get data file from remote machine uncomment next few lines between dashes
+#
+
+#-----------------------------------------------------------------------------
+
+#if get_infile -f=$INFILE -l=${USPATH}${TRACKD}/indat
+#then
+#   echo "input data file retrieval from remote host, OK"
+
+#else
+#   echo "unable to retrieve file from remote host" 
+#   rm -f .master.lock$$
+#   exit 1
+#fi
+
+# Test if rsh works
+
+rsh $HOST ls >> /dev/null
+if [ $? != 0 ]
+then
+   echo "no working rsh to $HOST using job submission to current machine without rsh"
+   NORSH="norsh"
+else
+   echo "Have working rsh to $HOST"
+   NORSH="rsh"
+fi
+
+
+#-----------------------------------------------------------------------------
+
+#
+# Check target machine for running job to ensure compilation comapatability
+#
+#-----------------------------------------------------------------------------
+
+    if [ "$NORSH" = "rsh" ]
+    then
+       RSYSTEM=`$RSH $HOST uname -s`
+    else
+       RSYSTEM=`uname -s`
+    fi
+
+    if [ "$RSYSTEM" != "$SYSTEM" ]
+    then
+      echo "-----Program----- compiled for incompatable system, re-compile for target system ${RSYSTEM}"
+      echo "Aborting job"
+      rm -f .master.lock$$
+      exit 1
+    fi
+
+#-----------------------------------------------------------------------------
+
+#
+# Run job, swap comments to get required mode, i.e. batch or at
+#
+#-----------------------------------------------------------------------------
+#
+# Sunos batch commands
+#
+
+case "${MACHINE}:${SYSTEM}:${RELEASE}" in
+   alpha:OSF1:V5.*)
+  	echo "$RSH $HOST at -c -f $RUNFIL$FEXT $DATE"
+	$RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id $$ on $HOST at `date`' >> master.log; at -c -f $RUNFIL$FEXT '$DATE'"
+        ;;
+   sun4*:SunOS:4.*)
+
+#
+# If at is required instead of batch, comment batch command
+# and uncomment at command and specify a date and time for 'time'
+#
+
+        RELEASE=`$RSH $HOST uname -r | cut -c1`
+
+        if [ "$RELEASE" = "5" ]
+        then
+           echo "-----WARNING---- Running code compiled on SunOS on a SOLARIS machine using binary compatability package"
+
+	  $RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id $$ on $HOST at `date`' >> master.log; at -c -f $RUNFIL$FEXT '$DATE'"
+
+        else
+#	   $RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id $$ on $HOST at `date`' >> master.log; batch -c $RUNFIL$FEXT"
+
+	  $RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id $$ on $HOST at `date`' >> master.log; at -c '$DATE' $RUNFIL$FEXT"
+
+        fi
+	break
+	;;
+#
+#-----------------------------------------------------------------------------
+#
+# Solaris batch commands
+#
+
+    sun4*:SunOS:5.* | i86pc:SunOS:5.*)
+
+        if [ "$NORSH" = "rsh" ]
+        then
+           RELEASE=`$RSH $HOST uname -r | cut -c1`
+
+           if [ "$RELEASE" = "4" ]
+           then
+              echo "-----ERROR---- Cannot run code compiled on SOLARIS on a SunOS machine"
+              echo "Aborting job"
+              rm -f .master.lock$$
+              exit 1
+           fi
+	   echo "$RSH $HOST at -c -f $RUNFIL$FEXT $DATE"
+	   $RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id $$ on $HOST at `date`' >> master.log; at -c -f $RUNFIL$FEXT '$DATE'"
+        else
+           chmod u+x $RUNFIL$FEXT; $RUNFIL$FEXT &
+        fi
+
+	break
+	;;
+#
+#-----------------------------------------------------------------------------
+#
+# HPUX batch commands
+#
+    *:HP-UX:*)
+	echo "$RSH $HOST nohup $RUNFIL$FEXT"
+	$RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id $$ on $HOST at `date`' >> master.log; chmod u+x $RUNFIL$FEXT; nohup $RUNFIL$FEXT &"
+        break
+        ;;
+#
+#-----------------------------------------------------------------------------
+#
+# IRIX batch commands
+#
+
+    *:IRIX*:*)
+#	echo "$RSH $HOST at -c -f $RUNFIL$FEXT $DATE"
+#	$RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id $$ on
+#$HOST at `date`' >> master.log; at -c -f $RUNFIL$FEXT '$DATE'"
+#	chmod u+x $RUNFIL$FEXT; $RUNFIL$FEXT &
+	break
+	;;
+#
+#-----------------------------------------------------------------------------
+#
+# Fuji batch commands
+#
+
+    F300:UNIX*:4.*)
+	echo 'Track submitted via NQS on `date`' >> master.log; qsub $NQS -a $DATE $RUNFIL$FEXT
+	break
+	;;
+
+#
+#-----------------------------------------------------------------------------
+#
+# Linux batch commands
+#
+
+    *:Linux:* | *:Darwin:*)
+        if [ "$NORSH" = "rsh" ]
+        then
+           echo "$RSH $HOST at -c -f $RUNFIL$FEXT $DATE"
+           $RSH $HOST "cd ${HOME}/$TRACKD; echo 'Track started under sh process-id\ $$ on $HOST at `date`' >> master.log; at -f $RUNFIL$FEXT '$DATE'"
+        else
+           chmod u+x $RUNFIL$FEXT; $RUNFIL$FEXT
+        fi
+        break
+        ;;
+esac
+
+echo " " >> master.log
+
+rm -f .master.lock$$
+rm -f Makefile$$.in
+
+exit 0

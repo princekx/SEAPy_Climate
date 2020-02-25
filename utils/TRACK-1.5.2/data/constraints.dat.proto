@@ -1,0 +1,38 @@
+4  0
+
+ 1.0    0.0     -1.0     0.0
+ 0.0    1.0      0.0    -1.0
+
+-0.0  -87.86  -360.00  -87.86
+
+
+
+#############################################################################
+
+    Data file for constraints used for non linear optimization.
+
+    FORMAT:
+
+    NC  NEQC
+
+    C11  C21 C31 .........
+    C12  c22 c32 .........
+     .    .   .  .........
+     .    .   .  .........
+     .    .   .  .........
+
+     KEY:
+
+     NC   - Total number of constraints.
+     NEQC - Number of equality constraints.
+     Cij  - Constarint vector entry, i - constraint id, j - entry id.
+
+    NEQC constraints are first columns.
+
+    Last four positivity constraints (if used) must be in the order
+
+    x-left  y-bottom  x-right  y-top
+
+    and with the correct signs.
+
+#############################################################################

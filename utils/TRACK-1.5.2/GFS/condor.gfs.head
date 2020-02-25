@@ -1,0 +1,10 @@
+Executable	= GFS_SCRIPTS/gfs_run.csh
+Universe	= vanilla
+Getenv 		= True
+Log		= condor.track.log
+Initialdir	= /home/sufs1/ru6/vx/vxx05162/TRACK-1.4.1 
+Notification	= NEVER
+Coresize	= 0
+requirements    = Arch == "INTEL" && OpSys == "LINUX"
+
+

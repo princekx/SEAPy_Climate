@@ -1,0 +1,16 @@
+#!/bin/csh
+
+
+set FIELD=$1
+
+set DIR=$2
+
+set BASE=$3
+
+set EXT=$4
+
+if("$EXT" == "") set EXT=stat 
+
+${BASE}/${DIR}/all_pr_in ${FIELD} ${DIR} ${BASE} $EXT
+
+

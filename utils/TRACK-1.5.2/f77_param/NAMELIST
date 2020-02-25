@@ -1,0 +1,151 @@
+ &PARAMF
+	FILNAM = 'threshpl.pic',
+	FILNMF = 'filterpl.pic',
+	FILFET = 'featpl.pic',
+	SPLICE = 'splicepl.pic',
+	TITLE1 = '',
+	TITLE2 = '',
+	TITLE3 = '',
+	DOVLAY = 0,
+	NU = 1,
+	IZ = .TRUE.,
+	SCALEX = 1.0,
+	SCALEY = -1.0,
+	SOFFX = 0.15,
+	SOFFY = 0.4,
+        SSC = 0.5,
+        SUPVEC=0.001,
+        VECSCL=0.042,
+	ARRSCL=0.002,
+	ARRHTP=0,
+	PTSCL=0.01,
+        INCT=0,
+        ZNCT=240.0, 276.0, 320.0,
+        CHS=0.5,
+        IFR=9999,
+        NVEC=1,
+        NPNT=1,
+        IACT=0,
+        NTC=27,
+	CONLW = 0.25,
+        CONLS = 7,
+	CSMTH=5.0
+  /
+
+  &PARAMC
+	DEVICE = 'sel ldummy;e',
+	DUMMY = 'sel ldummy;e',
+	ZINIT = 0.0,
+	STEP = 0.5,
+	VALUE = -1.0,
+	COL = 32,
+	ICNUM = 25,
+	RDEF = 999.999,
+	IDEF = 9999,
+	XLAB = '',
+	YLAB = '',
+	TOLB = 5.0,
+	NOUT = 10,
+	SCALE = 1.0,
+	NIN = 5,
+	NUT = 6,
+	NAL = 1,
+	NOAX = 0,
+	NCSC = 1,
+        IAXTY = 0,
+        ICONT = 1,
+        ITAB = 7
+  /
+
+  &PARAMS
+	FILNM = 'statspl.pic',
+	TITLE = '',
+	CINIT = 0.0,
+	CSTEP = 0.2,
+	CNB = 3,
+	SCALEX = 1.0,
+	SCALEY = 1.0,
+	ITY=2,
+	CNUM = 10,
+	VSCALE = 0.05,
+	IBBX = 0,
+        IMASK = .FALSE.,
+        CONLW = 0.5,
+        CONLS = 7,
+        ARMINS = .TRUE.,
+        SUPLEV = 0.001,
+        CMCOL = 15,
+        CHS = 0.6,
+        IFR = 0,
+        IFILL = 9999,
+	CSMTH=1.0,
+	IPERC=1,
+	ICOLL=0,
+	NTEXT=0,
+        NUMCOL=2,
+        COLMAX=50,
+        BSCALE = 1.0, 0.0, 0.0, 0.0, 1.0, 50.0, 0.0, 0.0,
+        NANOT = 3,
+        NOBND = 0,
+        NDEC = 3,
+	THS1 = 4.0,
+        THS2 = 1.0,
+        CNTCOL = 1
+  /
+
+  &PARAMS_LAB
+	SLLN = 18,30,22,27,40,40,38,38,13,20,29,10,11,8,9,6,6,
+	SLLT = 13,30,10,27,15,15,13,13,13,13,17,10,11,8,9,6,6,
+	SLAB(1) = "Mean Strength (mb)",
+	SLAB(2) = "Standard Deviation of Strength",
+	SLAB(3) = "Mean Speed (m sec^-^1)",
+	SLAB(4) = "Standard Deviation of Speed",
+	SLAB(5) = "Feature Density ((10^6 Km^2 Month)^-^1)",
+	SLAB(6) = "Genesis Density ((10^6 Km^2 Month)^-^1)",
+	SLAB(7) = "Lysis Density ((10^6 Km^2 Month)^-^1)",
+	SLAB(8) = "Track Density ((10^6 Km^2 Month)^-^1)",
+	SLAB(9) = "Mean Velocity",
+	SLAB(10) = "Mean Lifetime (days)",
+	SLAB(11) = "Growth/Decay Rate (day^-^1)",
+        SLAB(12) = "Anisotropy",
+        SLAB(13) = "Orientation",
+        SLAB(14) = "Tendency",
+        SLAB(15) = "Mean Area",
+        SLAB(16) = "Spare1",
+        SLAB(17) = "Spare2",
+	DENS(1) = "Fisher (exp)",
+        DENS(2) =  "Constant",
+        DENS(3) =  "Linear",
+        DENS(4) =  "Quadratic",
+        DENS(5) = "Non-Isotropic",
+        DENS(6) = "Power (SQT)"
+  /
+ 
+  &PARAMCOL
+        CMODE = 3,
+        CSCALE = 1.0, 100.0, 100.0, 0.0, 1.0, 100.0, 0.0, 100.0, 1.0, 0.0, 100.0, 100.0, 1.0, 0.0, 0.0, 100.0
+        NCOL = 4,
+        MAXLEV = 100.0
+  /
+
+  &BRIANPARAMCOL
+        CMODE = 3,
+        CSCALE = 1.0, 100.0, 100.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 00.0, 100.0, 100.0
+        NCOL = 3,
+        MAXLEV = 100.0
+  /
+  
+  &PARAMCOL-BWR
+        CMODE = 3,
+        CSCALE = 1.0, 100.0, 100.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 100.0, 100.0
+        NCOL = 3,
+        MAXLEV = 100.0
+  /
+  
+  &DEFPARAMCOL-BGR
+        CMODE = 3,
+        CSCALE = 1.0, 100.0, 100.0, 0.0, 1.0, 100.0, 0.0, 100.0, 1.0, 0.0, 100.0, 100.0, 1.0, 0.0, 0.0, 100.0
+        NCOL = 4,
+        MAXLEV = 100.0
+  /
+  

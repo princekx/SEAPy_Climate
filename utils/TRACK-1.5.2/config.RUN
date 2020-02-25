@@ -1,0 +1,133 @@
+#!/bin/sh
+#
+# Configure shell script for editing the batch script
+#
+
+
+usage="[-datin=DATIN] [-execn=EXEC] [-fext=FEXT] [-iof=IOFILE] [-jd=JOBDCK] [-kinit=INITIAL] [-opath=OPATH] [-nums=N1,N2,N3,(N4),(N5),(N6)] [-prio=PRIORITY] [-rfil=RUNFIL] [-s=RUNDAT]"
+
+#
+# default values may be set in the job file although in general all should
+# be passed on the command line call of this script
+#
+
+configname=$0
+
+name=`echo $configname | sed 's|/[^/]*$||'`
+
+echo "config.RUN Usage: $name $usage"
+
+# Run time priority defaults to 'nice +19' using csh nice.
+
+
+for arg in $*;
+do
+  case $arg in
+   -datin=* | -dati=* | -dat=* | -da=* | -d=*)
+	datin=`echo $arg | sed 's/[+-]*d[a-z]*=//'`
+	;;
+   -execn=* | -exec=* | -exe=* | -ex=* | -e=*)
+	execname=`echo $arg | sed 's/[+-]*e[a-z]*=//'`
+	;;
+   -fext=* | -fex=* | -fe=* | -f=*)
+	filextns=`echo $arg | sed 's/[+-]*f[a-z]*=//'`
+	;;
+   -iof=* | -io=* | -i=*)
+	iodatfil=`echo $arg | sed 's/[+-]*i[a-z]*=//'`
+	;;
+   -jd=* | -j=*)
+	jobdck=`echo $arg | sed 's/[+-]*j[a-z]*=//'`
+	if test -r $jobdck
+	then  :
+	else
+	  echo "Job control file does not exist"
+	  exit 1
+	fi
+	;;
+   -kinit=* | -kini=* | -kin=* | -ki=* | -k=*)
+        INITIAL=`echo $arg | sed 's/[+-]*k[a-z]*=//'`
+        ;;
+   -opath=* | -opat=* | -opa=* | -op=* | -o=*)
+	outpath=`echo $arg | sed 's/[+-]*o[a-z]*=//'`
+	;;
+   -nums=* | -num=* | -nu=* | -n=*)
+	innums=`echo $arg | sed 's/[+-]*n[a-z]*=//'`
+	n1=`echo "$innums" | cut -f1 -d, `
+	n2=`echo "$innums" | cut -f2 -d, `
+	n3=`echo "$innums" | cut -f3 -d, `
+	n4=`echo "$innums" | cut -f4 -d, `
+	n5=`echo "$innums" | cut -f5 -d, `
+        n6=`echo "$innums" | cut -f6 -d, `
+        n7=`echo "$innums" | cut -f7 -d, `
+	if (test $n1 && test $n2 && test $n3)
+	then
+	   echo "Correct number of integers"
+	else
+	   echo "Insufficient numerical input: See Usage"
+	   exit 1
+	fi
+	;;
+   -prio=* | -pri=* | -pr=* | -p=*)
+	PRIORITY=`echo $arg | sed 's/[+-]*p[a-z]*=//'`
+	;;
+    -rfil=* | -rfi=* | -rf=* | -r=*)
+	rfile=`echo $arg | sed 's/[+-]*r[a-z]*=//'`
+	;;
+    -s=*)
+	RUNDAT=`echo $arg | sed 's/[+-]*s=//'`
+	;;
+  esac
+done
+
+if (test $execname && test $filextns && test $iodatfil && test $jobdck && test $outpath && test $RUNDAT )
+then
+   echo "Correct number of parameters have been supplied"
+   echo " EXEC=$execname EXTN=$filextns IODAT=$iodatfil JOB=$jobdck OUTPATH=$outpath RUNDAT=$RUNDAT"
+else
+   echo "Insufficient input parameters, see Usage"
+   echo " EXEC=$execname EXTN=$filextns IODAT=$iodatfil JOB=$jobdck OUTPATH=$outpath RUNDAT=$RUNDAT"
+   if test -r ${rfile}${filextns}
+   then
+     rm ${rfile}${filextns}
+   fi
+   exit 1
+fi
+
+if test $innums
+then
+   if test $n4
+   then
+     n3=`expr $n3 + $n4`
+     if test $n5
+     then
+       if test $n6
+       then :
+       else
+          echo "Must specify forward frames if backward frames are specified."
+          exit 1
+       fi
+
+       if test $n7
+       then
+          sed -e "s/ST = [0-9]*/ST = ${n1}/;s/FN = [0-9]*/FN = ${n2}/;s/EE = [0-9]*/EE = ${n3}/;s/NN = [0-9]*/NN = ${n4}/;s/ BACK = [0-9]*/ BACK = ${n5}/;s/ FOREWARD = [0-9]*/ FOREWARD = ${n6}/;s/ TERMFR = -1/ TERMFR = ${n7}/" < ${jobdck} > RUN.temp.${filextns}
+       else
+          sed -e "s/ST = [0-9]*/ST = ${n1}/;s/FN = [0-9]*/FN = ${n2}/;s/EE = [0-9]*/EE = ${n3}/;s/NN = [0-9]*/NN = ${n4}/;s/ BACK = [0-9]*/ BACK = ${n5}/;s/ FOREWARD = [0-9]*/ FOREWARD = ${n6}/" < ${jobdck} > RUN.temp.${filextns}
+       fi
+     else
+       sed -e "s/ST = [0-9]*/ST = ${n1}/;s/FN = [0-9]*/FN = ${n2}/;s/EE = [0-9]*/EE = ${n3}/;s/NN = [0-9]*/NN = ${n4}/" < ${jobdck} > RUN.temp.${filextns}
+     fi
+   else
+     sed -e "s/ST = [0-9]*/ST = ${n1}/;s/FN = [0-9]*/FN = ${n2}/;s/EE = [0-9]*/EE = ${n3}/" < ${jobdck} > RUN.temp.${filextns}
+   fi
+   echo " EXEC=$execname EXTN=$filextns IODAT=$iodatfil JOB=$jobdck OUTPATH=$outpath NUMS=$innums PRIORITY=$PRIORITY RUNFIL=$rfile RUNDAT=$RUNDAT"
+fi
+
+if test -r RUN.temp.${filextns}
+then
+   sed -e "s@exist@${EXEC_EXIST}@;s@track@${execname}@;s@ext@${filextns}@;s@datin@${datin}@;s@ioputd@${iodatfil}@;s@outputd@${outpath}@;s@RUN_@${rfile}@;s@RUNDATIN@${RUNDAT}@;s@priority@${PRIORITY}@;s@\!INITIAL\!@${INITIAL}@" < RUN.temp.${filextns} > ${rfile}${filextns}
+   rm RUN.temp.${filextns}
+else
+  sed -e "s@exist@${EXEC_EXIST}@;s@track@${execname}@;s@ext@${filextns}@;s@datin@${datin}@;s@ioputd@${iodatfil}@;s@outputd@${outpath}@;s@RUN_@${rfile}@;s@RUNDATIN@${RUNDAT}@;s@priority@${PRIORITY}@;s@\!INITIAL\!@${INITIAL}@" < ${jobdck} > ${rfile}${filextns}
+fi
+
+exit 0

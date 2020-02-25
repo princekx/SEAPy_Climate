@@ -1,0 +1,99 @@
+#!/usr/bin/csh
+
+#
+# Options: [FIELD] [LEVEL] [HEMISPHERE:NH/SH] [MODEL, e.g. NCAR] [DATA TYPE, utf/dat] [Seasons]
+#
+#
+
+#source setup.TRACK
+
+set FIELD=$1
+
+set LEVEL=$2
+
+set HEMI=$3
+
+set MODEL=$4
+
+set DATATY=$5
+
+set SEASONS=($6)
+
+set DIR0="/data/atlas/kih/AMIP"
+
+set INDAT=indat/GISS
+
+set DIR=${DIR0}/${MODEL}
+mkdir -p $DIR
+
+foreach var ($SEASONS)
+   mkdir ${DIR}/${HEMI}_$var
+end
+
+
+set SLEEP=300
+
+set FILE=
+
+@ START = 1979
+@ NEXT = 1980
+@ END = 2001
+
+@ INC = $START
+
+set TYPE=${FIELD}${LEVEL}
+
+while ($INC <= $END)
+
+  set T1=`echo $INC | sed -e 's/19//;s/20//'`
+  set T2=`echo $NEXT | sed -e 's/19//;s/20//'`
+
+  foreach var ($SEASONS)
+
+    if ( "$var" == "DJF") then
+        set YEAR=${T1}${T2}
+        set EXT=${MODEL}_DJF${YEAR}_${TYPE}
+        set OUTDIR=${EXT}_np
+        set FILE=${MODEL}_${TYPE}_djf${YEAR}_filt.${DATATY}
+        if ( !(-d ${DIR}/${HEMI}_DJF/${OUTDIR}) && -f "${INDAT}/${FILE}" ) then
+            echo "TRACK RUNNING" > .run_at.lock.${EXT}
+            master -c=${OUTDIR} -d=now -f=${EXT} -i=${FILE} -j=RUN_AT.in -n=1,32,12 -o=${DIR}/${HEMI}_DJF -r=RUN_AT_ -s=RUNDATIN.amip_${FIELD}
+        endif
+    else if ( "$var" == "MAM" ) then
+        set EXT=${MODEL}_MAM${T1}_${TYPE}
+        set OUTDIR=${EXT}_np
+        set FILE=${MODEL}_${TYPE}_mam${T1}_filt.${DATATY}
+        if ( !(-d ${DIR}/${HEMI}_MAM/${OUTDIR}) && -f "${INDAT}/${FILE}" ) then
+            echo "TRACK RUNNING" > .run_at.lock.${EXT}
+            master -c=${OUTDIR} -d=now -f=${EXT} -i=${FILE} -j=RUN_AT.in -n=1,32,12 -o=${DIR}/${HEMI}_MAM -r=RUN_AT_ -s=RUNDATIN.amip_${FIELD}
+        endif
+    else if ( "$var" == "JJA" ) then
+        set EXT=${MODEL}_JJA${T1}_${TYPE}
+        set OUTDIR=${EXT}_np
+        set FILE=${MODEL}_${TYPE}_jja${T1}_filt.${DATATY}
+        if ( !(-d ${DIR}/${HEMI}_JJA/${OUTDIR}) && -f "${INDAT}/${FILE}" ) then
+            echo "TRACK RUNNING" > .run_at.lock.${EXT}
+            master -c=${OUTDIR} -d=now -f=${EXT} -i=${FILE} -j=RUN_AT.in -n=1,32,12 -o=${DIR}/${HEMI}_JJA -r=RUN_AT_ -s=RUNDATIN.amip_${FIELD}
+        endif
+    else if ( "$var" == "SON" ) then
+        set EXT=${MODEL}_SON${T1}_${TYPE}
+        set OUTDIR=${EXT}_np
+        set FILE=${MODEL}_${TYPE}_son${T1}_filt.${DATATY}
+        if ( !(-d ${DIR}/${HEMI}_SON/${OUTDIR}) && -f "${INDAT}/${FILE}" ) then
+            echo "TRACK RUNNING" > .run_at.lock.${EXT}
+            master -c=${OUTDIR} -d=now -f=${EXT} -i=${FILE} -j=RUN_AT.in -n=1,32,12 -o=${DIR}/${HEMI}_SON -r=RUN_AT_ -s=RUNDATIN.amip_${FIELD}
+        endif
+    endif
+
+    while( -e .run_at.lock.${EXT} )
+
+         sleep $SLEEP
+
+    end
+
+  end
+
+  @ INC ++
+  @ NEXT ++
+
+end

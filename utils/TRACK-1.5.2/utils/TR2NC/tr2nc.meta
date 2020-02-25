@@ -1,0 +1,158 @@
+157
+&GLOBAL-ATTRIBUTES:
+4
+realm:atmos
+history:testing
+Conventions:CF-1.7
+featureType:trajectory
+&TRACK_ID:
+1
+cf_role:trajectory_id
+&NUM_PTS:
+2
+long_name:number of obs for this trajectory
+sample_dimension:record
+&TIME:
+6
+standard_name:time
+long_name:Time
+units:hours since 1979-12-01 00
+time_calendar: gregorian
+start:1979120100
+step:6
+&LONGITUDE:
+3
+standard_name:longitude
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude
+long_name:Latitude
+units:degrees_north
+&INTENSITY:
+5
+standard_name:relative_vorticity
+long_name:Relative Vorticity
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude longitude TRACK_ID
+&LONGITUDE:
+3
+standard_name:longitude_1
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude_1
+long_name:Latitude
+units:degrees_north
+&VAR_1:
+5
+standard_name:relative_vorticity_850
+long_name:Relative Vorticity at 850hPa
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude_1 longitude_1 TRACK_ID
+&LONGITUDE:
+3
+standard_name:longitude_2
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude_2
+long_name:Latitude
+units:degrees_north
+&VAR_2:
+5
+standard_name:relative_vorticity_700
+long_name:Relative Vorticity at 700hPa
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude_2 longitude_2 TRACK_ID
+&LONGITUDE:
+3
+standard_name:longitude_3
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude_3
+long_name:Latitude
+units:degrees_north
+&VAR_3:
+5
+standard_name:relative_vorticity_600
+long_name:Relative Vorticity at 600hPa
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude_3 longitude_3 TRACK_ID
+&LONGITUDE:
+3
+standard_name:longitude_4
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude_4
+long_name:Latitude
+units:degrees_north
+&VAR_4:
+5
+standard_name:relative_vorticity_500
+long_name:Relative Vorticity at 500hPa
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude_4 longitude_4 TRACK_ID
+&LONGITUDE:
+3
+standard_name:longitude_5
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude_5
+long_name:Latitude
+units:degrees_north
+&VAR_5:
+5
+standard_name:relative_vorticity_400
+long_name:Relative Vorticity at 400hPa
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude_5 longitude_5 TRACK_ID
+&LONGITUDE:
+3
+standard_name:longitude_6
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude_6
+long_name:Latitude
+units:degrees_north
+&VAR_6:
+5
+standard_name:relative_vorticity_300
+long_name:Relative Vorticity at 300hPa
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude_6 longitude_6 TRACK_ID
+&LONGITUDE:
+3
+standard_name:longitude_7
+long_name:Longitude
+units:degrees_east
+&LATITUDE:
+3
+standard_name:latitude_7
+long_name:Latitude
+units:degrees_north
+&VAR_7:
+5
+standard_name:relative_vorticity_200
+long_name:Relative Vorticity at 200hPa
+units:s**-1
+scale_factor:0.00001
+coordinates:time latitude_7 longitude_7 TRACK_ID

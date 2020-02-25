@@ -1,0 +1,18 @@
+Executable	= bin/track.$$(OpSys).$$(ARCH)
+Input		= STATS_ERAOP_nao_VOR850_pos.condor
+Output		= outdat/NAO/out.$(Process)
+Log		= outdat/NAO/track.log
+Arguments	= -f $(Process)
+Initialdir	= /users/nutis/kih/R_TRACK
+Notification	= NEVER
+#Notify_user	= kih@mail.nerc-essc.ac.uk
+Coresize	= 0
+#Priority        = 19
+#NiceUser        = True
+Environment     = LD_LIBRARY_PATH=/nerc/packages/uniras/6v5a/lib:/nerc/packages/forte/6.0/SUNWspro/WS6U2/lib
+requirements    = Arch == "INTEL" && OpSys == "LINUX" || \
+                  ARCH == "SUN4u" && OpSys == "SOLARIS28" || \
+                  ARCH == "SUN4u" && OpSys == "SOLARIS5.9"
+
+
+Queue		2000

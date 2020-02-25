@@ -1,0 +1,12 @@
+C
+C parameters for the sphery.f code
+C 
+
+      parameter(kx=3, ky=3, kx1=kx + 1, ky1=ky + 1, kx2=kx1 + 1, 
+     <          ky2=ky1+1, tol=0.1, tols=0.01, maxit=100,
+     <          nminx=2*kx1, nminy=2*ky1, nout=6,
+     <          pi=3.141592653589793238, pi2=2*pi,
+     <          tolkn=1.0d-10)
+
+
+      common /maxpar/kmax, kmax2, k2max2

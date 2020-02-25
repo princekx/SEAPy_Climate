@@ -1,0 +1,84 @@
+
+/* CARE IF EDITING, editing this file (files_out.in) may 
+   cause errors when the configure shell script is run.    */
+
+/* Old version of gcc (pre 3.0) don't like spaces in Add */
+
+#include "file_path.h"
+
+#define  NOTRACK   0     /* set to 1 for track initialization but no tracking */
+                         /* set to 0 otherwise.                               */
+
+#define  MAXCHR  500
+
+#define  EXTENSION  "!"
+
+/* initialization file */
+
+#define  FINIT         Add(USER,PATHO,initial?)
+
+/* output file for thresholded data                      */
+
+#define  DATTHRO       Add(USER,PATHO,throut?)
+
+/* output file for points which constitute objects       */
+
+#define  DOUTOBJ       Add(USER,PATHO,objout?)
+
+#define  COMOBJ        Add(USER,PATHO,comb_obj?)
+     
+/* object data output file after feature point filtering */
+
+#define  NEWOBJF       Add(USER,PATHO,objout.new?)
+
+/* output file for final track data                      */
+
+#define  TDUMP         Add(USER,PATHO,tdump?)
+
+/* output file for initial track data                    */
+ 
+#define  IDUMP         Add(USER,PATHO,idump?)
+
+/* time average file                                     */
+
+#define  TAVGE         Add(USER,PATHO,user_tavg?)
+
+/* tendency file                                         */
+
+#define  TENDENCY      Add(USER,PATHO,field_tend?)
+
+/* spectraly filtered fields output stub filename        */
+
+#define  SPECTRAL      Add(USER,PATHO,specfil?)
+
+/* spectral response for Lanczos filtering               */
+
+#define  LANCZOS_RESP  Add(USER,PATHO,lanczos_resp?)
+
+/* Lanczos weights                                       */
+
+#define  LANCZOS_W     Add(USER,PATHO,lanczos_w?)
+
+/* time domain filtered fields output stub filename      */
+
+#define  TIME_FILT     Add(USER,PATHO,filt_time?)
+
+/* data conversion output filename stub                  */
+
+#define  CONVERT       Add(USER,PATHO,conv_bin?)
+
+/* data extraction output filename stub                  */
+
+#define  EXTRACT       Add(USER,PATHO,extract?)
+
+/* data smoothing output filename stub                  */
+
+#define  SMOOTH       Add(USER,PATHO,smooth?)
+
+/* data masking output filename stub                    */
+
+#define  MASK       Add(USER,PATHO,mask?)
+
+/* data output from threshold on current projection     */
+
+#define  INTERP_TH       Add(USER,PATHO,interp_th?)

@@ -1,0 +1,13 @@
+
+/* CARE IF EDITING, editing this file (file_path.in) may 
+   cause errors when the configure shell script is run.    */
+
+#define Str(a)         # a              /* make a string              */
+#define Add(b, c, d)   Str(b/c/d)       /* string concatenation macro */
+
+#define  USER       /users/nutis/kih    /* User Path                  */
+
+#define  PATHI      S_TRACK/indat
+#define  PATHO      S_TRACK/outdat
+#define  DATPATH    S_TRACK/data
+#define  SPPATH     S_TRACK/spectral

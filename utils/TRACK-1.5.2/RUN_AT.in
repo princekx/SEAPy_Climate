@@ -1,0 +1,248 @@
+#!/bin/csh
+# script for running track using "at -c [time] [script]"
+#
+# may need to change line numbers for sed editing if a
+# differant number of input parameters are required.
+#
+
+unset noclobber
+
+#set thisfile       = $0
+
+#echo "Running ${thisfile} script"
+
+set EXEC_EXIST     = exist
+
+set EXEC           = track
+set  EXT           = ext
+set DATIN          = datin
+
+set DFIL           = ioputd
+set DIR2           = outputd
+
+set SRCDIR         = `pwd`
+set EXECDIR        = $SRCDIR/bin
+set RDAT           = $SRCDIR/indat
+set ODAT           = $SRCDIR/outdat
+set RUNDT          = RUNDATIN
+set RUNOUT         = RUNDATOUT
+set JOBDEF         = RUN_
+set PRIORITY       = "priority"
+set INITIAL        = "!INITIAL!"
+
+@ TERMFR = -1
+@ BACK = 2
+@ FOREWARD = 3
+@ QQ = 0
+
+@ ST = 1
+@ FN = 21
+
+@ S = $ST
+@ F = $FN
+@ I = $F - $S
+
+if !( -d $DIR2 ) mkdir -p $DIR2
+
+
+if !( -d $DIR2/$DFIL) mkdir -p $DIR2/$DFIL
+
+set DIR3           = $DIR2/$DFIL
+
+cd $EXECDIR
+
+      @ NN = 1
+      @ EE = 12
+
+      @ N = $NN
+      @ E = $EE
+
+set FILEA = $ODAT/$RUNDT\.$EXT
+set FILEB = $ODAT/$RUNDT\_A.$EXT
+
+while( $N <= $E )
+
+    if( $N == 1 )then
+
+       sed -e "s/^[0-9]*\#/${S}/;s/^[0-9]*\!/${F}/;s/^i\%/i/;s/^n~/n/;s@\%INITIAL\%@${INITIAL}@" < $RDAT/$RUNDT\.in > $FILEA
+
+    else
+
+       sed -e "s/^[0-9]*\#/${S}/;s/^[0-9]*\!/${F}/;s/^i\%/y/;/^n~/d;s@\%INITIAL\%@${INITIAL}@" < $RDAT/$RUNDT\.in > $FILEA
+
+    endif
+
+    mkdir $DIR3/DJF_MAX_$N
+
+    if ( "$EXEC_EXIST" == "") then
+
+       time nice $PRIORITY $EXEC < $FILEA > $DIR3/DJF_MAX_$N/$RUNOUT
+
+    else
+
+       time nice $PRIORITY $EXEC -i $DATIN -f ${EXT} < $FILEA > $DIR3/DJF_MAX_$N/$RUNOUT
+
+    endif
+
+    mv $FILEA $DIR3/DJF_MAX_$N/$RUNDT
+    mv $ODAT/objout.new.$EXT  $DIR3/DJF_MAX_$N/objout.new
+    mv $ODAT/tdump.$EXT  $DIR3/DJF_MAX_$N/tdump
+    mv $ODAT/idump.$EXT  $DIR3/DJF_MAX_$N/idump
+    \rm $ODAT/objout.$EXT $ODAT/throut.$EXT
+
+    if !( -f $ODAT/user_tavg.$EXT) then
+
+       sed -e "s/^[0-9]*\#/${S}/;s/^[0-9]*\!/${F}/;s/^i\%/i/;s@\%INITIAL\%@${INITIAL}@" < $RDAT/$RUNDT\_A.in > $FILEB
+
+    else
+
+       sed -e "s/^[0-9]*\#/${S}/;s/^[0-9]*\!/${F}/;s/^i\%/y/;s@\%INITIAL\%@${INITIAL}@" < $RDAT/$RUNDT\_A.in > $FILEB
+
+    endif
+
+    mkdir $DIR3/DJF_MIN_$N
+
+    if ( "$EXEC_EXIST" == "") then
+
+       time nice $PRIORITY $EXEC < $FILEB > $DIR3/DJF_MIN_$N/$RUNOUT
+
+    else
+
+       time nice $PRIORITY $EXEC -i $DATIN -f $EXT < $FILEB > $DIR3/DJF_MIN_$N/$RUNOUT
+
+    endif
+
+    mv $FILEB $DIR3/DJF_MIN_$N/$RUNDT
+    mv $ODAT/objout.new.$EXT  $DIR3/DJF_MIN_$N/objout.new
+    mv $ODAT/tdump.$EXT  $DIR3/DJF_MIN_$N/tdump
+    mv $ODAT/idump.$EXT  $DIR3/DJF_MIN_$N/idump
+    \rm $ODAT/objout.$EXT $ODAT/throut.$EXT
+
+    if( $N == 1 )then
+
+       echo "$DIR3/DJF_MAX_$N/objout.new \
+$DIR3/DJF_MAX_$N/tdump \
+1" > $ODAT/splice_max.$EXT
+
+       echo "$DIR3/DJF_MIN_$N/objout.new \
+$DIR3/DJF_MIN_$N/tdump \
+1" > $ODAT/splice_min.$EXT
+
+    else
+
+       echo "$DIR3/DJF_MAX_$N/objout.new \
+$DIR3/DJF_MAX_$N/tdump \
+${FOREWARD}" >> $ODAT/splice_max.$EXT
+
+       echo "$DIR3/DJF_MIN_$N/objout.new \
+$DIR3/DJF_MIN_$N/tdump \
+${FOREWARD}" >> $ODAT/splice_min.$EXT
+
+    endif
+
+    if( $QQ > 0 ) break
+
+    @ N++
+
+    @ S = $F - $BACK
+    if( $N < $E ) then
+       @ F += $I
+    else 
+       @ F += $I + 15
+    endif
+
+    if( $TERMFR > 0 && $F > $TERMFR) then
+
+       @ F = $TERMFR
+       @ E = $N
+       @ QQ = 1
+
+    endif
+
+end
+
+#
+# perform some tidying up
+#
+
+\rm $ODAT/$RUNDT*.$EXT
+\rm $ODAT/idump.$EXT
+\rm $ODAT/throut.$EXT
+\rm $ODAT/objout.$EXT
+
+
+mv $ODAT/initial.$EXT  $DIR3/initial
+mv $ODAT/user_tavg.$EXT  $DIR3/user_tavg
+mv $ODAT/user_tavg.${EXT}_var $DIR3/user_tavg_var
+mv $ODAT/user_tavg.${EXT}_varfil $DIR3/user_tavg.varfil
+
+#mv $SRCDIR/$thisfile $DIR3/
+mv $SRCDIR/$JOBDEF$EXT $DIR3/
+
+#
+#----------------------------------------------------------------------------------
+#
+# run TRACK in splice mode
+#
+
+#
+# splice individual runs together for +ve part of field
+#
+
+sed -e "/^[0-9]*\!/r ${ODAT}/splice_max.$EXT" $RDAT/RSPLICE.in > $ODAT/RSPLICE.temp.$EXT
+sed -e "s@initial@${DIR3}\/initial@;s@^[0-9]*\!@${E}@"  < $ODAT/RSPLICE.temp.$EXT > $ODAT/RSPLICE.$EXT
+
+\rm $ODAT/RSPLICE.temp.$EXT $ODAT/splice_max.$EXT
+
+#
+#  run track in splice mode for +ve part of field
+#
+
+if ( "$EXEC_EXIST" == "") then
+   nice $PRIORITY $EXEC < $ODAT/RSPLICE.$EXT > /dev/null
+else
+   nice $PRIORITY $EXEC -i $DATIN -f ${EXT} < $ODAT/RSPLICE.$EXT > /dev/null
+endif
+
+mv $ODAT/tr_trs.$EXT $DIR3/tr_trs_pos
+mv $ODAT/tr_grid.$EXT $DIR3/tr_grid_pos
+mv $ODAT/ff_trs.$EXT $DIR3/ff_trs_pos
+mv $ODAT/RSPLICE.$EXT $DIR3/RSPLICE_pos
+
+#
+# splice individual runs together for -ve part of field
+#
+
+sed -e "/^[0-9]*\!/r ${ODAT}/splice_min.$EXT" $RDAT/RSPLICE.in > $ODAT/RSPLICE.temp.$EXT
+sed -e "s@initial@${DIR3}\/initial@;s@^[0-9]*\!@${E}@"  < $ODAT/RSPLICE.temp.$EXT > $ODAT/RSPLICE.$EXT
+
+\rm $ODAT/RSPLICE.temp.$EXT $ODAT/splice_min.$EXT
+
+#
+#  run track in splice mode for -ve part of field
+#
+
+if ( "$EXEC_EXIST" == "") then
+   nice $PRIORITY $EXEC < $ODAT/RSPLICE.$EXT > /dev/null
+else
+   nice $PRIORITY $EXEC -i $DATIN -f ${EXT} < $ODAT/RSPLICE.$EXT > /dev/null
+endif
+
+mv $ODAT/tr_trs.$EXT $DIR3/tr_trs_neg
+mv $ODAT/tr_grid.$EXT $DIR3/tr_grid_neg
+mv $ODAT/ff_trs.$EXT $DIR3/ff_trs_neg
+mv $ODAT/RSPLICE.$EXT $DIR3/RSPLICE_neg
+
+
+if ( "$EXEC_EXIST" == "") then
+   mv $EXEC $DIR3/
+endif
+
+\rm $ODAT/initial.$EXT
+
+
+\rm $SRCDIR/.run_at.lock.${EXT}
+
+gzip -r $DIR3
+
+exit 0

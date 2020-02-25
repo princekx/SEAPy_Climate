@@ -1,0 +1,16 @@
+Executable	= bin/track.condor
+Input		= STATS_ERAOP_tot_VOR850_pos.condor
+Output		= outdat/SAMPLE/out.$(Process)
+Log		= outdat/SAMPLE/track.log
+Arguments	= -f $(Process)
+Initialdir	= /users/nutis/kih/R_TRACK
+Notification	= NEVER
+#Notify_user	= kih@mail.nerc-essc.ac.uk
+Coresize	= 0
+#Priority        = 19
+#NiceUser        = True
+Environment     = LD_LIBRARY_PATH=/nerc/packages/uniras/6v5a/lib:/nerc/packages/forte/6.0/SUNWspro/WS6U2/lib
+requirements    = OpSys == "SOLARIS5.9" || OpSys == "SOLARIS28"
+
+
+Queue		1000
