@@ -48,7 +48,7 @@ def MapPlot(var2plot, title=None, clevs=None, pltname='iris_test_plot.ps', color
     width = left - first_plot_left + width * 0.9
 
     # Add axes to the figure, to place the colour bar
-    colorbar_axes = fig.add_axes([first_plot_left + 0.0375, bottom + 0.1, width, 0.05])
+    colorbar_axes = fig.add_axes([first_plot_left + 0.0375, bottom + 0.05, width, 0.05])
     # Add the colour bar
     cbar = plt.colorbar(cf, colorbar_axes, orientation='horizontal')
     cbar.ax.tick_params(labelsize=10)

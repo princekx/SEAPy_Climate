@@ -6,7 +6,9 @@ import matplotlib as mpl
 from src import data_paths
 from src import diags_sea_cold_surges as csl1
 from src import diags_eqwaves as eqw
-#mpl.use('Agg')
+
+
+# mpl.use('Agg')
 
 
 def sea_compute(varnames, control=None, expt=None, obs=None,
@@ -49,44 +51,46 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
         precip_file = os.path.join(data_root, runid + '_PRECIP.pp.nc')
         sst_file = os.path.join(data_root, runid + '_SST.pp.nc')
 
-        #var_cubes = []
+        # var_cubes = []
         print(u850_file)
         if os.path.exists(u850_file):
             u_wind_850_cubes = iris.load_cube(u850_file)
             u_wind_850_cubes.long_name = 'x_wind_850hPa'
-            #u_wind_850_cubes = u_wind_850_cubes.intersection(latitude=(-30, 30),
+            # u_wind_850_cubes = u_wind_850_cubes.intersection(latitude=(-30, 30),
             #                                                 longitude=(90, 140))
-            #print(u_wind_850_cubes)
-            #var_cubes.append(u_wind_850_cubes)
+            # print(u_wind_850_cubes)
+            # var_cubes.append(u_wind_850_cubes)
 
         if os.path.exists(v850_file):
             v_wind_850_cubes = iris.load_cube(v850_file)
             v_wind_850_cubes.long_name = 'y_wind_850hPa'
-            #v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
+            # v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
             #                                                 longitude=(90, 140))
-            #print(v_wind_850_cubes)
-            #var_cubes.append(v_wind_850_cubes)
+            # print(v_wind_850_cubes)
+            # var_cubes.append(v_wind_850_cubes)
         print(precip_file)
         if os.path.exists(precip_file):
             precip_cubes = iris.load_cube(precip_file)
             precip_cubes.long_name = 'precipitation_flux'
-            #precip_cubes = precip_cubes.intersection(latitude=(-30, 30),
+            # precip_cubes = precip_cubes.intersection(latitude=(-30, 30),
             #                                         longitude=(90, 140))
             # for model data, convert them to mm/day
-            if runid != 'obs':
-                #precip_cubes.convert_units('kg m-2 day-1')
-                precip_cubes *= 1000.
-            #print(precip_cubes)
-            #var_cubes.append(precip_cubes)
+            if runid == 'obs':
+                precip_cubes.convert_units('mm')
+            else:
+                precip_cubes.convert_units('kg m-2 day-1')
+
+            # print(precip_cubes)
+            # var_cubes.append(precip_cubes)
 
         if os.path.exists(sst_file):
             sst_cubes = iris.load_cube(sst_file)
             sst_cubes.long_name = 'surface_temperature'
-            #sst_cubes = sst_cubes.intersection(latitude=(-30, 30),
+            # sst_cubes = sst_cubes.intersection(latitude=(-30, 30),
             #                                         longitude=(90, 140))
 
-            #print(sst_cubes)
-            #var_cubes.append(sst_cubes)
+            # print(sst_cubes)
+            # var_cubes.append(sst_cubes)
 
         # Cold Surge Level 1 diagnostics
         # Mean, variance, filtered variance, filt variance/total variance
@@ -105,7 +109,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
                 print(cube)
                 eqw.eqwaves_compute(cube, out_plot_dir, runid)
                 sys.exit()
-                #metrics.update(level2_metrics)
+                # metrics.update(level2_metrics)
         '''
         # Level 3 diagnostics
         # Real-time multivariate MJO Index (RMM) calculations, and Summer/Winter
