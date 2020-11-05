@@ -1,5 +1,5 @@
 Traceback (most recent call last):
-  File "/var/spool/slurmd/job1562723/slurm_script", line 3, in <module>
+  File "/var/spool/slurmd/job3009728/slurm_script", line 2, in <module>
     import src.retrieve_SEA_data as retrieve
   File "/net/home/h03/hadpx/MJO/SEAPy/src/retrieve_SEA_data.py", line 4, in <module>
     import iris

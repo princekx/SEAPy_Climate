@@ -1,5 +1,10 @@
 import os
 import numpy as np
+import matplotlib as mpl
+
+# use Agg backend for running without X-server
+mpl.use('Agg')
+
 from itertools import groupby
 from iris.coord_categorisation import add_year
 from iris.coord_categorisation import add_month_number
@@ -9,8 +14,10 @@ import iris.quickplot as qplt
 import iris.plot as iplt
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
+import csv
 
 from src import data_paths
+
 
 def prepare_data(u850, v850, box_type):
     # Setting up the dates on data
@@ -42,9 +49,10 @@ def prepare_data(u850, v850, box_type):
     speed_ba = speed_ba.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
 
     # Normalise
-    #speed_ba_ts = (speed_ba.data - np.mean(speed_ba.data)) / np.std(speed_ba.data)
+    # speed_ba_ts = (speed_ba.data - np.mean(speed_ba.data)) / np.std(speed_ba.data)
     speed_ba_ts = speed_ba.data
     return u850_ba, v850_ba, speed_ba_ts
+
 
 def consecutive_cs_days(cs_points):
     # Counting number of consecutive cs days
@@ -52,11 +60,17 @@ def consecutive_cs_days(cs_points):
     cs_stats = all_cs_count[np.where(all_cs_count > 2)]
     return cs_stats
 
-def print_dict(dictionary):
-    keys = list(dictionary.keys())
-    #keys.sort()
-    for i in keys:
-        print(i, dictionary[i])
+
+def print_dict(metrics, runid):
+    cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
+    metrics_csv_file = os.path.join(cs_index_out_dir, '%s_metrics.csv' % runid)
+    # write metrics to csv file for each suite_id
+    with open(metrics_csv_file, 'w') as fh:
+        writer = csv.writer(fh)
+        for metric in metrics.items():
+            writer.writerow(metric)
+
+    print('Written %s' % metrics_csv_file)
 
 
 def get_yyyymmdd(cube):
@@ -74,8 +88,10 @@ def get_yyyymmdd(cube):
     yyyymmdd = [years[i] * 10000 + months[i] * 100 + days[i] for i in range(len(years))]
     return yyyymmdd
 
+
 def find_array_match_inds(long_array, short_array):
     return long_array.searchsorted(short_array)
+
 
 def cold_surge_stats(u850, v850, runid='obs'):
     metrics = {}
@@ -86,8 +102,6 @@ def cold_surge_stats(u850, v850, runid='obs'):
     msfile = open(os.path.join(cs_index_out_dir, "%s_MS_dates.txt" % runid), "w")
     esfile = open(os.path.join(cs_index_out_dir, "%s_ES_dates.txt" % runid), "w")
     cesfile = open(os.path.join(cs_index_out_dir, "%s_CES_dates.txt" % runid), "w")
-
-
 
     # 1. CS :Cold surge
     # Cold surge identification
@@ -150,7 +164,7 @@ def cold_surge_stats(u850, v850, runid='obs'):
     ms_points[msinds] = 1
 
     plt.plot(v850_ba.data)
-    plt.plot(ms_points*-8)
+    plt.plot(ms_points * -8)
     plt.show()
 
     for i in msinds:
@@ -174,7 +188,6 @@ def cold_surge_stats(u850, v850, runid='obs'):
         esfile.write(str(years[i] * 10000 + months[i] * 100 + days[i]) + '\n')
         # print str(years[i]*10000+months[i]*100+days[i])+'\n'
     esfile.close()
-
 
     # Counting number of consecutive ces days
     cs_stats = consecutive_cs_days(cs_points)
@@ -219,20 +232,20 @@ def cold_surge_stats(u850, v850, runid='obs'):
     metrics['Average number of MS in a season'] = round(ms_mean_number, 2)
     metrics['Average number of ES in a season'] = round(es_mean_number, 2)
 
-    print('Output written to %s' %cs_index_out_dir)
+    print('Output written to %s' % cs_index_out_dir)
 
-    print_dict(metrics)
+    print_dict(metrics, runid)
 
     return metrics
 
-def cold_surge_composites(vars, cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'], runid='obs'):
 
+def cold_surge_composites(vars, cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'], runid='obs'):
     # Output data/plots
     cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
 
     for cube in vars:
         for cst in cstype:
-            print('Computing composite of %s' %cst)
+            print('Computing composite of %s' % cst)
             cs_dates_file = os.path.join(cs_index_out_dir, "%s_%s_dates.txt" % (runid, cst))
             if os.path.exists(cs_dates_file):
                 allfile = open(cs_dates_file, "r")
@@ -253,12 +266,13 @@ def cold_surge_composites(vars, cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'], runid=
                 outfilename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, varname))
                 iris.save(comp, outfilename, netcdf_format="NETCDF3_CLASSIC")
 
-def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
 
+def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
     # Output data/plots
     cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
     print(cs_index_out_dir)
-    ndjf_precip_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'precipitation_flux'))
+    ndjf_precip_filename = os.path.join(cs_index_out_dir,
+                                        "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'precipitation_flux'))
     ndjf_sst_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'surface_temperature'))
     ndjf_u850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'x_wind_850hPa'))
     ndjf_v850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'y_wind_850hPa'))
@@ -272,29 +286,37 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
     if os.path.exists(ndjf_v850_filename):
         ndjf_v850_mean = iris.load_cube(ndjf_v850_filename)
 
-
     for cst in cstype:
-        cst_precip_filename = os.path.join(cs_index_out_dir,
-                                            "%s_%s_%s_composite.nc" % (runid, cst, 'precipitation_flux'))
-        cst_sst_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, 'surface_temperature'))
-        cst_u850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, 'x_wind_850hPa'))
-        cst_v850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, 'y_wind_850hPa'))
+        if cst == 'NDJF':
+            # Plot the whole fields
+            cst_precip_mean = ndjf_precip_mean
+            cst_sst_mean = ndjf_sst_mean
+            cst_u850_mean = ndjf_u850_mean
+            cst_v850_mean = ndjf_v850_mean
+        else:
+            # Plot differences
+            cst_precip_filename = os.path.join(cs_index_out_dir,
+                                               "%s_%s_%s_composite.nc" % (runid, cst, 'precipitation_flux'))
+            cst_sst_filename = os.path.join(cs_index_out_dir,
+                                            "%s_%s_%s_composite.nc" % (runid, cst, 'surface_temperature'))
+            cst_u850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, 'x_wind_850hPa'))
+            cst_v850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, 'y_wind_850hPa'))
 
-        if os.path.exists(cst_precip_filename):
-            cst_precip_mean = iris.load_cube(cst_precip_filename)
-            cst_precip_mean -= ndjf_precip_mean
+            if os.path.exists(cst_precip_filename):
+                cst_precip_mean = iris.load_cube(cst_precip_filename)
+                cst_precip_mean -= ndjf_precip_mean
 
-        if os.path.exists(cst_sst_filename):
-            cst_sst_mean = iris.load_cube(cst_sst_filename)
-            cst_sst_mean -= ndjf_sst_mean
+            if os.path.exists(cst_sst_filename):
+                cst_sst_mean = iris.load_cube(cst_sst_filename)
+                cst_sst_mean -= ndjf_sst_mean
 
-        if os.path.exists(cst_u850_filename):
-            cst_u850_mean = iris.load_cube(cst_u850_filename)
-            cst_u850_mean -= ndjf_u850_mean
+            if os.path.exists(cst_u850_filename):
+                cst_u850_mean = iris.load_cube(cst_u850_filename)
+                cst_u850_mean -= ndjf_u850_mean
 
-        if os.path.exists(cst_v850_filename):
-            cst_v850_mean = iris.load_cube(cst_v850_filename)
-            cst_v850_mean -= ndjf_v850_mean
+            if os.path.exists(cst_v850_filename):
+                cst_v850_mean = iris.load_cube(cst_v850_filename)
+                cst_v850_mean -= ndjf_v850_mean
 
         x = cst_u850_mean.coord('longitude').points
         y = cst_u850_mean.coord('latitude').points
@@ -315,10 +337,10 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
         gl = ax.gridlines(draw_labels=True, color='white')
         gl.xlabels_top = False
         gl.ylabels_right = False
-        plt.title('%s %s UV850, PRECIP' %(runid, cst))
+        plt.title('%s %s UV850, PRECIP' % (runid, cst))
         plt.gca().coastlines()
-        plt.savefig(figname)
-        #plt.show()
+        plt.savefig(figname, bbox_inches='tight', pad_inches=0)
+        # plt.show()
 
         # SST and winds plot
         figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'sst_winds850'))
@@ -337,8 +359,9 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
         gl.ylabels_right = False
         plt.title('%s %s UV850, SST' % (runid, cst))
         plt.gca().coastlines()
-        plt.savefig(figname)
+        plt.savefig(figname, bbox_inches='tight', pad_inches=0)
         # plt.show()
+
 
 if __name__ == '__main__':
     plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs')

@@ -1,49 +1,158 @@
 import os
 import sys
 import numpy as np
+import numpy.ma as ma
+import matplotlib as mpl
+
+# use Agg backend for running without X-server
+mpl.use('Agg')
+
+import iris
 from iris.coord_categorisation import add_year
 from iris.coord_categorisation import add_month_number
 from iris.coord_categorisation import add_day_of_month
-import iris
 import iris.quickplot as qplt
 import iris.plot as iplt
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
-from .mycolormaps import getcolors
 from src import data_paths
 from src import kf_filter
 
-def plot_wave_amps(wavename=None, varname=None, title=None, clevs=None, season=None,
-                   pltname='iris_test_plot.ps', colorReverse=False, runid=None):
 
+def _contour_info(varname, wavename, runid=None):
+    self = dict()
+    if varname == 'precipitation_flux':
+        self['shade_levels'] = np.arange(0, 44, 4)
+        self['contour_levels'] = np.arange(0, 0.5, 0.05)
+        if wavename == 'ALL':
+            self['std_levels'] = np.arange(1, 40., 5)
+        elif wavename == 'MJO':
+            self['std_levels'] = np.arange(1, 4., 0.25)
+        elif wavename == 'Kelvin':
+            self['std_levels'] = np.arange(1, 4., 0.25)
+        else:
+            self['std_levels'] = np.arange(1, 3., 0.25)
+
+    if varname == 'x_wind_850hPa':
+        self['shade_levels'] = np.arange(0, 2.2, 0.2)
+        self['contour_levels'] = np.arange(0, 2.2, 0.2)
+        if wavename == 'ALL':
+            self['std_levels'] = np.arange(1, 5, 0.25)
+        elif wavename == 'MJO':
+            self['std_levels'] = np.arange(1, 3., 0.25)
+        elif wavename == 'Kelvin':
+            self['std_levels'] = np.arange(0.5, 1.5, 0.1)
+        else:
+            self['std_levels'] = np.arange(0.5, 1.5, 0.1)
+
+    if varname == 'y_wind_850hPa':
+        self['shade_levels'] = np.arange(0, 2.2, 0.2)
+        self['contour_levels'] = np.arange(0, 2.2, 0.2)
+
+        if wavename == 'ALL':
+            self['std_levels'] = np.arange(1, 5, 0.25)
+        else:
+            self['std_levels'] = np.arange(0.1, 1., 0.1)
+
+    if varname == 'x_wind_200hPa':
+        self['shade_levels'] = np.arange(0, 2.2, 0.2)
+        self['contour_levels'] = np.arange(0, 2.2, 0.2)
+    return self
+
+def plot_wave_std_maps(wavename=None, varname=None, title=None, season=None,
+                   pltname='iris_test_plot.ps', colorReverse=False, runid=None):
     # Output data/plots
     eqw_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
-    sdfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_%s_sd.nc" % (runid, varname, wavename, season))
-    cube = iris.load_cube(sdfilename)
 
-    loni, lonf, lati, latf = [80, 180, -30, 30]
+    sdfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_%s_variance.nc" % (runid, varname, wavename, season))
+    if os.path.exists(sdfilename):
+        cube = iris.load_cube(sdfilename)
+
+        # Compute standard deviation
+        cube.data = np.sqrt(cube.data)
+
+    loni, lonf, lati, latf = [90, 140, -10, 20]
 
     cube = cube.intersection(latitude=(lati, latf), longitude=(loni, lonf))
+    varname = cube.long_name
+    con = _contour_info(varname, wavename)
+    clevels = con['std_levels']
+    print(clevels)
 
     # Plot Lat-Lon maps
     plt.figure()
     ax = plt.axes(projection=ccrs.PlateCarree())
-    #figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
-    cf = iplt.contourf(cube, cmap='YlGnBu', levels=clevs, extend='both')
+    # figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
+    cf = iplt.contourf(cube, cmap='YlOrRd', extend='both', levels=clevels)  # con['contour_levels']
 
     plt.colorbar(cf, orientation='horizontal')
-    #plt.ylim([lati, latf])
-    #plt.xlim([loni, lonf])
-    gl = ax.gridlines(draw_labels=True, color='white', linewidth=0.5)
+    # plt.ylim([lati, latf])
+    # plt.xlim([loni, lonf])
+    gl = ax.gridlines(draw_labels=True, color='white', linewidth=0.25, alpha=0.5)
     gl.xlabels_top = False
     gl.ylabels_right = False
-    plt.title('%s %s amplitude %s' % (runid, wavename, season))
+    plt.title('%s %s %s amplitude %s' % (runid, varname, wavename, season))
     plt.gca().coastlines()
-    plt.savefig(pltname)
+    plt.savefig(pltname, bbox_inches='tight', pad_inches=0)
+    plt.close()
+
+def plot_wave_variance_percent(wavename=None, varname=None, title=None, season=None,
+                   pltname='iris_test_plot.ps', colorReverse=False, runid=None):
+    # Output data/plots
+    eqw_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
+
+    sdfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_%s_variance.nc" % (runid, varname, wavename, season))
+    if os.path.exists(sdfilename):
+        cube = iris.load_cube(sdfilename)
+
+    sd_all_filename = os.path.join(eqw_index_out_dir, "%s_%s_%s_%s_variance.nc" % (runid, varname, 'ALL', season))
+    try:
+        cube_all = iris.load_cube(sd_all_filename)
+        # finding the ratio of variances
+        # avoid division by very small values
+        # mask all values smaller than 0.5% of the data range
+        threshold = (cube_all.data.max() - cube_all.data.min()) * 0.01
+
+        cube_all.data = ma.masked_less(cube_all.data, threshold)
+
+        print('Computing the ratio between %s and total variance' % wavename)
+        cube.data = 100. * cube.data / cube_all.data
+
+    except FileNotFoundError:
+        print("%s not found." % sd_all_filename)
+    # loni, lonf, lati, latf = [60, 180, -20, 20]
+    loni, lonf, lati, latf = [90, 140, -10, 20]
+
+    cube = cube.intersection(latitude=(lati, latf), longitude=(loni, lonf))
+    varname = cube.long_name
+    print(varname)
+    con = _contour_info(varname, wavename)
+    print(con)
+    # Plot Lat-Lon maps
+    clevels = [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45]
+    plt.figure()
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    # figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
+    cf = iplt.contourf(cube, cmap='ocean_r', extend='both', levels=clevels)  # con['contour_levels']
+
+    plt.colorbar(cf, orientation='horizontal')
+    # plt.ylim([lati, latf])
+    # plt.xlim([loni, lonf])
+    gl = ax.gridlines(draw_labels=True, color='white', linewidth=0.25, alpha=0.5)
+    gl.xlabels_top = False
+    gl.ylabels_right = False
+    plt.title('%s %s %s amplitude %s' % (runid, varname, wavename, season))
+    plt.gca().coastlines()
+    plt.savefig(pltname, bbox_inches='tight', pad_inches=0)
+    plt.close()
     # plt.show()
 
 
-def compute_wave_amp_season(cube, runid=None, wavename=None):
+def compute_wave_variance_season(cube, runid=None, wavename=None, metrics=None):
+
+    if metrics == None:
+        metrics = {}
+
     # Output data/plots
     eqw_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
 
@@ -65,69 +174,133 @@ def compute_wave_amp_season(cube, runid=None, wavename=None):
 
     print(len(ndjf_inds), len(jjas_inds))
 
-    ndjf_var = cube[ndjf_inds].collapsed('time', iris.analysis.STD_DEV)
-    jjas_var = cube[jjas_inds].collapsed('time', iris.analysis.STD_DEV)
+    ndjf_var = cube[ndjf_inds].collapsed('time', iris.analysis.VARIANCE)
+    jjas_var = cube[jjas_inds].collapsed('time', iris.analysis.VARIANCE)
+
+    area_avg_variance_ndjf = ndjf_var.intersection(latitude=(-10, 12), longitude=(100,130))
+    area_avg_variance_ndjf = area_avg_variance_ndjf.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
+    metrics['Average NDJF %s %s variance' %(varname, wavename) ] = round(np.asscalar(area_avg_variance_ndjf.data), 2)
+
+    area_avg_variance_jjas = jjas_var.intersection(latitude=(-10, 12), longitude=(100, 130))
+    area_avg_variance_jjas = area_avg_variance_jjas.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
+    metrics['Average JJAS %s %s variance' % (varname, wavename)] = round(np.asscalar(area_avg_variance_jjas.data), 2)
 
     # Writing the standard deviation to files
-    outfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_ndjf_sd.nc" % (runid, varname, wavename))
+    outfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_ndjf_variance.nc" % (runid, varname, wavename))
     iris.save(ndjf_var, outfilename, netcdf_format="NETCDF3_CLASSIC")
 
-    outfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_jjas_sd.nc" % (runid, varname, wavename))
+    outfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_jjas_variance.nc" % (runid, varname, wavename))
     iris.save(jjas_var, outfilename, netcdf_format="NETCDF3_CLASSIC")
-    print('File written %s' %outfilename)
+    print('File written %s' % outfilename)
 
-def eqwaves_compute(cube, out_plot_dir, runid):
+    print(metrics)
+    return metrics
+
+def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
+    metrics = {}
     print(out_plot_dir)
     varname = cube.long_name
+
 
     cube = cube.intersection(latitude=(-30, 30), longitude=(0, 360))
 
     print(cube.data.max())
-    # Filter transform
-    ft = kf_filter.KFfilter(cube.data, spd=1)
+    if not compute:
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        print('NO COMPUTATIONS WILL BE PERFORMED. ONLY PLOTTING...')
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
+    # Compute seasonal variance first
+    wavename = 'ALL'
+    if compute:
+        cube_all = cube.copy()
+        # Compute wave standard deviation
+        metrics.update(compute_wave_variance_season(cube_all, runid=runid, wavename=wavename, metrics=metrics))
+
+    # Plot standard deviation maps
+    for season in ['ndjf', 'jjas']:
+        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_stddev.pdf" % (runid, varname, wavename, season))
+        plot_wave_std_maps(wavename=wavename, varname=varname, runid=runid, season=season,
+                               pltname=pltname)
+
+        print('Plotted %s' %pltname)
 
     # MJO filter
     print('Filtering MJO...')
     wavename = 'MJO'
-    cube_mjo = cube.copy()
-    cube_mjo.data = ft.mjofilter()
-    # Compute wave standard deviation
-    compute_wave_amp_season(cube_mjo, runid=runid, wavename=wavename)
+    if compute:
+        # Filter transform
+        ft = kf_filter.KFfilter(cube.data, spd=1)
+
+        cube_mjo = cube.copy()
+        cube_mjo.data = ft.mjofilter()
+        # Compute wave variance
+        metrics.update(compute_wave_variance_season(cube_mjo, runid=runid, wavename=wavename, metrics=metrics))
+
     # Plot data
     for season in ['ndjf', 'jjas']:
-        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_sd.pdf" % (runid, varname, wavename, season))
-        plot_wave_amps(wavename=wavename, varname=varname, runid=runid, season=season,
-                       pltname=pltname, clevs=np.arange(0, 0.5, 0.1))
+        # Plot standard deviation maps
+        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_stddev.pdf" % (runid, varname, wavename, season))
+        plot_wave_std_maps(wavename=wavename, varname=varname, runid=runid, season=season,
+                           pltname=pltname)
+        print('Plotted %s' % pltname)
 
+        # Plot ratio of variances
+        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_variance_percent.pdf" % (runid, varname, wavename, season))
+        plot_wave_variance_percent(wavename=wavename, varname=varname, runid=runid, season=season,
+                       pltname=pltname)
+        print('Plotted %s' % pltname)
 
     # Kelvin filter
     print('Filtering Kelvin...')
     wavename = 'Kelvin'
-    cube_kelvin = cube.copy()
-    cube_kelvin.data = ft.kelvinfilter()
+    if compute:
+        cube_kelvin = cube.copy()
+        cube_kelvin.data = ft.kelvinfilter()
 
-    # Compute wave standard deviation
-    compute_wave_amp_season(cube_kelvin, runid=runid, wavename=wavename)
+        # Compute wave variance
+        metrics.update(compute_wave_variance_season(cube_kelvin, runid=runid, wavename=wavename, metrics=metrics))
+
     # Plot data
     for season in ['ndjf', 'jjas']:
-        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_sd.pdf" % (runid, varname, wavename, season))
-        plot_wave_amps(wavename=wavename, varname=varname, runid=runid, season=season,
-                       pltname=pltname, clevs=np.arange(0, 0.5, 0.1))
+        # Plot standard deviation maps
+        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_stddev.pdf" % (runid, varname, wavename, season))
+        plot_wave_std_maps(wavename=wavename, varname=varname, runid=runid, season=season,
+                           pltname=pltname)
+        print('Plotted %s' % pltname)
+
+        # Plot ratio of variances
+        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_variance_percent.pdf" % (runid, varname, wavename, season))
+        plot_wave_variance_percent(wavename=wavename, varname=varname, runid=runid, season=season,
+                                   pltname=pltname)
+        print('Plotted %s' % pltname)
 
     # Rossby wave
     print('Filtering Rossby...')
     wavename = 'Rossby'
-    cube_rossby = cube.copy()
-    cube_rossby.data = ft.erfilter()
+    if compute:
+        cube_rossby = cube.copy()
+        cube_rossby.data = ft.erfilter()
 
-    # Compute wave standard deviation
-    compute_wave_amp_season(cube_rossby, runid=runid, wavename=wavename)
+        # Compute wave variance
+        metrics.update(compute_wave_variance_season(cube_rossby, runid=runid, wavename=wavename, metrics=metrics))
 
     # Plot data
     for season in ['ndjf', 'jjas']:
-        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_sd.pdf" % (runid, varname, wavename, season))
-        plot_wave_amps(wavename=wavename, varname=varname, runid=runid, season=season,
-                       pltname=pltname, clevs=np.arange(0, 0.5, 0.1))
+        # Plot standard deviation maps
+        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_stddev.pdf" % (runid, varname, wavename, season))
+        plot_wave_std_maps(wavename=wavename, varname=varname, runid=runid, season=season,
+                           pltname=pltname)
+        print('Plotted %s' % pltname)
 
+        # Plot ratio of variances
+        pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_variance_percent.pdf" % (runid, varname, wavename, season))
+        plot_wave_variance_percent(wavename=wavename, varname=varname, runid=runid, season=season,
+                                   pltname=pltname)
+        print('Plotted %s' % pltname)
+
+    print(metrics)
+    return metrics
 if __name__ == '__main__':
-    eqwaves_compute(runid='obs')
+    wave_metrics = eqwaves_compute(runid='obs', compute=False)
+    print(wave_metrics)

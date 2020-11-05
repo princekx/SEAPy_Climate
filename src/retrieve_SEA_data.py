@@ -91,6 +91,7 @@ def model_data_retrieve(varnames, control=None, expt=None, netcdf=True):
                             print('PP to netcdf conversion failed.')
                 else:
                     print('%s file exist. Skipping retrieval...' %ncfile)
+                    break
 
 if __name__ == '__main__':
     control = {}

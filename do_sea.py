@@ -1,14 +1,13 @@
 import os
 import sys
-import iris
+#import matplotlib as mpl
 # use Agg backend for running without X-server
-import matplotlib as mpl
+#mpl.use('Agg')
+
+import iris
 from src import data_paths
 from src import diags_sea_cold_surges as csl1
 from src import diags_eqwaves as eqw
-
-
-# mpl.use('Agg')
 
 
 def sea_compute(varnames, control=None, expt=None, obs=None,
@@ -25,7 +24,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
     :param level3:
     :return:
     '''
-
+    print('Computation starts...')
     runs = [control, expt, obs]
 
     # Pick up only non-None runs
@@ -47,19 +46,26 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
 
         # For Cold surge computations, read in U850 and V850 first
         u850_file = os.path.join(data_root, runid + '_U850.pp.nc')
+        u200_file = os.path.join(data_root, runid + '_U200.pp.nc')
         v850_file = os.path.join(data_root, runid + '_V850.pp.nc')
         precip_file = os.path.join(data_root, runid + '_PRECIP.pp.nc')
         sst_file = os.path.join(data_root, runid + '_SST.pp.nc')
 
-        # var_cubes = []
+        var_cubes = []
         print(u850_file)
         if os.path.exists(u850_file):
             u_wind_850_cubes = iris.load_cube(u850_file)
             u_wind_850_cubes.long_name = 'x_wind_850hPa'
-            # u_wind_850_cubes = u_wind_850_cubes.intersection(latitude=(-30, 30),
-            #                                                 longitude=(90, 140))
-            # print(u_wind_850_cubes)
-            # var_cubes.append(u_wind_850_cubes)
+            var_cubes.append(u_wind_850_cubes)
+
+        print(u200_file)
+        if os.path.exists(u200_file):
+            u_wind_200_cubes = iris.load_cube(u200_file)
+            u_wind_200_cubes.long_name = 'x_wind_200hPa'
+            print(u_wind_200_cubes)
+            var_cubes.append(u_wind_200_cubes)
+        else:
+            print('%s not found' %u200_file)
 
         if os.path.exists(v850_file):
             v_wind_850_cubes = iris.load_cube(v850_file)
@@ -67,7 +73,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
             # v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
             #                                                 longitude=(90, 140))
             # print(v_wind_850_cubes)
-            # var_cubes.append(v_wind_850_cubes)
+            var_cubes.append(v_wind_850_cubes)
         print(precip_file)
         if os.path.exists(precip_file):
             precip_cubes = iris.load_cube(precip_file)
@@ -81,7 +87,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
                 precip_cubes.convert_units('kg m-2 day-1')
 
             # print(precip_cubes)
-            # var_cubes.append(precip_cubes)
+            var_cubes.append(precip_cubes)
 
         if os.path.exists(sst_file):
             sst_cubes = iris.load_cube(sst_file)
@@ -90,13 +96,14 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
             #                                         longitude=(90, 140))
 
             # print(sst_cubes)
-            # var_cubes.append(sst_cubes)
+            var_cubes.append(sst_cubes)
 
         # Cold Surge Level 1 diagnostics
         # Mean, variance, filtered variance, filt variance/total variance
+        print(var_cubes)
         if cs_level1:
-            csl1.cold_surge_stats(u_wind_850_cubes, v_wind_850_cubes, runid=runid)
-
+            cs_metrics = csl1.cold_surge_stats(u_wind_850_cubes, v_wind_850_cubes, runid=runid)
+            metrics.update(cs_metrics)
             csl1.cold_surge_composites(var_cubes,
                                        cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'],
                                        runid=runid)
@@ -104,12 +111,16 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
 
         # Level 2 diagnostics
         # Equatorial waves
+        print(precip_cubes)
         if eqw_level2:
-            for cube in [precip_cubes, u_wind_850_cubes]:
+            for cube in [precip_cubes, u_wind_850_cubes, v_wind_850_cubes]:
                 print(cube)
-                eqw.eqwaves_compute(cube, out_plot_dir, runid)
-                sys.exit()
-                # metrics.update(level2_metrics)
+                eqwave_metrics = eqw.eqwaves_compute(cube, out_plot_dir, runid, compute=False)
+                metrics.update(eqwave_metrics)
+            print(metrics)
+
+        # Print metrics as csv
+        csl1.print_dict(metrics, runid)
         '''
         # Level 3 diagnostics
         # Real-time multivariate MJO Index (RMM) calculations, and Summer/Winter
