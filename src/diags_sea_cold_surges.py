@@ -35,6 +35,9 @@ def prepare_data(u850, v850, box_type):
     if not v850.coords('day_of_month'):
         iris.coord_categorisation.add_day_of_month(v850, 'time', name='day_of_month')
 
+    # regrid
+    #u850 = u850.regrid(v850, iris.analysis.Linear())
+
     speed = u850.copy()
     speed.data = np.sqrt(u850.data ** 2 + v850.data ** 2)
 

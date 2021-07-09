@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 from src import data_paths
 from src import kf_filter
-
+from scipy.signal import find_peaks
 
 def _contour_info(varname, wavename, runid=None):
     self = dict()
@@ -28,8 +28,10 @@ def _contour_info(varname, wavename, runid=None):
             self['std_levels'] = np.arange(1, 40., 5)
         elif wavename == 'MJO':
             self['std_levels'] = np.arange(1, 4., 0.25)
+            self['anom_levels'] = np.linspace(-4, 4., 11)
         elif wavename == 'Kelvin':
             self['std_levels'] = np.arange(1, 4., 0.25)
+            self['anom_levels'] = np.linspace(-4, 4., 11)
         else:
             self['std_levels'] = np.arange(1, 3., 0.25)
 
@@ -40,8 +42,10 @@ def _contour_info(varname, wavename, runid=None):
             self['std_levels'] = np.arange(1, 5, 0.25)
         elif wavename == 'MJO':
             self['std_levels'] = np.arange(1, 3., 0.25)
+            self['anom_levels'] = np.linspace(-2, 2., 11)
         elif wavename == 'Kelvin':
             self['std_levels'] = np.arange(0.5, 1.5, 0.1)
+            self['anom_levels'] = np.linspace(-2, 2., 11)
         else:
             self['std_levels'] = np.arange(0.5, 1.5, 0.1)
 
@@ -53,14 +57,26 @@ def _contour_info(varname, wavename, runid=None):
             self['std_levels'] = np.arange(1, 5, 0.25)
         else:
             self['std_levels'] = np.arange(0.1, 1., 0.1)
+            self['anom_levels'] = np.linspace(-1, 1., 11)
 
     if varname == 'x_wind_200hPa':
         self['shade_levels'] = np.arange(0, 2.2, 0.2)
         self['contour_levels'] = np.arange(0, 2.2, 0.2)
+        if wavename == 'ALL':
+            self['std_levels'] = np.arange(1, 5, 0.25)
+        elif wavename == 'MJO':
+            self['std_levels'] = np.arange(1, 3., 0.25)
+            self['anom_levels'] = np.linspace(-2, 2., 11)
+        elif wavename == 'Kelvin':
+            self['std_levels'] = np.arange(0.5, 1.5, 0.1)
+            self['anom_levels'] = np.linspace(-2, 2., 11)
+        else:
+            self['std_levels'] = np.arange(0.5, 1.5, 0.1)
     return self
 
+
 def plot_wave_std_maps(wavename=None, varname=None, title=None, season=None,
-                   pltname='iris_test_plot.ps', colorReverse=False, runid=None):
+                       pltname='iris_test_plot.ps', colorReverse=False, runid=None):
     # Output data/plots
     eqw_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
 
@@ -96,8 +112,9 @@ def plot_wave_std_maps(wavename=None, varname=None, title=None, season=None,
     plt.savefig(pltname, bbox_inches='tight', pad_inches=0)
     plt.close()
 
+
 def plot_wave_variance_percent(wavename=None, varname=None, title=None, season=None,
-                   pltname='iris_test_plot.ps', colorReverse=False, runid=None):
+                               pltname='iris_test_plot.ps', colorReverse=False, runid=None):
     # Output data/plots
     eqw_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
 
@@ -148,8 +165,90 @@ def plot_wave_variance_percent(wavename=None, varname=None, title=None, season=N
     # plt.show()
 
 
-def compute_wave_variance_season(cube, runid=None, wavename=None, metrics=None):
+def plot_hov_composite(wavename=None, varname=None, runid=None, title=None,
+                       pltname='iris_test_plot.ps', colorReverse=False):
+    # Output data/plots
+    eqw_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
+    sdfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_refEquator_composite.nc" % (runid, varname, wavename))
 
+    cube = iris.load_cube(sdfilename)
+
+    if wavename == 'Kelvin':
+        cube = cube.intersection(latitude=(-5, 5), longitude=(40, 180))
+    else:
+        cube = cube.intersection(latitude=(-10, 10), longitude=(40, 180))
+
+    hov_cube = cube.collapsed('latitude', iris.analysis.MEAN)
+    times  = hov_cube.coord('time').points
+    ntime = len(times)
+    times = np.linspace(-ntime/2, ntime/2, ntime)
+    #print(times)
+    lons = hov_cube.coord('longitude').points
+
+    L, T = np.meshgrid(lons, times)
+
+    con = _contour_info(varname, wavename)
+    clevels = con['anom_levels']
+    cmap = 'RdBu'
+    #norm = colors.BoundaryNorm(clevels, len(cmap.colors))
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    CS = plt.contourf(L, T, hov_cube.data, levels=clevels,
+                      cmap=cmap)
+    plt.colorbar(CS, orientation='horizontal')
+    #CS = plt.contour(L, T, hov_cube.data, levels=clevels, colors='k', extent='both')
+    #ax.set_aspect('equal')
+    # set axes range
+    plt.xlim(min(lons), max(lons))
+    if wavename == 'Kelvin':
+        plt.ylim(min(times)/2, max(times)/2)
+    else:
+        plt.ylim(min(times), max(times))
+    plt.title('%s %s %s [10S-10N] composite' % (runid, varname, wavename))
+    plt.xlabel('Longitude (degrees east)')
+    plt.ylabel('Lag/lead (days)')
+    plt.grid()
+    plt.savefig(pltname)#, bbox_inches='tight')
+    print('Plotted %s' %pltname)
+    #plt.show()
+    plt.close()
+
+
+def compute_wave_composite(cube, lat_range=(-10, 10),lon_range=(80, 100), wavename=None, varname=None, runid=None):
+    # Output data/plots
+    eqw_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
+    sdfilename = os.path.join(eqw_index_out_dir, "%s_%s_%s_refEquator_composite.nc" % (runid, varname, wavename))
+
+    ntime, nlat, nlon = cube.shape
+
+    # Reference time series
+    cube_ts = cube.intersection(latitude=lat_range, longitude=lon_range).collapsed(['latitude', 'longitude'],
+                                                                                   iris.analysis.MEAN)
+    # Normalise
+    cube_ts_normal = (cube_ts - cube_ts.collapsed('time', iris.analysis.MEAN)) \
+                     / cube_ts.collapsed('time', iris.analysis.STD_DEV)
+
+    # Find peaks above 1 sd
+    peaks, _ = find_peaks(cube_ts_normal.data, height=1.)
+    npeaks = len(peaks)
+
+    lag = 50  # days to be extracted around the peak (total window is -lag to +lag)
+    comp = np.ndarray((npeaks, 2 * lag + 1, nlat, nlon), dtype=float)
+    comp_cube = cube[:(2 * lag + 1)]
+
+    for npk, peak in enumerate(peaks):
+        if peak >= lag and peak <= ntime - lag - 1:
+            # Append the composite
+            comp[npk] = cube[peak - lag:peak + lag + 1].data
+
+    # Composite of all events
+    comp_cube.data = np.mean(comp, axis=0)
+
+    iris.save(comp_cube, sdfilename, netcdf_format="NETCDF3_CLASSIC")
+    print('Written %s .' % sdfilename)
+
+def compute_wave_variance_season(cube, runid=None, wavename=None, metrics=None):
     if metrics == None:
         metrics = {}
 
@@ -177,9 +276,9 @@ def compute_wave_variance_season(cube, runid=None, wavename=None, metrics=None):
     ndjf_var = cube[ndjf_inds].collapsed('time', iris.analysis.VARIANCE)
     jjas_var = cube[jjas_inds].collapsed('time', iris.analysis.VARIANCE)
 
-    area_avg_variance_ndjf = ndjf_var.intersection(latitude=(-10, 12), longitude=(100,130))
+    area_avg_variance_ndjf = ndjf_var.intersection(latitude=(-10, 12), longitude=(100, 130))
     area_avg_variance_ndjf = area_avg_variance_ndjf.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
-    metrics['Average NDJF %s %s variance' %(varname, wavename) ] = round(np.asscalar(area_avg_variance_ndjf.data), 2)
+    metrics['Average NDJF %s %s variance' % (varname, wavename)] = round(np.asscalar(area_avg_variance_ndjf.data), 2)
 
     area_avg_variance_jjas = jjas_var.intersection(latitude=(-10, 12), longitude=(100, 130))
     area_avg_variance_jjas = area_avg_variance_jjas.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
@@ -196,11 +295,12 @@ def compute_wave_variance_season(cube, runid=None, wavename=None, metrics=None):
     print(metrics)
     return metrics
 
-def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
+
+def eqwaves_compute(cube, out_plot_dir, runid, compute=True, write_wave_data=True,
+                    write_wave_data_dir=None):
     metrics = {}
     print(out_plot_dir)
     varname = cube.long_name
-
 
     cube = cube.intersection(latitude=(-30, 30), longitude=(0, 360))
 
@@ -221,9 +321,9 @@ def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
     for season in ['ndjf', 'jjas']:
         pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_stddev.pdf" % (runid, varname, wavename, season))
         plot_wave_std_maps(wavename=wavename, varname=varname, runid=runid, season=season,
-                               pltname=pltname)
+                           pltname=pltname)
 
-        print('Plotted %s' %pltname)
+        print('Plotted %s' % pltname)
 
     # MJO filter
     print('Filtering MJO...')
@@ -234,8 +334,33 @@ def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
 
         cube_mjo = cube.copy()
         cube_mjo.data = ft.mjofilter()
+
+        print('MJO Filtered')
+
+        # Compute equatorial composite
+        try:
+            compute_wave_composite(cube_mjo, lat_range=(-10, 10),lon_range=(80, 100),
+                                   wavename=wavename, varname=varname, runid=runid)
+            # Plot hovmoller
+            plt_hov_name = os.path.join(out_plot_dir, "%s_%s_%s_composite_hovmoller.pdf" %
+                                   (runid, varname, wavename))
+
+            plot_hov_composite(wavename=wavename, varname=varname, runid=runid, pltname=plt_hov_name)
+            print('Plotted %s' % plt_hov_name)
+        except:
+            print('Failed in composite computation.')
+
         # Compute wave variance
-        metrics.update(compute_wave_variance_season(cube_mjo, runid=runid, wavename=wavename, metrics=metrics))
+        metrics.update(compute_wave_variance_season(cube_mjo, runid=runid,
+                                                    wavename=wavename, metrics=metrics))
+
+        # Write the wave filtered data
+        if write_wave_data and write_wave_data_dir:
+            wave_data_file_name = os.path.join(write_wave_data_dir,
+                                               "%s_%s_%s_filtered.nc"
+                                               % (runid, varname, wavename))
+            iris.save(cube_mjo, wave_data_file_name, netcdf_format="NETCDF3_CLASSIC")
+            print('Written %s .' % wave_data_file_name)
 
     # Plot data
     for season in ['ndjf', 'jjas']:
@@ -248,7 +373,7 @@ def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
         # Plot ratio of variances
         pltname = os.path.join(out_plot_dir, "%s_%s_%s_%s_variance_percent.pdf" % (runid, varname, wavename, season))
         plot_wave_variance_percent(wavename=wavename, varname=varname, runid=runid, season=season,
-                       pltname=pltname)
+                                   pltname=pltname)
         print('Plotted %s' % pltname)
 
     # Kelvin filter
@@ -260,6 +385,17 @@ def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
 
         # Compute wave variance
         metrics.update(compute_wave_variance_season(cube_kelvin, runid=runid, wavename=wavename, metrics=metrics))
+
+        try:
+            compute_wave_composite(cube_kelvin, lat_range=(-10, 10), lon_range=(80, 100),
+                                   wavename=wavename, varname=varname, runid=runid)
+            # Plot hovmoller
+            plt_hov_name = os.path.join(out_plot_dir, "%s_%s_%s_composite_hovmoller.pdf" %
+                                   (runid, varname, wavename))
+            plot_hov_composite(wavename=wavename, varname=varname, runid=runid, pltname=plt_hov_name)
+            print('Plotted %s' % pltname)
+        except:
+            print('Failed in composite computation.')
 
     # Plot data
     for season in ['ndjf', 'jjas']:
@@ -285,6 +421,14 @@ def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
         # Compute wave variance
         metrics.update(compute_wave_variance_season(cube_rossby, runid=runid, wavename=wavename, metrics=metrics))
 
+        # Write the wave filtered data
+        if write_wave_data and write_wave_data_dir:
+            wave_data_file_name = os.path.join(write_wave_data_dir,
+                                               "%s_%s_%s_filtered.nc"
+                                               % (runid, varname, wavename))
+            iris.save(cube_rossby, wave_data_file_name, netcdf_format="NETCDF3_CLASSIC")
+            print('Written %s .' % wave_data_file_name)
+
     # Plot data
     for season in ['ndjf', 'jjas']:
         # Plot standard deviation maps
@@ -301,6 +445,26 @@ def eqwaves_compute(cube, out_plot_dir, runid, compute=True):
 
     print(metrics)
     return metrics
+
+
 if __name__ == '__main__':
-    wave_metrics = eqwaves_compute(runid='obs', compute=False)
-    print(wave_metrics)
+    # data
+    obs = {}
+    obs['runid'] = 'obs'
+    obs['start_date'] = '1989/01/01'
+    obs['end_date'] = '1998/12/01'
+    obs['data_retrieve_dir'] = '/project/MJO_GCSS/hadgem3/data/obs/SEAPy_data'
+
+    run = obs
+    data_root = os.path.join(run['data_retrieve_dir'], 'obs')
+    out_plot_dir = '/project/MJO_GCSS/hadgem3/data/SEAPy_output'
+    print(data_root)
+    data_file = os.path.join(data_root, 'obs_PRECIP.pp.nc')
+    cube = iris.load_cube(data_file)
+    cube.long_name = 'precipitation_flux'
+    #print(cube)
+
+    wave_metrics = eqwaves_compute(cube, out_plot_dir, 'obs', compute=True,
+                                   write_wave_data=True, write_wave_data_dir=data_root)
+    # print(wave_metrics)
+    #plot_hov_composite(wavename='MJO', varname='precipitation_flux', runid='obs')
