@@ -14,6 +14,14 @@ def _pp2nc_regrid(combined_ppfile, ncfile):
     print(cube)
     iris.save(cube, ncfile, netcdf_format="NETCDF3_CLASSIC")
 
+def _pp2nc_subset(combined_ppfile, ncfile):
+    cube = iris.load_cube(combined_ppfile)
+
+    # tropics alone
+    cube = cube.intersection(latitude=(-30, 30), longitude=(0, 360))
+    print(cube)
+    iris.save(cube, ncfile, netcdf_format="NETCDF3_CLASSIC")
+
 def model_data_retrieve(varnames, control=None, expt=None, netcdf=True):
 
     runs = [control, expt]
@@ -84,7 +92,7 @@ def model_data_retrieve(varnames, control=None, expt=None, netcdf=True):
                         if not os.path.exists(ncfile):
                             print('Converting to netcdf files...')
                             if os.path.exists(combined_ppfile):
-                                _pp2nc_regrid(combined_ppfile, ncfile)
+                                _pp2nc_subset(combined_ppfile, ncfile)
                         if os.path.exists(ncfile):
                             os.remove(combined_ppfile)
                         else:
