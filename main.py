@@ -2,6 +2,7 @@
 import sys
 import src.retrieve_SEA_data as retrieve
 import do_sea as do_sea
+import mjo.retrieve_MJO_data as rmd
 import mjo.do_mjo as do_mjo
 
 if __name__ == '__main__':
@@ -35,8 +36,8 @@ if __name__ == '__main__':
 
     # 2. Do MJO
     # put obs=None if you do not wish to compute obs every time
-    do_mjo.mjo_compute(control=control, expt=expt, obs=None,
-                       level1=False, level2=False, level3=False)
+    #do_mjo.mjo_compute(control=control, expt=expt, obs=None,
+    #                   level1=False, level2=False, level3=False)
 
     # 3. Do SEA computations
     # put obs=None if you do not wish to compute obs every time

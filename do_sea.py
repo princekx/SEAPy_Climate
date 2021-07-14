@@ -137,7 +137,8 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
             metrics.update(level3_metrics)
         '''
         if extreme_level4:
-            extreme.precip_extremes(precip_cubes)
+            extreme.precip_extremes_cs(precip_cubes, runid=runid, percentile=95, compute=True, plot=True)
+
         '''
         # write metrics to csv file for each suite_id
         with open(os.path.join(out_plot_dir, 'metrics.csv'), 'w') as fh:

@@ -2,25 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../CSSP/amip_runs/mean_state_analysis/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HadISST_CCI/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MJOPy/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MJOPy/retrieve_MJO_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MLearning/tendencies/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PyProcessDiag/.idea/PyProcessDiag.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PyProcessDiag/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PyProcessDiag/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PyProcessDiag/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PyProcessDiag/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PyProcessDiag/1_restore_data_onelevel_allyears_spice.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MJOPy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MJOPy.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/do_sea.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_sea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/diags_eqwaves.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/diags_eqwaves.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_paths.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +23,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Propagation/prop/Plot_Prop_composites_3TS_method.py" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.pyOptions" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -52,7 +37,19 @@
       <option name="presentableId" value="Default" />
       <updated>1545044071028</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added MJO to the computation&#10;added extreme precip computations and plots for cold surge types">
+      <created>1625854429563</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1625854429563</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added MJO to the computation&#10;added extreme precip computations and plots for cold surge types" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added MJO to the computation&#10;added extreme precip computations and plots for cold surge types" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
