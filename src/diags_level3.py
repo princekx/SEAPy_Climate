@@ -5,7 +5,7 @@ import numpy as np
 import iris
 import iris.plot as iplt
 import os, sys
-
+import pandas as pd
 from .mycolormaps import getcolors
 from . import mjo_utils as mu
 from . import mjo_plots as mjp
@@ -26,8 +26,7 @@ def _makecube_lcorr(var, lags, lons):
 
 
 def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
-        runid, out_dir):
-
+                   runid, out_dir):
     print('Starting Level 3 diagnostics...')
 
     # RMM - Real time multivariate MJO Index
@@ -38,7 +37,6 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
     filtered_x_wind_850_cube = mu.Filter(x_wind_850_cube)
     filtered_x_wind_200_cube = mu.Filter(x_wind_200_cube)
     filtered_precip_cube = mu.Filter(precip_cube)
-
 
     ### Lead-Lag Correlation Plot
     for cube in [filtered_olr_cube,
@@ -67,17 +65,16 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
 
         title = ' '.join(
             [runid, "OLR [80-100E, 10S-10N] vs", varname, "Lead-Lag Correlation"]
-            )
+        )
 
         out_name = runid + "_" + varname + "_LeadLagCorr"
         figname = os.path.join(out_dir, "%s.png" % out_name)
         mjp.HovTimeLon(lead_lag_corr, lags, longitudes, levels=np.arange(-1, 1.1, 0.1),
-                title=title, figname=figname)
+                       title=title, figname=figname)
 
         lead_lag_corr_cube = _makecube_lcorr(lead_lag_corr, lags, longitudes)
         ncname = os.path.join(out_dir, "%s.nc" % out_name)
         iris.save(lead_lag_corr_cube, ncname)
-
 
     ### Wheeler Hendon Plot
     lon1, lat1, lon2, lat2 = [0, -15, 360, 15]
@@ -134,9 +131,9 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
     # Compute Combined EOF
     # Memory failure. So reading Wheeler & Hendon 2004 EOFs directly
     # covariance matrix
-    #var   = np.dot(cdata,cdata.T)
-    #d , v = np.linalg.eig(var)
-    #print d.shape,  v.shape
+    # var   = np.dot(cdata,cdata.T)
+    # d , v = np.linalg.eig(var)
+    # print d.shape,  v.shape
 
     # Read Observed EOF
     EOFs_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'WH04_EOFs.dat')
@@ -176,12 +173,11 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
                  str(pcs[it, 1]),
                  str(pha[it]),
                  str(amp[it]) + '\n']
-                )
+            )
             )
 
     # Plot RMMs
     mjp.rmm_plot(rmmfile, figname)
-
 
     ### Phase frequency plots
     out_name = runid + "_phase_freq_plot"
@@ -245,10 +241,10 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
             for phase in range(1, 9):
                 if season == 'summer':
                     inds = [i for i in range(len(pha))
-                            if  amp[i] >= 1.0 and pha[i] == phase and (month[i] >= 5 and month[i] <= 10)]
+                            if amp[i] >= 1.0 and pha[i] == phase and (month[i] >= 5 and month[i] <= 10)]
                 elif season == 'winter':
                     inds = [i for i in range(len(pha))
-                            if  amp[i] >= 1.0 and pha[i] == phase and (month[i] >= 11 or month[i] <= 4)]
+                            if amp[i] >= 1.0 and pha[i] == phase and (month[i] >= 11 or month[i] <= 4)]
                 ax = plt.subplot(8, 1, phase, projection=proj, axisbg='lightgrey')
                 if inds:
                     comp = SeasonMean_Iris(cube, inds)
@@ -280,7 +276,7 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
             iris.save(mjo_phase_composites, ncname)
 
         # Calculate metrics
-        metrics = simplified_mjo_metrics(pc1 , pc2)
+        metrics = simplified_mjo_metrics(pc1, pc2)
         return metrics
 
 
@@ -290,7 +286,7 @@ def SeasonMean_Iris(var, inds):
     return mean
 
 
-def simplified_mjo_metrics(pc1 , pc2):
+def simplified_mjo_metrics(pc1, pc2):
     """Calculate Lead-lag correlation between principle components 1, and 2.
     Args:
         pc1: 1D array

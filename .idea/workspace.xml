@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/retrieve_SEA_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/retrieve_SEA_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slurm.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/slurm2.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/diags_level3.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/diags_level3.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +52,21 @@
       <option name="project" value="LOCAL" />
       <updated>1626251669087</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Retrieves all data together, MJO code will independently regrid the data to 2.5 deg">
+      <created>1626252042026</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1626252042026</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added MJO to the computation&#10;added extreme precip computations and plots for cold surge types" />
     <MESSAGE value="MJO data to be retrieved in to a subdirectory and regridded to 2.5 deg." />
-    <option name="LAST_COMMIT_MESSAGE" value="MJO data to be retrieved in to a subdirectory and regridded to 2.5 deg." />
+    <MESSAGE value="Retrieves all data together, MJO code will independently regrid the data to 2.5 deg" />
+    <option name="LAST_COMMIT_MESSAGE" value="Retrieves all data together, MJO code will independently regrid the data to 2.5 deg" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
