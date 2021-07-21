@@ -6,6 +6,7 @@ import iris
 import iris.plot as iplt
 import os, sys
 import pandas as pd
+import datetime
 from .mycolormaps import getcolors
 from . import mjo_utils as mu
 from . import mjo_plots as mjp
@@ -23,6 +24,20 @@ def _makecube_lcorr(var, lags, lons):
     var_cube.add_dim_coord(lags_coord, 0)
     var_cube.add_dim_coord(lons_coord, 1)
     return var_cube
+
+
+def return_indices_of_a(a, b):
+    '''
+    Function to return indices of elements in A that matches values in B
+    :param a: list a
+    :type a:
+    :param b: list b
+    :type b:
+    :return: indices of elements in a that matches values in b
+    :rtype:
+    '''
+    b_set = set(b)
+    return [i for i, v in enumerate(a) if v in b_set]
 
 
 def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
@@ -186,6 +201,10 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
 
     # MJO Phase Composite Plot
     if os.path.isfile(rmmfile):
+        df = pd.read_csv(rmmfile, sep=' ', names=['year', 'month', 'day', 'rmm1', 'rmm2', 'phase', 'amp'])
+        df['date'] = [datetime.datetime(y, m, d) for y, m, d in zip(df.year, df.month, df.day)]
+
+        '''    
         C = np.loadtxt(rmmfile)
         year = C[:, 0]
         month = C[:, 1]
@@ -194,7 +213,7 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
         pc2 = C[:, 4]
         pha = C[:, 5]
         amp = C[:, 6]
-
+        '''
     for cube in [filtered_olr_cube,
                  filtered_x_wind_850_cube,
                  filtered_x_wind_200_cube,
@@ -240,14 +259,23 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
 
             for phase in range(1, 9):
                 if season == 'summer':
-                    inds = [i for i in range(len(pha))
-                            if amp[i] >= 1.0 and pha[i] == phase and (month[i] >= 5 and month[i] <= 10)]
+                    season_df = df.loc[(df['month'].isin([5, 6, 7, 8, 9, 10]))]
                 elif season == 'winter':
-                    inds = [i for i in range(len(pha))
-                            if amp[i] >= 1.0 and pha[i] == phase and (month[i] >= 11 or month[i] <= 4)]
+                    season_df = df.loc[(df['month'].isin([11, 12, 1, 2, 3, 4]))]
+                    
+                phase_df = season_df.loc[(season_df['amp'] >= 1) & (season_df['phase'] == phase)]
+
+                # get dates of the cube
+                times = cube.coord('time')
+                dtimes = times.units.num2date(times.points)
+                dft_cubes = pd.DataFrame(pd.to_datetime(dtimes, format='%Y%m%d'))
+                dft_cubes.columns = ['dates']
+
+                phase_indices = return_indices_of_a(dft_cubes['dates'], phase_df['date'])
+
                 ax = plt.subplot(8, 1, phase, projection=proj, axisbg='lightgrey')
-                if inds:
-                    comp = SeasonMean_Iris(cube, inds)
+                if phase_indices:
+                    comp = SeasonMean_Iris(cube, phase_indices)
                     mjo_phase_composites.data[phase - 1, :, :] = comp.data
 
                     cf = iplt.contourf(comp, filt_clevels, cmap=cmap, norm=norm, extend='both')
@@ -255,7 +283,6 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
 
                 if phase == 1:
                     plt.title(' '.join([runid, varname, season]))
-                plt.text(162, 22.5, 'Phase ' + str(phase), ha='right', va='center')
 
             plt_ax = plt.gca()
             left, bottom, width, height = plt_ax.get_position().bounds

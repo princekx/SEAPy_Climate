@@ -35,8 +35,8 @@ if __name__ == '__main__':
 
     # 2. Do MJO
     # put obs=None if you do not wish to compute obs every time
-    do_mjo.mjo_compute(control=None, expt=None, obs=obs,
-                       level1=False, level2=True, level3=True)
+    do_mjo.mjo_compute(control=control, expt=expt, obs=None,
+                       level1=False, level2=False, level3=True)
 
     # 3. Do SEA computations
     # put obs=None if you do not wish to compute obs every time
