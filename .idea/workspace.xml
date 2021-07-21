@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/diags_level3.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/diags_level3.py" afterDir="false" />
-    </list>
+    <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,7 +60,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626279915573</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Corrected the bug (use '+' instead of ',') in &#10;amp = np.sqrt(pcs[:, 0] ** 2 + pcs[:, 1] ** 2)">
+      <created>1626860284306</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1626860284307</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -72,7 +75,8 @@
     <MESSAGE value="MJO data to be retrieved in to a subdirectory and regridded to 2.5 deg." />
     <MESSAGE value="Retrieves all data together, MJO code will independently regrid the data to 2.5 deg" />
     <MESSAGE value="modifying MJO RMMs reading and indexing using pandas" />
-    <option name="LAST_COMMIT_MESSAGE" value="modifying MJO RMMs reading and indexing using pandas" />
+    <MESSAGE value="Corrected the bug (use '+' instead of ',') in &#10;amp = np.sqrt(pcs[:, 0] ** 2 + pcs[:, 1] ** 2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected the bug (use '+' instead of ',') in &#10;amp = np.sqrt(pcs[:, 0] ** 2 + pcs[:, 1] ** 2)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
