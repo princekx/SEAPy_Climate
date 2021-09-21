@@ -27,9 +27,9 @@ from scipy import signal
 
 
 def _makecube(var, wave, freq):
-    #===========================================================================
+    # ===========================================================================
     # # Make a 2D cube of wavenumber & frequency dimensions
-    #===========================================================================
+    # ===========================================================================
     var_cube = iris.cube.Cube(var)
     var_cube.rename('spectra')
     wave_coord = iris.coords.DimCoord(wave, long_name='wavenumber')
@@ -42,9 +42,9 @@ def _makecube(var, wave, freq):
 
 
 def _makespeccube(var, lat, wave, freq):
-    #===========================================================================
+    # ===========================================================================
     # # Make a 3D cube of Latitude, wavenumber & frequency dimensions
-    #===========================================================================
+    # ===========================================================================
     var_cube = iris.cube.Cube(var)
     var_cube.rename('spectra')
     lat_coord = iris.coords.DimCoord(lat, long_name='latitude')
@@ -60,12 +60,12 @@ def _makespeccube(var, lat, wave, freq):
 
 
 def _makecube_season_pow(var, wave, freq, name='spectra'):
-    #===========================================================================
+    # ===========================================================================
     # Make a cube of seasonal power
-    #===========================================================================
+    # ===========================================================================
     var_cube = iris.cube.Cube(var)
     var_cube.rename('spectra')
-    #var_cube.long_name = long_name
+    # var_cube.long_name = long_name
     wave_coord = iris.coords.DimCoord(wave, long_name='wavenumber')
     wave_coord.guess_bounds()
     freq_coord = iris.coords.DimCoord(freq, long_name='frequency')
@@ -76,7 +76,7 @@ def _makecube_season_pow(var, wave, freq, name='spectra'):
 
 
 def _taper(ts, alpha=0.1, iopt=0):
-    #===========================================================================
+    # ===========================================================================
     #
     # this function applies split-cosine-bell tapering to the series x.
     # the series will be tapered to the mean of x.
@@ -92,7 +92,7 @@ def _taper(ts, alpha=0.1, iopt=0):
     #         [p=0.10 means 10 %]
     #     iopt  iopt=0 taper to series mean
     #     iopt  iopt=1 means *force* taper to 0.0
-    #===========================================================================
+    # ===========================================================================
     if all(x == ts[0] for x in ts):
         print('all values equal')
         iopt = 1
@@ -113,14 +113,14 @@ def _taper(ts, alpha=0.1, iopt=0):
 
 
 def _rmvAnnualCycle(var, nDayTot, fCrit, spd=1, rmvMeans=False):
-    #===========================================================================
+    # ===========================================================================
     # Prewhiten the data: eg remove the annual cycle.
     # Actually, this will remove all time periods less than
     #   those corresponding to 'fCrit'.
     # Note: The original fortran code provided by JET did not remove
     #   the grid point means so .... rmvMeans=False
     #       I assume that Matt Wheeler's code did that also.
-    #===========================================================================
+    # ===========================================================================
     print(fCrit)
     # Take a copy for metadata
     var_cut = var.copy()
@@ -147,7 +147,7 @@ def _rmvAnnualCycle(var, nDayTot, fCrit, spd=1, rmvMeans=False):
 
 
 def _decompose2SymAsym(var, axis=1):
-    #===========================================================================
+    # ===========================================================================
     # This code decomposes the data in to symmetric and anti-symmetric components
     # with respect to latitude axis. It is assumed that the latitude dimension is
     # along axis = 1 as default.
@@ -156,7 +156,7 @@ def _decompose2SymAsym(var, axis=1):
     #          xOut( lat) = (x(lat)-x(-lat))/2
     # symmetric part is stored in other hemisphere [eg: Southern Hemisphere]
     #          xOut(-lat) = (x(lat)+x(-lat))/2
-    #===========================================================================
+    # ===========================================================================
     varSA = var.copy()  # copy to store the output
     nlat = var.shape[axis]  # get the number of latitude points
 
@@ -179,7 +179,7 @@ def _decompose2SymAsym(var, axis=1):
 
 
 def resolveWavesHayashi(varfft, nDayWin, spd=1):
-    #===========================================================================
+    # ===========================================================================
     #
     #  Create array PEE(NL+1,NT+1) which contains the (real) power spectrum.
     #  all the following assume indexing starting with 0
@@ -226,15 +226,15 @@ def resolveWavesHayashi(varfft, nDayWin, spd=1):
     #       if  |  numlon/2   <= pn <= numlon    then    | 0        <= n <= numlon/2
     #           |  numtim/2+1 <= pt <= numtim            | numtim-1 <= t <= numtim/2
     #
-    #===========================================================================
+    # ===========================================================================
     N, mlon = varfft.shape
     pee = np.ones([N + 1, mlon + 1]) * -999.  # initialize
-                                              # -999 scaling is for testing
-                                              # purpose
+    # -999 scaling is for testing
+    # purpose
     # Create the real power spectrum pee = sqrt(real^2+imag^2)^2
     varfft = np.abs(varfft) ** 2
     pee[:N / 2, :mlon / 2] = varfft[N / 2:N, mlon / 2:0:-1]
-    pee[N / 2 :, :mlon / 2] = varfft[:N / 2 + 1, mlon / 2:0:-1]
+    pee[N / 2:, :mlon / 2] = varfft[:N / 2 + 1, mlon / 2:0:-1]
     pee[:N / 2 + 1, mlon / 2:] = varfft[N / 2::-1, :mlon / 2 + 1]
     pee[N / 2 + 1:, mlon / 2:] = varfft[N - 1:N / 2 - 1:-1, :mlon / 2 + 1]
 
@@ -242,13 +242,13 @@ def resolveWavesHayashi(varfft, nDayWin, spd=1):
 
 
 def wk_smooth121(var):
-    #===========================================================================
+    # ===========================================================================
     # Special 1-2-1 smoother
     # Smooths vv by passing it through a 1-2-1 filter.
     # The first and last points are given 3-1 (1st) or 1-3 (last)
     # weightings (Note that this conserves the total sum).
     # The routine also skips-over missing data (np.nan)
-    #===========================================================================
+    # ===========================================================================
     varf = var.copy()
     nt = len(var)
 
@@ -268,42 +268,42 @@ def wk_smooth121(var):
 
 
 def ClosestIndex(array, value):
-    #===========================================================================
+    # ===========================================================================
     # Find the closest index to a given value in an array
-    #===========================================================================
+    # ===========================================================================
     idx = (np.abs(array - value)).argmin()
     return idx
 
 
 def ComputeBackground(peeAS, wave, freq, minwav4smth, maxwav4smth):
-    #===========================================================================
+    # ===========================================================================
     # Derive the background spectrum (red noise) ************
     # [1] Sum power over all latitude
     # [2] Put fill value in mean
     # [3] Apply smoothing to the spectrum. This smoothing DOES include wavenumber zero.
     #
-    #===========================================================================
-    psumb = np.sum(peeAS, axis=0)  #  sum over all latitudes
+    # ===========================================================================
+    psumb = np.sum(peeAS, axis=0)  # sum over all latitudes
     N, mlon = psumb.shape
     smthlen = maxwav4smth - minwav4smth + 1
 
     for tt in range(N / 2 + 1, N):
-        if freq[tt] < 0.1 :
+        if freq[tt] < 0.1:
             for i in range(1, 6):
                 psumb[tt, minwav4smth:maxwav4smth + 1] = \
-                wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
-        if freq[tt] >= 0.1 and freq[tt] < 0.2 :
+                    wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
+        if freq[tt] >= 0.1 and freq[tt] < 0.2:
             for i in range(1, 11):
                 psumb[tt, minwav4smth:maxwav4smth + 1] = \
-                wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
-        if freq[tt] >= 0.2 and freq[tt] < 0.3 :
+                    wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
+        if freq[tt] >= 0.2 and freq[tt] < 0.3:
             for i in range(1, 21):
                 psumb[tt, minwav4smth:maxwav4smth + 1] = \
-                wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
-        if freq[tt] >= 0.3 :
+                    wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
+        if freq[tt] >= 0.3:
             for i in range(1, 41):
                 psumb[tt, minwav4smth:maxwav4smth + 1] = \
-                wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
+                    wk_smooth121(psumb[tt, minwav4smth:maxwav4smth + 1])
 
     pt8cpd = min([ClosestIndex(freq, 0.8), len(freq) - 1])
 
@@ -312,49 +312,49 @@ def ComputeBackground(peeAS, wave, freq, minwav4smth, maxwav4smth):
         smthlen = pt8cpd - (N / 2 + 1) + 1
         for i in range(1, 11):
             psumb[N / 2 + 1:pt8cpd + 1, nw] = \
-            wk_smooth121(psumb[N / 2 + 1:pt8cpd + 1, nw])
+                wk_smooth121(psumb[N / 2 + 1:pt8cpd + 1, nw])
     return psumb
 
 
 def genDispersionCurves(nWaveType, nEquivDepth, nPlanetaryWave, rlat, Ahe, fillval):
-    #---------------------------------------------------------------
+    # ---------------------------------------------------------------
     # Theoretical shallow water dispersion curves
-    #--------------------------------------------------------------
+    # --------------------------------------------------------------
     pi = 4.0 * math.atan(1.0)
-    re = 6.37122e06     # [m]   average radius of earth
-    g = 9.80665        # [m/s] gravity at 45 deg lat used by the WMO
-    omega = 7.292e-05      # [1/s] earth's angular vel
+    re = 6.37122e06  # [m]   average radius of earth
+    g = 9.80665  # [m/s] gravity at 45 deg lat used by the WMO
+    omega = 7.292e-05  # [1/s] earth's angular vel
     U = 0.0
-    Un = 0.0   # since Un = U*T/L
-    ll = 2.*pi * re * math.cos(abs(rlat))
-    Beta = 2.*omega * math.cos(abs(rlat)) / re
+    Un = 0.0  # since Un = U*T/L
+    ll = 2. * pi * re * math.cos(abs(rlat))
+    Beta = 2. * omega * math.cos(abs(rlat)) / re
     maxwn = nPlanetaryWave
 
     Apzwn = np.zeros([nWaveType, nEquivDepth, nPlanetaryWave], dtype=np.double)
     Afreq = np.zeros([nWaveType, nEquivDepth, nPlanetaryWave], dtype=np.double)
 
-    for ww in range(1, nWaveType + 1):    #  wave type
-        for ed in range(1, nEquivDepth + 1):   #  equivalent depth
+    for ww in range(1, nWaveType + 1):  # wave type
+        for ed in range(1, nEquivDepth + 1):  # equivalent depth
             he = Ahe[ed - 1]
             T = 1. / math.sqrt(Beta) * (g * he) ** (0.25)
             L = (g * he) ** (0.25) / math.sqrt(Beta)
 
-            for wn in range(1, nPlanetaryWave + 1):     # planetary wave number
-                s = -20.*(wn - 1) * 2. / (nPlanetaryWave - 1) + 20.
-                k = 2.*pi * s / ll
+            for wn in range(1, nPlanetaryWave + 1):  # planetary wave number
+                s = -20. * (wn - 1) * 2. / (nPlanetaryWave - 1) + 20.
+                k = 2. * pi * s / ll
                 kn = k * L
 
                 # Anti-symmetric curves
-                if ww == 1 :  # MRG wave
+                if ww == 1:  # MRG wave
                     if k <= 0:
-                        delx = math.sqrt(1. + (4.*Beta) / (k ** 2 * math.sqrt(g * he)))
+                        delx = math.sqrt(1. + (4. * Beta) / (k ** 2 * math.sqrt(g * he)))
                         deif = k * math.sqrt(g * he) * (0.5 - 0.5 * delx)
                     if k == 0:
                         deif = math.sqrt(math.sqrt(g * he) * Beta)
-                    if k > 0 :
+                    if k > 0:
                         deif = fillval
 
-                if ww == 2:     # n=0 IG wave
+                if ww == 2:  # n=0 IG wave
                     if k < 0:
                         deif = fillval
                     if k == 0:
@@ -363,40 +363,40 @@ def genDispersionCurves(nWaveType, nEquivDepth, nPlanetaryWave, rlat, Ahe, fillv
                         delx = math.sqrt(1. + (4.0 * Beta) / (k ** 2 * math.sqrt(g * he)))
                         deif = k * math.sqrt(g * he) * (0.5 + 0.5 * delx)
 
-                if ww == 3:      # n=2 IG wave
+                if ww == 3:  # n=2 IG wave
                     n = 2.
                     delx = (Beta * math.sqrt(g * he))
-                    deif = math.sqrt((2.*n + 1.) * delx + (g * he) * k ** 2)
+                    deif = math.sqrt((2. * n + 1.) * delx + (g * he) * k ** 2)
                     # do some corrections to the above calculated frequency.......
                     for i in range(1, 6):
-                        deif = math.sqrt((2.*n + 1.) * delx + (g * he) * k ** 2 + g * he * Beta * k / deif)
+                        deif = math.sqrt((2. * n + 1.) * delx + (g * he) * k ** 2 + g * he * Beta * k / deif)
 
                 # symmetric curves
-                if ww == 4:              # n=1 ER wave
+                if ww == 4:  # n=1 ER wave
                     n = 1.
                     if k < 0:
-                        delx = (Beta / math.sqrt(g * he)) * (2.*n + 1.)
+                        delx = (Beta / math.sqrt(g * he)) * (2. * n + 1.)
                         deif = -Beta * k / (k ** 2 + delx)
                     else:
                         deif = fillval
-                if ww == 5:              # Kelvin wave
+                if ww == 5:  # Kelvin wave
                     deif = k * math.sqrt(g * he)
-                if ww == 6:             #  n=1 IG wave
+                if ww == 6:  # n=1 IG wave
                     n = 1.
                     delx = (Beta * math.sqrt(g * he))
-                    deif = math.sqrt((2.*n + 1.) * delx + (g * he) * k ** 2)
+                    deif = math.sqrt((2. * n + 1.) * delx + (g * he) * k ** 2)
                     # do some corrections to the above calculated frequency.......
                     for i in range(1, 6):
-                        deif = math.sqrt((2.*n + 1.) * delx + (g * he) * k ** 2 + g * he * Beta * k / deif)
+                        deif = math.sqrt((2. * n + 1.) * delx + (g * he) * k ** 2 + g * he * Beta * k / deif)
 
                 eif = deif  # + k*U since  U=0.0
-                P = 2.*pi / (eif * 24.*60.*60.)
+                P = 2. * pi / (eif * 24. * 60. * 60.)
                 dps = deif / k
                 R = L
-                Rdeg = (180.*R) / (pi * 6.37e6)
+                Rdeg = (180. * R) / (pi * 6.37e6)
                 Apzwn[ww - 1, ed - 1, wn - 1] = s
                 if deif != fillval:
-                    P = 2.*pi / (eif * 24.*60.*60.)
+                    P = 2. * pi / (eif * 24. * 60. * 60.)
                     Afreq[ww - 1, ed - 1, wn - 1] = 1. / P
                 else:
                     Afreq[ww - 1, ed - 1, wn - 1] = fillval
@@ -438,7 +438,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     latS = -latBound  # make symmetric about the equator
 
     lonL = 0  # -180
-    lonR = 360  #  180
+    lonR = 360  # 180
     fCrit = 1. / nDayWin  # remove all contributions 'longer'
 
     tim_taper = 0.1  # time taper      [0.1   => 10%]
@@ -452,15 +452,15 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     nSampTot = nDayTot * spd  # of samples (total)
     nSampWin = nDayWin * spd  # of samples per temporal window
     nSampSkip = nDaySkip * spd  # of samples to skip between window segments
-                                # neg means overlap
+    # neg means overlap
     nWindow = (nSampTot - nSampWin) / (nSampWin + nSampSkip) + 1
     N = nSampWin  # convenience [historical]
 
-    if nDayTot < nDayWin :
+    if nDayTot < nDayWin:
         print("nDayTot=" + nDayTot + " is less the nDayWin=" + nDayWin)
         print("        This is not allowed !!       ")
         sys.exit(0)
-    #-------------------------------------------------------------------
+    # -------------------------------------------------------------------
     #  Remove dominant signals
     # (a) Explicitly remove *long term* linear trend
     #      For consistency with JET code keep the grid point means.
@@ -489,22 +489,22 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     varmean = var.collapsed('time', iris.analysis.MEAN)
 
     # remove linear trend
-    var.data = signal.detrend(var.data, axis=0) + varmean.data # Mean added
+    var.data = signal.detrend(var.data, axis=0) + varmean.data  # Mean added
     # print 'Passed detrend test!'
 
     print('nDayTot = ' + str(nDayTot))
 
-    if nDayTot >= 365:  #  remove dominant signals
-        rmvMeans = True  #  original code did not remove
+    if nDayTot >= 365:  # remove dominant signals
+        rmvMeans = True  # original code did not remove
         var = _rmvAnnualCycle(var, nDayTot, fCrit, spd=1, rmvMeans=False)
     else:
         print('Length of the variable is shorter than 365. Can not continue!')
         sys.exit(1)
 
-    #-------------------------------------------------------------------
+    # -------------------------------------------------------------------
     #  Decompose to Symmetric and Asymmetric parts
     # -------------------------------------------------------------------
-    xAS = _decompose2SymAsym(var)  #   create Asym and Sym parts
+    xAS = _decompose2SymAsym(var)  # create Asym and Sym parts
     # print 'Passed decomposition test.'
 
     # -------------------------------------------------------------------
@@ -543,8 +543,8 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
             # split-cosine-bell tapering.
             for lo in range(mlon):
                 work.data[:, lo] = _taper(work.data[:, lo], \
-                                         alpha=tim_taper, \
-                                         iopt=0)
+                                          alpha=tim_taper, \
+                                          iopt=0)
             # print 'Passed Tapering test'
 
             # Do actual FFT work
@@ -557,7 +557,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
             # Average
             peeAS[nl, :, :] = peeAS[nl, :, :] + (pee / nWindow)
             nw += 1
-            ntStrt = ntLast + nSampSkip  #     set index for next temporal window
+            ntStrt = ntLast + nSampSkip  # set index for next temporal window
             ntLast = ntStrt + nSampWin
 
     peeAS_cube = _makespeccube(peeAS, lats, wave, freq)
@@ -583,9 +583,9 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     # -------------------------------------------------------------------
     psumanti = 2.0 * psumanti
     psumsym = 2.0 * psumsym
-    #-------------------------------------------------------------------
+    # -------------------------------------------------------------------
     # set the mean to missing to match original code
-    #------------------------------------------------------------------
+    # ------------------------------------------------------------------
     zeroind = np.where(freq == 0.)[0][0]
 
     psumanti[zeroind, :] = np.nan
@@ -636,7 +636,6 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     psumb_nolog = np.ma.masked_array(psumb)
     psumb = np.ma.log10(psumb)
 
-
     # -------------------------------------------------------------------------------
     #  Plot section
     # Fig.1 - Raw spectra Symmetric and Anti-symmetric
@@ -685,7 +684,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     #  Fig 3a, 3b:  psum_nolog/psumb_nolog  [ratio]
     # ***************************************************************
     psumanti_nolog = np.ma.masked_array(psumanti_nolog / psumb_nolog)
-    psumsym_nolog = np.ma.masked_array(psumsym_nolog / psumb_nolog)  #  (wave,freq)
+    psumsym_nolog = np.ma.masked_array(psumsym_nolog / psumb_nolog)  # (wave,freq)
 
     # Theoretical dispersion curves
     rlat = 0.0
@@ -695,8 +694,8 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     nEquivDepth = Ahe.size
     fillval = 1e20
     Afreq, Apzwn = genDispersionCurves(nWaveType, \
-                   nEquivDepth, nPlanetaryWave, rlat, \
-                   Ahe, fillval)
+                                       nEquivDepth, nPlanetaryWave, rlat, \
+                                       Ahe, fillval)
     # removing missing values
     Afreq = np.ma.masked_values(Afreq, fillval)
     Apzwn = np.ma.masked_values(Apzwn, fillval)
@@ -704,22 +703,22 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     # Define contour levels for plots
     if varname == 'toa_outgoing_longwave_flux':
         levels = np.array([0.2, .3, .4, .5, .6, .7, .8, .9, 1., 1.1, 1.2, 1.3,
-            1.4, 1.5, 1.6, 1.7, 1.8])
+                           1.4, 1.5, 1.6, 1.7, 1.8])
     elif varname == 'precipitation_flux':
         levels = np.array([0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.15, 1.2, 1.25,
-            1.3, 1.35, 1.4, 1.45, 1.5, 1.6, 1.7])
+                           1.3, 1.35, 1.4, 1.45, 1.5, 1.6, 1.7])
     elif varname == 'x_wind_850hPa':
         levels = np.array([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.2,
-            1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9])
+                           1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9])
     elif varname == 'x_wind_200hPa':
         levels = np.array([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.2,
-            1.3, 1.4, 1.5, 1.6,  1.7, 1.8, 2])
+                           1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2])
 
     title = 'Anti-symmetric/Background ' + runid + ' ' + varname + ' log(power) [15S-15N]'
     forename = runid + '_' + varname + '_Ratio_Spec_Asym'
     figname = os.path.join(outdir, "%s.png" % forename)
     mjp.plotAntiSymmetric(psumanti_nolog, freq, wave, Apzwn, Afreq, \
-        levels=levels, title=title, figname=figname)
+                          levels=levels, title=title, figname=figname)
 
     psumanti_nolog_cube = _makecube(psumanti_nolog, wave, freq)
     ncname = os.path.join(outdir, "%s.nc" % forename)
@@ -728,16 +727,16 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     # Define contour levels for plots
     if varname == 'toa_outgoing_longwave_flux':
         levels = np.array([0.2, .3, .4, .5, .6, .7, .8, .9, 1., 1.1, 1.2, 1.4,
-            1.7, 2., 2.4, 2.8, 3.2])
+                           1.7, 2., 2.4, 2.8, 3.2])
     elif varname == 'precipitation_flux':
         levels = np.array([0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.15, 1.2, 1.25,
-            1.3, 1.35, 1.4, 1.45, 1.5, 1.6, 1.7])
+                           1.3, 1.35, 1.4, 1.45, 1.5, 1.6, 1.7])
     elif varname == 'x_wind_850hPa':
         levels = np.array([0.2, 0.4, 0.6, 0.8, 1., 1.2, 1.3, 1.4, 1.5, 1.6,
-            1.7, 1.8, 2, 2.2, 2.4, 2.6, 2.8])
+                           1.7, 1.8, 2, 2.2, 2.4, 2.6, 2.8])
     elif varname == 'x_wind_200hPa':
         levels = np.array([0.2, 0.4, 0.6, 0.8, 1., 1.2, 1.3, 1.4, 1.5, 1.6,
-            1.7, 1.8, 2, 2.2, 2.4, 2.6, 2.8])
+                           1.7, 1.8, 2, 2.2, 2.4, 2.6, 2.8])
     else:
         levels = np.array([0.2, 0.4, 0.6, 0.8, 1., 1.2, 1.3, 1.4, 1.5, 1.6,
                            1.7, 1.8, 2, 2.2, 2.4, 2.6, 2.8])
@@ -746,7 +745,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     forename = runid + '_' + varname + '_Ratio_Spec_Sym'
     figname = os.path.join(outdir, "%s.png" % forename)
     mjp.plotSymmetric(psumsym_nolog, freq, wave, Apzwn, Afreq, \
-        levels=levels, title=title, figname=figname)
+                      levels=levels, title=title, figname=figname)
 
     psumsym_nolog_cube = _makecube(psumsym_nolog, wave, freq)
     ncname = os.path.join(outdir, "%s.nc" % forename)
@@ -776,7 +775,7 @@ def mjo_wavenum_freq_season(var, seaName):
         nDay = 365
         mmddStrt = 101
 
-    iSea = [i for i in range(len(mmdd)) if  mmdd[i] == mmddStrt]
+    iSea = [i for i in range(len(mmdd)) if mmdd[i] == mmddStrt]
     nYear = len(iSea)
 
     '''
@@ -792,43 +791,43 @@ def mjo_wavenum_freq_season(var, seaName):
     varmean = var.collapsed('time', iris.analysis.MEAN)
 
     # remove linear trend
-    var.data = signal.detrend(var.data, axis=0) #+ varmean.data # Mean added
+    var.data = signal.detrend(var.data, axis=0)  # + varmean.data # Mean added
 
     # Initialise
     power = np.zeros([mlon + 1, nDay + 1])  # initialize
     work = var.data
     xAvgSea = 0.0
-    xVarSea = 0.0                            #  variance (raw)
-    xVarTap = 0.0                            #  variance after tapering
-    kSea = 0                                #  count of seasons used
-    N = nDay                            #  convenience
+    xVarSea = 0.0  # variance (raw)
+    xVarTap = 0.0  # variance after tapering
+    kSea = 0  # count of seasons used
+    N = nDay  # convenience
 
     for ny in range(nYear):
-        iStrt = iSea[ny]                  # start index for current season
-        iLast = iSea[ny] + nDay      # last
+        iStrt = iSea[ny]  # start index for current season
+        iLast = iSea[ny] + nDay  # last
         if iLast < ntim - 1:
             print(ny, kSea, iStrt, iLast, yyyymmdd[iStrt], yyyymmdd[iLast])
             xSeason = work[iStrt:iLast, :]
-            xAvg = np.average(xSeason)              #  season average all time/lon
-            xSeason = xSeason - xAvg              #  remove season time-lon mean
-            xVarSea = xVarSea + np.var(xSeason)    #  overall variance
+            xAvg = np.average(xSeason)  # season average all time/lon
+            xSeason = xSeason - xAvg  # remove season time-lon mean
+            xVarSea = xVarSea + np.var(xSeason)  # overall variance
             kSea = kSea + 1
 
             for lo in range(mlon):
                 xSeason[:, lo] = _taper(xSeason[:, lo], \
-                                             alpha=0.1, \
-                                             iopt=0)
-            xVarTap = xVarTap + np.var(xSeason)    # variance after tapering
+                                        alpha=0.1, \
+                                        iopt=0)
+            xVarTap = xVarTap + np.var(xSeason)  # variance after tapering
             # do 2d fft
             ft = xSeason.copy()
             ft = np.fft.fft2(xSeason.T) / mlon / nDay
 
             # Shifting FFTs
-            power = power + resolveWavesHayashi(ft, nDay, spd=1)     #  (wave,freq)
+            power = power + resolveWavesHayashi(ft, nDay, spd=1)  # (wave,freq)
 
-    xVarSea = xVarSea / kSea            #   pooled seasonal variance
-    xVarTap = xVarTap / kSea            #    pooled seasonal variance
-    power = np.ma.masked_array(power / kSea)                   #   pooled spectra
+    xVarSea = xVarSea / kSea  # pooled seasonal variance
+    xVarTap = xVarTap / kSea  # pooled seasonal variance
+    power = np.ma.masked_array(power / kSea)  # pooled spectra
 
     wave = np.arange(-mlon / 2, mlon / 2 + 1, 1)
     freq = np.linspace(-1 * nDay / 2, nDay / 2, nDay + 1) / nDay
@@ -838,7 +837,6 @@ def mjo_wavenum_freq_season(var, seaName):
 
 
 def diagnos_level2(var, outdir, runid):
-
     varname = var.long_name
     if varname == 'x_wind':
         assert len(var.coord('pressure').points) == 1
@@ -854,10 +852,9 @@ def diagnos_level2(var, outdir, runid):
     xvar = var.extract(mu.region(coords))
 
     spd = 1
-    nDayWin = 96  #  Wheeler-Kiladis [WK] temporal window length (days)
+    nDayWin = 96  # Wheeler-Kiladis [WK] temporal window length (days)
     nDaySkip = -65
     xs = wkSpaceTime(xvar, outdir, runid, latBound, spd, nDayWin, nDaySkip)
-
 
     ### Frequency spectra for each season
     # The wavenumber - frequency spectra for each season are calculated
@@ -918,9 +915,9 @@ def east_west_power_ratio(power_spectra_cube, season, var_name):
         DOI: 10.1175/JCLI-D-13-00497.1
     """
     metrics = {}
-    freq_constraint = iris.Constraint(frequency=lambda cell:0.0167 <= cell <= 0.0333)
+    freq_constraint = iris.Constraint(frequency=lambda cell: 0.0167 <= cell <= 0.0333)
     east_constraint = iris.Constraint(wavenumber=lambda cell: 1 <= cell <= 3)
-    west_constraint = iris.Constraint(wavenumber=lambda cell:-3 <= cell <= -1)
+    west_constraint = iris.Constraint(wavenumber=lambda cell: -3 <= cell <= -1)
 
     east = power_spectra_cube.extract(freq_constraint & east_constraint)
     west = power_spectra_cube.extract(freq_constraint & west_constraint)

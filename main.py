@@ -33,16 +33,16 @@ if __name__ == '__main__':
     # 1. Data download from MASS
     #retrieve.model_data_retrieve(varnames, control=control, expt=expt)
 
-    # 2. Do MJO
+    # 2. Do MJO calculations
     # put obs=None if you do not wish to compute obs every time
-    do_mjo.mjo_compute(control=control, expt=expt, obs=None,
-                       level1=False, level2=False, level3=True)
+    #do_mjo.mjo_compute(control=None, expt=None, obs=obs,
+    #                   level1=False, level2=False, level3=True)
 
     # 3. Do SEA computations
     # put obs=None if you do not wish to compute obs every time
     #do_sea.sea_compute(varnames, control=control, expt=expt, obs=obs,
     #                   cs_level1=True, eqw_level2=True, level3=False)
 
-    #do_sea.sea_compute(varnames, control=None, expt=None, obs=obs,
-    #                   cs_level1=False, eqw_level2=False,
-    #                   extreme_level4=True)
+    do_sea.sea_compute(varnames, control=None, expt=None, obs=obs,
+                       cs_level1=False, eqw_level2=False,
+                       extreme_level4=True)
