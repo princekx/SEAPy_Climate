@@ -34,14 +34,14 @@ if __name__ == '__main__':
 
     # 2. Do MJO calculations
     # put obs=None if you do not wish to compute obs every time
-    do_mjo.mjo_compute(control=control, expt=expt, obs=obs,
-                       level1=True, level2=True, level3=True)
+    #do_mjo.mjo_compute(control=control, expt=expt, obs=obs,
+    #                  level1=True, level2=True, level3=True)
 
     # 3. Do SEA computations
     # put obs=None if you do not wish to compute obs every time
     #do_sea.sea_compute(varnames, control=control, expt=expt, obs=obs,
     #                   cs_level1=True, eqw_level2=True, level3=False)
 
-    #do_sea.sea_compute(varnames, control=None, expt=None, obs=obs,
-    #                   cs_level1=False, eqw_level2=False,
-    #                   extreme_level4=True)
+    do_sea.sea_compute(varnames, control=control, expt=expt, obs=obs,
+                       cs_level1=True, eqw_level2=True,
+                       extreme_level4=True)

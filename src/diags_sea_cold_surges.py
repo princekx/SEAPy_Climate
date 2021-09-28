@@ -13,6 +13,7 @@ import iris
 import iris.quickplot as qplt
 import iris.plot as iplt
 import matplotlib.pyplot as plt
+from matplotlib.colors import BoundaryNorm
 import cartopy.crs as ccrs
 import csv
 
@@ -329,7 +330,12 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
         plt.figure()
         ax = plt.axes(projection=ccrs.PlateCarree())
         figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
-        cf = iplt.contourf(cst_precip_mean, cmap='RdBu', levels=np.arange(-5, 6, 1), extend='both')
+        #cf = iplt.contourf(cst_precip_mean, cmap='RdBu', levels=np.arange(-5, 6, 1), extend='both')
+
+        levels = np.arange(-5, 6, 1)
+        cmap = plt.get_cmap('RdBu')
+        norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
+        cf = iplt.pcolormesh(cst_precip_mean, cmap=cmap, norm=norm)
 
         plt.colorbar(cf, orientation='vertical')
         q = plt.quiver(x, y, u, v, units='width')
@@ -337,7 +343,7 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
                      label='5 m/s', labelpos='E')
         plt.ylim([-10, 25])
         plt.xlim([95, 130])
-        gl = ax.gridlines(draw_labels=True, color='white')
+        gl = ax.gridlines(draw_labels=True, alpha=0.5)
         gl.xlabels_top = False
         gl.ylabels_right = False
         plt.title('%s %s UV850, PRECIP' % (runid, cst))
@@ -349,7 +355,12 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
         figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'sst_winds850'))
         plt.figure()
         ax = plt.axes(projection=ccrs.PlateCarree())
-        cf = iplt.contourf(cst_sst_mean, cmap='RdBu_r', levels=np.arange(-1, 1, 0.1), extend='both')
+        #cf = iplt.contourf(cst_sst_mean, cmap='RdBu_r', levels=np.arange(-1, 1, 0.1), extend='both')
+
+        levels=np.arange(-1, 1, 0.1)
+        cmap = plt.get_cmap('RdBu_r')
+        norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
+        cf = iplt.pcolormesh(cst_sst_mean, cmap=cmap, norm=norm)
 
         plt.colorbar(cf, orientation='vertical')
         q = plt.quiver(x, y, u, v, units='width')
@@ -357,7 +368,7 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
                      label='5 m/s', labelpos='E')
         plt.ylim([-10, 25])
         plt.xlim([95, 130])
-        gl = ax.gridlines(draw_labels=True, color='white')
+        gl = ax.gridlines(draw_labels=True, alpha=0.5)
         gl.xlabels_top = False
         gl.ylabels_right = False
         plt.title('%s %s UV850, SST' % (runid, cst))

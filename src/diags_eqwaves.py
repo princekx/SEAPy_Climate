@@ -14,6 +14,7 @@ from iris.coord_categorisation import add_day_of_month
 import iris.quickplot as qplt
 import iris.plot as iplt
 import matplotlib.pyplot as plt
+from matplotlib.colors import BoundaryNorm
 import cartopy.crs as ccrs
 from src import data_paths
 from src import kf_filter
@@ -99,12 +100,17 @@ def plot_wave_std_maps(wavename=None, varname=None, title=None, season=None,
     plt.figure()
     ax = plt.axes(projection=ccrs.PlateCarree())
     # figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
-    cf = iplt.contourf(cube, cmap='YlOrRd', extend='both', levels=clevels)  # con['contour_levels']
+    #cf = iplt.contourf(cube, cmap='YlOrRd', extend='both', levels=clevels)  # con['contour_levels']
+
+    levels = clevels
+    cmap = plt.get_cmap('YlOrRd')
+    norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
+    cf = iplt.pcolormesh(cube, cmap=cmap, norm=norm)
 
     plt.colorbar(cf, orientation='horizontal')
     # plt.ylim([lati, latf])
     # plt.xlim([loni, lonf])
-    gl = ax.gridlines(draw_labels=True, color='white', linewidth=0.25, alpha=0.5)
+    gl = ax.gridlines(draw_labels=True, linewidth=0.25, alpha=0.5)
     gl.xlabels_top = False
     gl.ylabels_right = False
     plt.title('%s %s %s amplitude %s' % (runid, varname, wavename, season))
@@ -150,12 +156,17 @@ def plot_wave_variance_percent(wavename=None, varname=None, title=None, season=N
     plt.figure()
     ax = plt.axes(projection=ccrs.PlateCarree())
     # figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
-    cf = iplt.contourf(cube, cmap='ocean_r', extend='both', levels=clevels)  # con['contour_levels']
+    #cf = iplt.contourf(cube, cmap='ocean_r', extend='both', levels=clevels)  # con['contour_levels']
+
+    levels = clevels
+    cmap = plt.get_cmap('ocean_r')
+    norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
+    cf = iplt.pcolormesh(cube, cmap=cmap, norm=norm)
 
     plt.colorbar(cf, orientation='horizontal')
     # plt.ylim([lati, latf])
     # plt.xlim([loni, lonf])
-    gl = ax.gridlines(draw_labels=True, color='white', linewidth=0.25, alpha=0.5)
+    gl = ax.gridlines(draw_labels=True, linewidth=0.25, alpha=0.5)
     gl.xlabels_top = False
     gl.ylabels_right = False
     plt.title('%s %s %s amplitude %s' % (runid, varname, wavename, season))
