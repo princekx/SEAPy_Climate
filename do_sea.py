@@ -13,7 +13,6 @@ from src import diags_precip_extremes as extreme
 def sea_compute(varnames, control=None, expt=None, obs=None,
                 cs_level1=True,
                 eqw_level2=True,
-                mjo_level3=False,
                 extreme_level4=True):
     '''
     :param varnames: U850, V850, PRECIP, SST in that order
@@ -45,51 +44,48 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
         if not os.path.exists(out_plot_dir):
             os.makedirs(out_plot_dir)
 
-        # For Cold surge computations, read in U850 and V850 first
-        u850_file = os.path.join(data_root, runid + '_U850.pp.nc')
-        u200_file = os.path.join(data_root, runid + '_U200.pp.nc')
-        v850_file = os.path.join(data_root, runid + '_V850.pp.nc')
-        precip_file = os.path.join(data_root, runid + '_PRECIP.pp.nc')
-        sst_file = os.path.join(data_root, runid + '_SST.pp.nc')
+        if runid == 'obs':
+            start_date = '2000/06/01'
+            end_date = '2020/12/31'
+            precip_file = os.path.join(data_root, 'GPM_PRECIP_SEA_24h_mean_2000_2020.nc')
+            u850_file = os.path.join(data_root, 'ERA5_U850_SEA_24h_mean_2000_2020.nc')
+            v850_file = os.path.join(data_root, 'ERA5_V850_SEA_24h_mean_2000_2020.nc')
+            sst_file = os.path.join(data_root, 'NOAA_OISST_SEA_24h_mean_2000_2020.nc')
+
+        else:
+            start_date = run['start_date']
+            end_date = run['end_date']
+            precip_file = os.path.join(data_root, runid + '_PRECIP.pp.nc')
+            u850_file = os.path.join(data_root, runid + '_U850.pp.nc')
+            v850_file = os.path.join(data_root, runid + '_V850.pp.nc')
+            sst_file = os.path.join(data_root, runid + '_SST.pp.nc')
+
         print(precip_file)
         var_cubes = []
         print(u850_file)
         if os.path.exists(u850_file):
             u_wind_850_cubes = iris.load_cube(u850_file)
             u_wind_850_cubes.long_name = 'x_wind_850hPa'
-            u_wind_850_cubes = u_wind_850_cubes.intersection(latitude=(-30, 30),
-                                                             longitude=(0, 360))
+            #u_wind_850_cubes = u_wind_850_cubes.intersection(latitude=(-30, 30),
+            #                                                 longitude=(0, 360))
             var_cubes.append(u_wind_850_cubes)
-
-        print(u200_file)
-        if os.path.exists(u200_file):
-            u_wind_200_cubes = iris.load_cube(u200_file)
-            u_wind_200_cubes.long_name = 'x_wind_200hPa'
-            u_wind_200_cubes = u_wind_200_cubes.intersection(latitude=(-30, 30),
-                                                             longitude=(0, 360))
-            print(u_wind_200_cubes)
-            var_cubes.append(u_wind_200_cubes)
-        else:
-            print('%s not found' %u200_file)
 
         if os.path.exists(v850_file):
             v_wind_850_cubes = iris.load_cube(v850_file)
             v_wind_850_cubes.long_name = 'y_wind_850hPa'
-            v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
-                                                             longitude=(0, 360))
+            #v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
+            #                                                 longitude=(0, 360))
             # print(v_wind_850_cubes)
             var_cubes.append(v_wind_850_cubes)
         print(precip_file)
         if os.path.exists(precip_file):
             precip_cubes = iris.load_cube(precip_file)
             precip_cubes.long_name = 'precipitation_flux'
-            precip_cubes = precip_cubes.intersection(latitude=(-30, 30),
-                                                     longitude=(0, 360))
+            #precip_cubes = precip_cubes.intersection(latitude=(-30, 30),
+            #                                         longitude=(0, 360))
             # for model data, convert them to mm/day
-            if runid == 'obs':
-                precip_cubes.convert_units('mm')
-            else:
-                precip_cubes.convert_units('kg m-2 day-1')
+            if not runid == 'obs':
+               precip_cubes.convert_units('kg m-2 day-1')
 
             # print(precip_cubes)
             var_cubes.append(precip_cubes)
@@ -97,8 +93,8 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
         if os.path.exists(sst_file):
             sst_cubes = iris.load_cube(sst_file)
             sst_cubes.long_name = 'surface_temperature'
-            sst_cubes = sst_cubes.intersection(latitude=(-30, 30),
-                                               longitude=(0, 360))
+            #sst_cubes = sst_cubes.intersection(latitude=(-30, 30),
+            #                                   longitude=(0, 360))
 
             # print(sst_cubes)
             var_cubes.append(sst_cubes)

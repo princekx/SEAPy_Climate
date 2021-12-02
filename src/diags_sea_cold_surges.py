@@ -167,9 +167,9 @@ def cold_surge_stats(u850, v850, runid='obs'):
     msinds = np.where(v850_ba.data < ms_es_threshold)[0]
     ms_points[msinds] = 1
 
-    plt.plot(v850_ba.data)
-    plt.plot(ms_points * -8)
-    plt.show()
+    #plt.plot(v850_ba.data)
+    #plt.plot(ms_points * -8)
+    #plt.show()
 
     for i in msinds:
         msfile.write(str(years[i] * 10000 + months[i] * 100 + days[i]) + '\n')
