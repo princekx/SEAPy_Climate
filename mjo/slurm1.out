@@ -1,0 +1,8 @@
+begin
+T1>={1989/01/01}
+T2<={2009/12/29}
+stash=3332
+lbproc=128
+end
+### select, command-id=836340620, estimated-cost=801546720byte(s), files=241, media=0
+slurmstepd: error: *** JOB 5404817 ON expspicesrv012 CANCELLED AT 2019-12-05T09:56:05 ***

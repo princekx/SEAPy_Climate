@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SEAPy.mjo.src package &mdash; SEAPy 0.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SEAPy.src package" href="SEAPy.src.html" />
+    <link rel="prev" title="SEAPy.mjo package" href="SEAPy.mjo.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SEAPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="SEAPy.html">SEAPy package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="SEAPy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="SEAPy.mjo.html">SEAPy.mjo package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="SEAPy.mjo.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-data-paths-module">SEAPy.mjo.data_paths module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-do-mjo-module">SEAPy.mjo.do_mjo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-main-module">SEAPy.mjo.main module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-retrieve-mjo-data-module">SEAPy.mjo.retrieve_MJO_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="SEAPy.src.html">SEAPy.src package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.html#seapy-do-sea-module">SEAPy.do_sea module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.html#seapy-main-module">SEAPy.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="SEAPy.mjo.html">SEAPy.mjo package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="SEAPy.mjo.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SEAPy.mjo.src package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-diags-level1-module">SEAPy.mjo.src.diags_level1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-diags-level2-module">SEAPy.mjo.src.diags_level2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-diags-level3-module">SEAPy.mjo.src.diags_level3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-diags-level4-module">SEAPy.mjo.src.diags_level4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-get-obs-data-module">SEAPy.mjo.src.get_obs_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-mjo-area-module">SEAPy.mjo.src.mjo_area module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-mjo-plots-module">SEAPy.mjo.src.mjo_plots module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-mjo-utils-module">SEAPy.mjo.src.mjo_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-mycolormaps-module">SEAPy.mjo.src.mycolormaps module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seapy-mjo-src-reg-lat-long-grid-module">SEAPy.mjo.src.reg_lat_long_grid module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.mjo.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-data-paths-module">SEAPy.mjo.data_paths module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-do-mjo-module">SEAPy.mjo.do_mjo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-main-module">SEAPy.mjo.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.mjo.html#seapy-mjo-retrieve-mjo-data-module">SEAPy.mjo.retrieve_MJO_data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.mjo.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SEAPy.mjo.src package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-diags-level1-module">SEAPy.mjo.src.diags_level1 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-diags-level2-module">SEAPy.mjo.src.diags_level2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-diags-level3-module">SEAPy.mjo.src.diags_level3 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-diags-level4-module">SEAPy.mjo.src.diags_level4 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-get-obs-data-module">SEAPy.mjo.src.get_obs_data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-mjo-area-module">SEAPy.mjo.src.mjo_area module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-mjo-plots-module">SEAPy.mjo.src.mjo_plots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-mjo-utils-module">SEAPy.mjo.src.mjo_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-mycolormaps-module">SEAPy.mjo.src.mycolormaps module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seapy-mjo-src-reg-lat-long-grid-module">SEAPy.mjo.src.reg_lat_long_grid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SEAPy.src.html">SEAPy.src package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">SEAPy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="SEAPy.html">SEAPy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="SEAPy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="SEAPy.mjo.html">SEAPy.mjo package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.src.html">SEAPy.src package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="SEAPy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SEAPy.html#seapy-do-sea-module">SEAPy.do_sea module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SEAPy.html#seapy-main-module">SEAPy.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SEAPy.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SEAPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="SEAPy.html">SEAPy package</a> &raquo;</li>
+        
+          <li><a href="SEAPy.mjo.html">SEAPy.mjo package</a> &raquo;</li>
+        
+      <li>SEAPy.mjo.src package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/SEAPy.mjo.src.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="seapy-mjo-src-package">
+<h1>SEAPy.mjo.src package<a class="headerlink" href="#seapy-mjo-src-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-diags-level1-module">
+<h2>SEAPy.mjo.src.diags_level1 module<a class="headerlink" href="#seapy-mjo-src-diags-level1-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-diags-level2-module">
+<h2>SEAPy.mjo.src.diags_level2 module<a class="headerlink" href="#seapy-mjo-src-diags-level2-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-diags-level3-module">
+<h2>SEAPy.mjo.src.diags_level3 module<a class="headerlink" href="#seapy-mjo-src-diags-level3-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-diags-level4-module">
+<h2>SEAPy.mjo.src.diags_level4 module<a class="headerlink" href="#seapy-mjo-src-diags-level4-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-get-obs-data-module">
+<h2>SEAPy.mjo.src.get_obs_data module<a class="headerlink" href="#seapy-mjo-src-get-obs-data-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-mjo-area-module">
+<h2>SEAPy.mjo.src.mjo_area module<a class="headerlink" href="#seapy-mjo-src-mjo-area-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-mjo-plots-module">
+<h2>SEAPy.mjo.src.mjo_plots module<a class="headerlink" href="#seapy-mjo-src-mjo-plots-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-mjo-utils-module">
+<h2>SEAPy.mjo.src.mjo_utils module<a class="headerlink" href="#seapy-mjo-src-mjo-utils-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-mycolormaps-module">
+<h2>SEAPy.mjo.src.mycolormaps module<a class="headerlink" href="#seapy-mjo-src-mycolormaps-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="seapy-mjo-src-reg-lat-long-grid-module">
+<h2>SEAPy.mjo.src.reg_lat_long_grid module<a class="headerlink" href="#seapy-mjo-src-reg-lat-long-grid-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SEAPy.src.html" class="btn btn-neutral float-right" title="SEAPy.src package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SEAPy.mjo.html" class="btn btn-neutral float-left" title="SEAPy.mjo package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Prince Xavier
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

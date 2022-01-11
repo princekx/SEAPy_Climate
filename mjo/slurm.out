@@ -1,0 +1,3253 @@
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=3332
+lbproc=128
+end
+### select, command-id=1033312712, estimated-cost=808198560byte(s), files=243, media=1
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=30201
+lbproc=128
+lblev=850
+end
+### select, command-id=1033330068, estimated-cost=408235944byte(s), files=243, media=3
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=30201
+lbproc=128
+lblev=200
+end
+### select, command-id=1033343534, estimated-cost=463832784byte(s), files=243, media=0
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=5216
+lbproc=128
+end
+### select, command-id=1033349886, estimated-cost=808198560byte(s), files=243, media=1
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=24
+lbproc=128
+end
+### select, command-id=1033355510, estimated-cost=435396816byte(s), files=243, media=0
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=3332
+lbproc=128
+end
+### select, command-id=1033362286, estimated-cost=808198560byte(s), files=243, media=0
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=30201
+lbproc=128
+lblev=850
+end
+### select, command-id=1033367778, estimated-cost=408028064byte(s), files=243, media=0
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=30201
+lbproc=128
+lblev=200
+end
+### select, command-id=1033375968, estimated-cost=464302872byte(s), files=243, media=0
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=5216
+lbproc=128
+end
+### select, command-id=1033386398, estimated-cost=808198560byte(s), files=243, media=0
+begin
+T1>={1981/12/01}
+T2<={2008/12/01}
+stash=24
+lbproc=128
+end
+### select, command-id=1033399571, estimated-cost=435062016byte(s), files=243, media=0
+{'runid': 'u-bw062', 'start_date': '1981/12/01', 'end_date': '2008/12/01', 'data_retrieve_dir': '/scratch/hadpx/hadgem3/data/SEAPy'} {'runid': 'u-by782', 'start_date': '1981/12/01', 'end_date': '2008/12/01', 'data_retrieve_dir': '/scratch/hadpx/hadgem3/data/SEAPy'}
+****************************************
+OLR
+/var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_OLR.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt moose:/crum/u-bw062/apd.pp /scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_OLR.pp
+Sort pp headers...
+Converting to netcdf files...
+toa_outgoing_longwave_flux / (W m-2) (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                            x               -              -
+          latitude                        -               x              -
+          longitude                       -               -              x
+     Auxiliary coordinates:
+          forecast_period                 x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          STASH: m01s03i332
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+U850
+/var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_U850.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt moose:/crum/u-bw062/ape.pp /scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_U850.pp
+Sort pp headers...
+Converting to netcdf files...
+x_wind / (m s-1)                    (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 850.0 hPa
+     Attributes:
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+U200
+/var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_U200.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt moose:/crum/u-bw062/ape.pp /scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_U200.pp
+Sort pp headers...
+Converting to netcdf files...
+x_wind / (m s-1)                    (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 200.0 hPa
+     Attributes:
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+PRECIP
+/var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_PRECIP.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt moose:/crum/u-bw062/apa.pp /scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_PRECIP.pp
+Sort pp headers...
+Converting to netcdf files...
+precipitation_flux / (kg m-2 s-1)   (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          STASH: m01s05i216
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+SST
+/var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_SST.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_dad7edd4-20c0-42cc-91fe-f8b77135ac86.txt moose:/crum/u-bw062/apa.pp /scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_SST.pp
+Sort pp headers...
+Converting to netcdf files...
+surface_temperature / (K)           (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          STASH: m01s00i024
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+OLR
+/var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_OLR.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt moose:/crum/u-by782/apd.pp /scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_OLR.pp
+Sort pp headers...
+Converting to netcdf files...
+toa_outgoing_longwave_flux / (W m-2) (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                            x               -              -
+          latitude                        -               x              -
+          longitude                       -               -              x
+     Auxiliary coordinates:
+          forecast_period                 x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          STASH: m01s03i332
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+U850
+/var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_U850.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt moose:/crum/u-by782/ape.pp /scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_U850.pp
+Sort pp headers...
+Converting to netcdf files...
+x_wind / (m s-1)                    (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 850.0 hPa
+     Attributes:
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+U200
+/var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_U200.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt moose:/crum/u-by782/ape.pp /scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_U200.pp
+Sort pp headers...
+Converting to netcdf files...
+x_wind / (m s-1)                    (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 200.0 hPa
+     Attributes:
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+PRECIP
+/var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_PRECIP.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt moose:/crum/u-by782/apa.pp /scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_PRECIP.pp
+Sort pp headers...
+Converting to netcdf files...
+precipitation_flux / (kg m-2 s-1)   (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          STASH: m01s05i216
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+****************************************
+SST
+/var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt
+****************************************
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_SST.pp not found. Retrieving from MASS...
+moo select -C /var/tmp/diags_filter_temp_level_16bf84dc-eb25-4d18-9512-b60237757a28.txt moose:/crum/u-by782/apa.pp /scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_SST.pp
+Sort pp headers...
+Converting to netcdf files...
+surface_temperature / (K)           (time: 7290; latitude: 73; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          STASH: m01s00i024
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_OLR.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_U850.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_U200.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_PRECIP.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-bw062/u-bw062_SST.pp.nc
+toa_outgoing_longwave_flux / (W m-2) (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                            x               -              -
+          latitude                        -               x              -
+          longitude                       -               -              x
+     Auxiliary coordinates:
+          forecast_period                 x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s03i332
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour) x_wind / (m s-1)                    (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 200.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour) x_wind / (m s-1)                    (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 850.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+precipitation_flux
+Starting Level 1 diagnostics for precipitation_flux...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+precipitation_flux Level 1 diagnostics completed.
+**************************************************
+toa_outgoing_longwave_flux
+Starting Level 1 diagnostics for toa_outgoing_longwave_flux...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+toa_outgoing_longwave_flux Level 1 diagnostics completed.
+**************************************************
+x_wind_200hPa
+Starting Level 1 diagnostics for x_wind_200hPa...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+x_wind_200hPa Level 1 diagnostics completed.
+**************************************************
+x_wind_850hPa
+Starting Level 1 diagnostics for x_wind_850hPa...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+x_wind_850hPa Level 1 diagnostics completed.
+**************************************************
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'time'.
+  warnings.warn(msg.format(self.name()))
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'forecast_period'.
+  warnings.warn(msg.format(self.name()))
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'month_number'.
+  warnings.warn(msg.format(self.name()))
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/matplotlib/contour.py:1230: UserWarning: No contour levels were found within the data range.
+  warnings.warn("No contour levels were found"
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'day'.
+  warnings.warn(msg.format(self.name()))
+/net/home/h03/hadpx/MJO/MJOPy/src/diags_level2.py:143: ComplexWarning: Casting complex values to real discards the imaginary part
+  var_cut.data = np.fft.ifft(cf, axis=0).astype(float)
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/cube.py:3180: UserWarning: Collapsing spatial coordinate 'latitude' without weighting
+  warnings.warn(msg.format(coord.name()))
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'time'.
+  warnings.warn(msg.format(self.name()))
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'forecast_period'.
+  warnings.warn(msg.format(self.name()))
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'month_number'.
+  warnings.warn(msg.format(self.name()))
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/matplotlib/contour.py:1230: UserWarning: No contour levels were found within the data range.
+  warnings.warn("No contour levels were found"
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/coords.py:1355: UserWarning: Collapsing a non-contiguous coordinate. Metadata may not be fully descriptive for 'day'.
+  warnings.warn(msg.format(self.name()))
+/net/home/h03/hadpx/MJO/MJOPy/src/diags_level2.py:143: ComplexWarning: Casting complex values to real discards the imaginary part
+  var_cut.data = np.fft.ifft(cf, axis=0).astype(float)
+/opt/scitools/environments/default/2019_02_27/lib/python3.6/site-packages/iris/cube.py:3180: UserWarning: Collapsing spatial coordinate 'latitude' without weighting
+  warnings.warn(msg.format(coord.name()))
+
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+Starting Level 3 diagnostics...
+7290 24 144
+7290 24 144
+7290 24 144
+7290 24 144
+precipitation_flux / (kg m-2 s-1)   (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          day                            x               -              -
+          forecast_period                x               -              -
+          month_number                   x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s05i216
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+toa_outgoing_longwave_flux / (W m-2) (time: 7290; longitude: 144)
+     Dimension coordinates:
+          time                            x                -
+          longitude                       -                x
+     Auxiliary coordinates:
+          day                             x                -
+          forecast_period                 x                -
+          month_number                    x                -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          latitude: 0.0 degrees, bound=(-17.5, 17.5) degrees
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s03i332
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+          mean: latitude
+0 144
+x_wind / (m s-1)                    (time: 7290; longitude: 144)
+     Dimension coordinates:
+          time                           x                -
+          longitude                      -                x
+     Auxiliary coordinates:
+          day                            x                -
+          forecast_period                x                -
+          month_number                   x                -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          latitude: 0.0 degrees, bound=(-17.5, 17.5) degrees
+          pressure: 850.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+          mean: latitude
+144 288
+x_wind / (m s-1)                    (time: 7290; longitude: 144)
+     Dimension coordinates:
+          time                           x                -
+          longitude                      -                x
+     Auxiliary coordinates:
+          day                            x                -
+          forecast_period                x                -
+          month_number                   x                -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          latitude: 0.0 degrees, bound=(-17.5, 17.5) degrees
+          pressure: 200.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+          mean: latitude
+288 432
+[[ -7.74360454  -8.95670581]
+ [ -6.58887217  -9.54550374]
+ [ -5.06760967  -9.99133678]
+ ...
+ [ -9.20064451  -5.84298643]
+ [ -9.04111204  -7.23521365]
+ [  4.75840318 -19.64438373]]
+/project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/RMMs_u-bw062.txt
+216
+52
+31
+192
+250
+52
+18
+198
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_toa_outgoing_longwave_flux_summer_phase_composites.png
+236
+44
+69
+271
+227
+58
+62
+254
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_toa_outgoing_longwave_flux_winter_phase_composites.png
+216
+52
+31
+192
+250
+52
+18
+198
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_x_wind_850hPa_summer_phase_composites.png
+236
+44
+69
+271
+227
+58
+62
+254
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_x_wind_850hPa_winter_phase_composites.png
+216
+52
+31
+192
+250
+52
+18
+198
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_x_wind_200hPa_summer_phase_composites.png
+236
+44
+69
+271
+227
+58
+62
+254
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_x_wind_200hPa_winter_phase_composites.png
+216
+52
+31
+192
+250
+52
+18
+198
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_precipitation_flux_summer_phase_composites.png
+236
+44
+69
+271
+227
+58
+62
+254
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-bw062/u-bw062_precipitation_flux_winter_phase_composites.png
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_OLR.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_U850.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_U200.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_PRECIP.pp.nc
+/scratch/hadpx/hadgem3/data/SEAPy/u-by782/u-by782_SST.pp.nc
+toa_outgoing_longwave_flux / (W m-2) (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                            x               -              -
+          latitude                        -               x              -
+          longitude                       -               -              x
+     Auxiliary coordinates:
+          forecast_period                 x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s03i332
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour) x_wind / (m s-1)                    (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 200.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour) x_wind / (m s-1)                    (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          forecast_period                x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          pressure: 850.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+precipitation_flux
+Starting Level 1 diagnostics for precipitation_flux...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+precipitation_flux Level 1 diagnostics completed.
+**************************************************
+toa_outgoing_longwave_flux
+Starting Level 1 diagnostics for toa_outgoing_longwave_flux...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+toa_outgoing_longwave_flux Level 1 diagnostics completed.
+**************************************************
+x_wind_200hPa
+Starting Level 1 diagnostics for x_wind_200hPa...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+x_wind_200hPa Level 1 diagnostics completed.
+**************************************************
+x_wind_850hPa
+Starting Level 1 diagnostics for x_wind_850hPa...
+1. Plot Summer/winter mean
+2. Plot Summer/winter variance
+Filtering the series...
+7290 24 144
+3. Plot Summer/winter Filtered variance
+4. Plot ratio of filtered variance to unfiltered variance
+**************************************************
+x_wind_850hPa Level 1 diagnostics completed.
+**************************************************
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+nDayTot = 7290.0
+0.010416666666666666
+13 0
+12 1
+11 2
+10 3
+9 4
+8 5
+7 6
+nSampWin = 96
+Latitude: nl = 0
+nw = 0, ntStrt = 0, ntLast =96 
+nw = 1, ntStrt = 31, ntLast =127 
+nw = 2, ntStrt = 62, ntLast =158 
+nw = 3, ntStrt = 93, ntLast =189 
+nw = 4, ntStrt = 124, ntLast =220 
+nw = 5, ntStrt = 155, ntLast =251 
+nw = 6, ntStrt = 186, ntLast =282 
+nw = 7, ntStrt = 217, ntLast =313 
+nw = 8, ntStrt = 248, ntLast =344 
+nw = 9, ntStrt = 279, ntLast =375 
+nw = 10, ntStrt = 310, ntLast =406 
+nw = 11, ntStrt = 341, ntLast =437 
+nw = 12, ntStrt = 372, ntLast =468 
+nw = 13, ntStrt = 403, ntLast =499 
+nw = 14, ntStrt = 434, ntLast =530 
+nw = 15, ntStrt = 465, ntLast =561 
+nw = 16, ntStrt = 496, ntLast =592 
+nw = 17, ntStrt = 527, ntLast =623 
+nw = 18, ntStrt = 558, ntLast =654 
+nw = 19, ntStrt = 589, ntLast =685 
+nw = 20, ntStrt = 620, ntLast =716 
+nw = 21, ntStrt = 651, ntLast =747 
+nw = 22, ntStrt = 682, ntLast =778 
+nw = 23, ntStrt = 713, ntLast =809 
+nw = 24, ntStrt = 744, ntLast =840 
+nw = 25, ntStrt = 775, ntLast =871 
+nw = 26, ntStrt = 806, ntLast =902 
+nw = 27, ntStrt = 837, ntLast =933 
+nw = 28, ntStrt = 868, ntLast =964 
+nw = 29, ntStrt = 899, ntLast =995 
+nw = 30, ntStrt = 930, ntLast =1026 
+nw = 31, ntStrt = 961, ntLast =1057 
+nw = 32, ntStrt = 992, ntLast =1088 
+nw = 33, ntStrt = 1023, ntLast =1119 
+nw = 34, ntStrt = 1054, ntLast =1150 
+nw = 35, ntStrt = 1085, ntLast =1181 
+nw = 36, ntStrt = 1116, ntLast =1212 
+nw = 37, ntStrt = 1147, ntLast =1243 
+nw = 38, ntStrt = 1178, ntLast =1274 
+nw = 39, ntStrt = 1209, ntLast =1305 
+nw = 40, ntStrt = 1240, ntLast =1336 
+nw = 41, ntStrt = 1271, ntLast =1367 
+nw = 42, ntStrt = 1302, ntLast =1398 
+nw = 43, ntStrt = 1333, ntLast =1429 
+nw = 44, ntStrt = 1364, ntLast =1460 
+nw = 45, ntStrt = 1395, ntLast =1491 
+nw = 46, ntStrt = 1426, ntLast =1522 
+nw = 47, ntStrt = 1457, ntLast =1553 
+nw = 48, ntStrt = 1488, ntLast =1584 
+nw = 49, ntStrt = 1519, ntLast =1615 
+nw = 50, ntStrt = 1550, ntLast =1646 
+nw = 51, ntStrt = 1581, ntLast =1677 
+nw = 52, ntStrt = 1612, ntLast =1708 
+nw = 53, ntStrt = 1643, ntLast =1739 
+nw = 54, ntStrt = 1674, ntLast =1770 
+nw = 55, ntStrt = 1705, ntLast =1801 
+nw = 56, ntStrt = 1736, ntLast =1832 
+nw = 57, ntStrt = 1767, ntLast =1863 
+nw = 58, ntStrt = 1798, ntLast =1894 
+nw = 59, ntStrt = 1829, ntLast =1925 
+nw = 60, ntStrt = 1860, ntLast =1956 
+nw = 61, ntStrt = 1891, ntLast =1987 
+nw = 62, ntStrt = 1922, ntLast =2018 
+nw = 63, ntStrt = 1953, ntLast =2049 
+nw = 64, ntStrt = 1984, ntLast =2080 
+nw = 65, ntStrt = 2015, ntLast =2111 
+nw = 66, ntStrt = 2046, ntLast =2142 
+nw = 67, ntStrt = 2077, ntLast =2173 
+nw = 68, ntStrt = 2108, ntLast =2204 
+nw = 69, ntStrt = 2139, ntLast =2235 
+nw = 70, ntStrt = 2170, ntLast =2266 
+nw = 71, ntStrt = 2201, ntLast =2297 
+nw = 72, ntStrt = 2232, ntLast =2328 
+nw = 73, ntStrt = 2263, ntLast =2359 
+nw = 74, ntStrt = 2294, ntLast =2390 
+nw = 75, ntStrt = 2325, ntLast =2421 
+nw = 76, ntStrt = 2356, ntLast =2452 
+nw = 77, ntStrt = 2387, ntLast =2483 
+nw = 78, ntStrt = 2418, ntLast =2514 
+nw = 79, ntStrt = 2449, ntLast =2545 
+nw = 80, ntStrt = 2480, ntLast =2576 
+nw = 81, ntStrt = 2511, ntLast =2607 
+nw = 82, ntStrt = 2542, ntLast =2638 
+nw = 83, ntStrt = 2573, ntLast =2669 
+nw = 84, ntStrt = 2604, ntLast =2700 
+nw = 85, ntStrt = 2635, ntLast =2731 
+nw = 86, ntStrt = 2666, ntLast =2762 
+nw = 87, ntStrt = 2697, ntLast =2793 
+nw = 88, ntStrt = 2728, ntLast =2824 
+nw = 89, ntStrt = 2759, ntLast =2855 
+nw = 90, ntStrt = 2790, ntLast =2886 
+nw = 91, ntStrt = 2821, ntLast =2917 
+nw = 92, ntStrt = 2852, ntLast =2948 
+nw = 93, ntStrt = 2883, ntLast =2979 
+nw = 94, ntStrt = 2914, ntLast =3010 
+nw = 95, ntStrt = 2945, ntLast =3041 
+nw = 96, ntStrt = 2976, ntLast =3072 
+nw = 97, ntStrt = 3007, ntLast =3103 
+nw = 98, ntStrt = 3038, ntLast =3134 
+nw = 99, ntStrt = 3069, ntLast =3165 
+nw = 100, ntStrt = 3100, ntLast =3196 
+nw = 101, ntStrt = 3131, ntLast =3227 
+nw = 102, ntStrt = 3162, ntLast =3258 
+nw = 103, ntStrt = 3193, ntLast =3289 
+nw = 104, ntStrt = 3224, ntLast =3320 
+nw = 105, ntStrt = 3255, ntLast =3351 
+nw = 106, ntStrt = 3286, ntLast =3382 
+nw = 107, ntStrt = 3317, ntLast =3413 
+nw = 108, ntStrt = 3348, ntLast =3444 
+nw = 109, ntStrt = 3379, ntLast =3475 
+nw = 110, ntStrt = 3410, ntLast =3506 
+nw = 111, ntStrt = 3441, ntLast =3537 
+nw = 112, ntStrt = 3472, ntLast =3568 
+nw = 113, ntStrt = 3503, ntLast =3599 
+nw = 114, ntStrt = 3534, ntLast =3630 
+nw = 115, ntStrt = 3565, ntLast =3661 
+nw = 116, ntStrt = 3596, ntLast =3692 
+nw = 117, ntStrt = 3627, ntLast =3723 
+nw = 118, ntStrt = 3658, ntLast =3754 
+nw = 119, ntStrt = 3689, ntLast =3785 
+nw = 120, ntStrt = 3720, ntLast =3816 
+nw = 121, ntStrt = 3751, ntLast =3847 
+nw = 122, ntStrt = 3782, ntLast =3878 
+nw = 123, ntStrt = 3813, ntLast =3909 
+nw = 124, ntStrt = 3844, ntLast =3940 
+nw = 125, ntStrt = 3875, ntLast =3971 
+nw = 126, ntStrt = 3906, ntLast =4002 
+nw = 127, ntStrt = 3937, ntLast =4033 
+nw = 128, ntStrt = 3968, ntLast =4064 
+nw = 129, ntStrt = 3999, ntLast =4095 
+nw = 130, ntStrt = 4030, ntLast =4126 
+nw = 131, ntStrt = 4061, ntLast =4157 
+nw = 132, ntStrt = 4092, ntLast =4188 
+nw = 133, ntStrt = 4123, ntLast =4219 
+nw = 134, ntStrt = 4154, ntLast =4250 
+nw = 135, ntStrt = 4185, ntLast =4281 
+nw = 136, ntStrt = 4216, ntLast =4312 
+nw = 137, ntStrt = 4247, ntLast =4343 
+nw = 138, ntStrt = 4278, ntLast =4374 
+nw = 139, ntStrt = 4309, ntLast =4405 
+nw = 140, ntStrt = 4340, ntLast =4436 
+nw = 141, ntStrt = 4371, ntLast =4467 
+nw = 142, ntStrt = 4402, ntLast =4498 
+nw = 143, ntStrt = 4433, ntLast =4529 
+nw = 144, ntStrt = 4464, ntLast =4560 
+nw = 145, ntStrt = 4495, ntLast =4591 
+nw = 146, ntStrt = 4526, ntLast =4622 
+nw = 147, ntStrt = 4557, ntLast =4653 
+nw = 148, ntStrt = 4588, ntLast =4684 
+nw = 149, ntStrt = 4619, ntLast =4715 
+nw = 150, ntStrt = 4650, ntLast =4746 
+nw = 151, ntStrt = 4681, ntLast =4777 
+nw = 152, ntStrt = 4712, ntLast =4808 
+nw = 153, ntStrt = 4743, ntLast =4839 
+nw = 154, ntStrt = 4774, ntLast =4870 
+nw = 155, ntStrt = 4805, ntLast =4901 
+nw = 156, ntStrt = 4836, ntLast =4932 
+nw = 157, ntStrt = 4867, ntLast =4963 
+nw = 158, ntStrt = 4898, ntLast =4994 
+nw = 159, ntStrt = 4929, ntLast =5025 
+nw = 160, ntStrt = 4960, ntLast =5056 
+nw = 161, ntStrt = 4991, ntLast =5087 
+nw = 162, ntStrt = 5022, ntLast =5118 
+nw = 163, ntStrt = 5053, ntLast =5149 
+nw = 164, ntStrt = 5084, ntLast =5180 
+nw = 165, ntStrt = 5115, ntLast =5211 
+nw = 166, ntStrt = 5146, ntLast =5242 
+nw = 167, ntStrt = 5177, ntLast =5273 
+nw = 168, ntStrt = 5208, ntLast =5304 
+nw = 169, ntStrt = 5239, ntLast =5335 
+nw = 170, ntStrt = 5270, ntLast =5366 
+nw = 171, ntStrt = 5301, ntLast =5397 
+nw = 172, ntStrt = 5332, ntLast =5428 
+nw = 173, ntStrt = 5363, ntLast =5459 
+nw = 174, ntStrt = 5394, ntLast =5490 
+nw = 175, ntStrt = 5425, ntLast =5521 
+nw = 176, ntStrt = 5456, ntLast =5552 
+nw = 177, ntStrt = 5487, ntLast =5583 
+nw = 178, ntStrt = 5518, ntLast =5614 
+nw = 179, ntStrt = 5549, ntLast =5645 
+nw = 180, ntStrt = 5580, ntLast =5676 
+nw = 181, ntStrt = 5611, ntLast =5707 
+nw = 182, ntStrt = 5642, ntLast =5738 
+nw = 183, ntStrt = 5673, ntLast =5769 
+nw = 184, ntStrt = 5704, ntLast =5800 
+nw = 185, ntStrt = 5735, ntLast =5831 
+nw = 186, ntStrt = 5766, ntLast =5862 
+nw = 187, ntStrt = 5797, ntLast =5893 
+nw = 188, ntStrt = 5828, ntLast =5924 
+nw = 189, ntStrt = 5859, ntLast =5955 
+nw = 190, ntStrt = 5890, ntLast =5986 
+nw = 191, ntStrt = 5921, ntLast =6017 
+nw = 192, ntStrt = 5952, ntLast =6048 
+nw = 193, ntStrt = 5983, ntLast =6079 
+nw = 194, ntStrt = 6014, ntLast =6110 
+nw = 195, ntStrt = 6045, ntLast =6141 
+nw = 196, ntStrt = 6076, ntLast =6172 
+nw = 197, ntStrt = 6107, ntLast =6203 
+nw = 198, ntStrt = 6138, ntLast =6234 
+nw = 199, ntStrt = 6169, ntLast =6265 
+nw = 200, ntStrt = 6200, ntLast =6296 
+nw = 201, ntStrt = 6231, ntLast =6327 
+nw = 202, ntStrt = 6262, ntLast =6358 
+nw = 203, ntStrt = 6293, ntLast =6389 
+nw = 204, ntStrt = 6324, ntLast =6420 
+nw = 205, ntStrt = 6355, ntLast =6451 
+nw = 206, ntStrt = 6386, ntLast =6482 
+nw = 207, ntStrt = 6417, ntLast =6513 
+nw = 208, ntStrt = 6448, ntLast =6544 
+nw = 209, ntStrt = 6479, ntLast =6575 
+nw = 210, ntStrt = 6510, ntLast =6606 
+nw = 211, ntStrt = 6541, ntLast =6637 
+nw = 212, ntStrt = 6572, ntLast =6668 
+nw = 213, ntStrt = 6603, ntLast =6699 
+nw = 214, ntStrt = 6634, ntLast =6730 
+nw = 215, ntStrt = 6665, ntLast =6761 
+nw = 216, ntStrt = 6696, ntLast =6792 
+nw = 217, ntStrt = 6727, ntLast =6823 
+nw = 218, ntStrt = 6758, ntLast =6854 
+nw = 219, ntStrt = 6789, ntLast =6885 
+nw = 220, ntStrt = 6820, ntLast =6916 
+nw = 221, ntStrt = 6851, ntLast =6947 
+nw = 222, ntStrt = 6882, ntLast =6978 
+nw = 223, ntStrt = 6913, ntLast =7009 
+nw = 224, ntStrt = 6944, ntLast =7040 
+nw = 225, ntStrt = 6975, ntLast =7071 
+nw = 226, ntStrt = 7006, ntLast =7102 
+nw = 227, ntStrt = 7037, ntLast =7133 
+nw = 228, ntStrt = 7068, ntLast =7164 
+nw = 229, ntStrt = 7099, ntLast =7195 
+nw = 230, ntStrt = 7130, ntLast =7226 
+nw = 231, ntStrt = 7161, ntLast =7257 
+nw = 232, ntStrt = 7192, ntLast =7288 
+Latitude: nl = 1
+Latitude: nl = 2
+Latitude: nl = 3
+Latitude: nl = 4
+Latitude: nl = 5
+Latitude: nl = 6
+Latitude: nl = 7
+Latitude: nl = 8
+Latitude: nl = 9
+Latitude: nl = 10
+Latitude: nl = 11
+Latitude: nl = 12
+Latitude: nl = 13
+winter
+0 0 60 240 19881101 19890501
+1 1 420 600 19891101 19900501
+2 2 780 960 19901101 19910501
+3 3 1140 1320 19911101 19920501
+4 4 1500 1680 19921101 19930501
+5 5 1860 2040 19931101 19940501
+6 6 2220 2400 19941101 19950501
+7 7 2580 2760 19951101 19960501
+8 8 2940 3120 19961101 19970501
+9 9 3300 3480 19971101 19980501
+10 10 3660 3840 19981101 19990501
+11 11 4020 4200 19991101 20000501
+12 12 4380 4560 20001101 20010501
+13 13 4740 4920 20011101 20020501
+14 14 5100 5280 20021101 20030501
+15 15 5460 5640 20031101 20040501
+16 16 5820 6000 20041101 20050501
+17 17 6180 6360 20051101 20060501
+18 18 6540 6720 20061101 20070501
+19 19 6900 7080 20071101 20080501
+summer
+0 0 240 420 19890501 19891101
+1 1 600 780 19900501 19901101
+2 2 960 1140 19910501 19911101
+3 3 1320 1500 19920501 19921101
+4 4 1680 1860 19930501 19931101
+5 5 2040 2220 19940501 19941101
+6 6 2400 2580 19950501 19951101
+7 7 2760 2940 19960501 19961101
+8 8 3120 3300 19970501 19971101
+9 9 3480 3660 19980501 19981101
+10 10 3840 4020 19990501 19991101
+11 11 4200 4380 20000501 20001101
+12 12 4560 4740 20010501 20011101
+13 13 4920 5100 20020501 20021101
+14 14 5280 5460 20030501 20031101
+15 15 5640 5820 20040501 20041101
+16 16 6000 6180 20050501 20051101
+17 17 6360 6540 20060501 20061101
+18 18 6720 6900 20070501 20071101
+19 19 7080 7260 20080501 20081101
+Starting Level 3 diagnostics...
+7290 24 144
+7290 24 144
+7290 24 144
+7290 24 144
+precipitation_flux / (kg m-2 s-1)   (time: 7290; latitude: 24; longitude: 144)
+     Dimension coordinates:
+          time                           x               -              -
+          latitude                       -               x              -
+          longitude                      -               -              x
+     Auxiliary coordinates:
+          day                            x               -              -
+          forecast_period                x               -              -
+          month_number                   x               -              -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s05i216
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+toa_outgoing_longwave_flux / (W m-2) (time: 7290; longitude: 144)
+     Dimension coordinates:
+          time                            x                -
+          longitude                       -                x
+     Auxiliary coordinates:
+          day                             x                -
+          forecast_period                 x                -
+          month_number                    x                -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          latitude: 0.0 degrees, bound=(-17.5, 17.5) degrees
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s03i332
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+          mean: latitude
+0 144
+x_wind / (m s-1)                    (time: 7290; longitude: 144)
+     Dimension coordinates:
+          time                           x                -
+          longitude                      -                x
+     Auxiliary coordinates:
+          day                            x                -
+          forecast_period                x                -
+          month_number                   x                -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          latitude: 0.0 degrees, bound=(-17.5, 17.5) degrees
+          pressure: 850.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+          mean: latitude
+144 288
+x_wind / (m s-1)                    (time: 7290; longitude: 144)
+     Dimension coordinates:
+          time                           x                -
+          longitude                      -                x
+     Auxiliary coordinates:
+          day                            x                -
+          forecast_period                x                -
+          month_number                   x                -
+     Scalar coordinates:
+          forecast_reference_time: 1988-09-01 00:00:00
+          latitude: 0.0 degrees, bound=(-17.5, 17.5) degrees
+          pressure: 200.0 hPa
+     Attributes:
+          Conventions: CF-1.5
+          STASH: m01s30i201
+          source: Data from Met Office Unified Model
+          um_version: 11.7
+     Cell methods:
+          mean: time (1 hour)
+          mean: latitude
+288 432
+[[-1.15334577 -3.87761832]
+ [-1.13209709 -4.61640926]
+ [-0.76789976 -5.68674222]
+ ...
+ [ 0.27710859 -3.35292619]
+ [-0.33864801 -3.20421079]
+ [ 2.38500938 -2.66970967]]
+/project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/RMMs_u-by782.txt
+243
+28
+31
+224
+236
+45
+21
+264
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_toa_outgoing_longwave_flux_summer_phase_composites.png
+244
+49
+69
+233
+216
+51
+68
+279
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_toa_outgoing_longwave_flux_winter_phase_composites.png
+243
+28
+31
+224
+236
+45
+21
+264
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_x_wind_850hPa_summer_phase_composites.png
+244
+49
+69
+233
+216
+51
+68
+279
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_x_wind_850hPa_winter_phase_composites.png
+243
+28
+31
+224
+236
+45
+21
+264
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_x_wind_200hPa_summer_phase_composites.png
+244
+49
+69
+233
+216
+51
+68
+279
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_x_wind_200hPa_winter_phase_composites.png
+243
+28
+31
+224
+236
+45
+21
+264
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_precipitation_flux_summer_phase_composites.png
+244
+49
+69
+233
+216
+51
+68
+279
+Plotted /project/MJO_GCSS/hadgem3/data/MJOPy_output/u-by782/u-by782_precipitation_flux_winter_phase_composites.png

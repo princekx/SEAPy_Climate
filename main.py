@@ -42,8 +42,8 @@ if __name__ == '__main__':
 
     # 2. Do MJO calculations
     # put obs=None if you do not wish to compute obs every time
-    do_mjo.mjo_compute(control=None, expt=expt, obs=None,
-                      level1=True, level2=True, level3=True,
+    do_mjo.mjo_compute(control=control, expt=expt1, obs=obs,
+                      level1=False, level2=False, level3=True,
                       level4_prop=True)
 
     # 3. Do SEA computations
