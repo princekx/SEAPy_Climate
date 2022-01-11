@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../PyProcessDiag/utils/process_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PyProcessDiag/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyProcessDiag/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PyProcessDiag/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PyProcessDiag/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/do_sea.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_sea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632830650502</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Included propagation diagnostics of MJO">
+      <created>1638454925812</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1638454925812</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -116,7 +120,8 @@
     <MESSAGE value="modifying MJO RMMs reading and indexing using pandas" />
     <MESSAGE value="Corrected the bug (use '+' instead of ',') in &#10;amp = np.sqrt(pcs[:, 0] ** 2 + pcs[:, 1] ** 2)" />
     <MESSAGE value="Included percentile ratios" />
-    <option name="LAST_COMMIT_MESSAGE" value="Included percentile ratios" />
+    <MESSAGE value="Included propagation diagnostics of MJO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Included propagation diagnostics of MJO" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
