@@ -5,12 +5,21 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
    SEAPy.mjo
    SEAPy.src
 
 Submodules
 ----------
+
+SEAPy.do\_bsiso module
+----------------------
+
+.. automodule:: SEAPy.do_bsiso
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 SEAPy.do\_sea module
 --------------------
@@ -27,7 +36,6 @@ SEAPy.main module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

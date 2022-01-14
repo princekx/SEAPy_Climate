@@ -6,6 +6,10 @@ import do_bsiso as bsiso
 import mjo.do_mjo as do_mjo
 
 if __name__ == '__main__':
+    '''
+    SEAPy configuration
+    
+    '''
     control = {}
     control['runid'] = 'u-bu357'
     control['label'] = 'GA8GL9'

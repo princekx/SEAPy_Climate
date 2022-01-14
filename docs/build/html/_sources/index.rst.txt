@@ -1,24 +1,16 @@
-.. SEAPy documentation master file, created by
-   sphinx-quickstart on Wed Jul 14 13:25:33 2021.
+.. SEAPy_Climate documentation master file, created by
+   sphinx-quickstart on Thu Jan 13 16:35:53 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to SEAPy's documentation!
-=================================
-
-Write intro!
-
-Requirements
-
+Welcome to SEAPy_Climate's documentation!
+=========================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   SEAPy
-   SEAPy.mjo
-   SEAPy.mjo.src
-   SEAPy.src
+   readme
    modules
 
 Indices and tables

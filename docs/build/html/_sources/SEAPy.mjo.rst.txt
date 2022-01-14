@@ -5,6 +5,7 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
    SEAPy.mjo.src
 
@@ -42,7 +43,6 @@ SEAPy.mjo.retrieve\_MJO\_data module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

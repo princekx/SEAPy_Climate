@@ -4,6 +4,14 @@ SEAPy.src package
 Submodules
 ----------
 
+SEAPy.src.bsiso\_utils module
+-----------------------------
+
+.. automodule:: SEAPy.src.bsiso_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 SEAPy.src.const module
 ----------------------
 
@@ -139,7 +147,6 @@ SEAPy.src.retrieve\_SEA\_data module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

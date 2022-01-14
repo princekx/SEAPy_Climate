@@ -36,6 +36,14 @@ SEAPy.mjo.src.diags\_level4 module
    :undoc-members:
    :show-inheritance:
 
+SEAPy.mjo.src.diags\_level4\_prop module
+----------------------------------------
+
+.. automodule:: SEAPy.mjo.src.diags_level4_prop
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 SEAPy.mjo.src.get\_obs\_data module
 -----------------------------------
 
@@ -83,7 +91,6 @@ SEAPy.mjo.src.reg\_lat\_long\_grid module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

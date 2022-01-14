@@ -5,10 +5,11 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SEAPy package &mdash; SEAPy 0.8 documentation</title>
+  <title>SEAPy package &mdash; SEAPy_Climate 0.8 documentation</title>
   
 
   
@@ -21,10 +22,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -33,10 +34,13 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="SEAPy.mjo package" href="SEAPy.mjo.html" />
-    <link rel="prev" title="Welcome to SEAPy’s documentation!" href="index.html" /> 
+    <link rel="prev" title="SEAPy" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -50,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> SEAPy
+            <a href="index.html" class="icon icon-home"> SEAPy_Climate
           
 
           
@@ -80,23 +84,8 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SEAPy package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="SEAPy.mjo.html">SEAPy.mjo package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="SEAPy.src.html">SEAPy.src package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#seapy-do-sea-module">SEAPy.do_sea module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#seapy-main-module">SEAPy.main module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="SEAPy.mjo.html">SEAPy.mjo package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SEAPy.mjo.src.html">SEAPy.mjo.src package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SEAPy.src.html">SEAPy.src package</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">SEAPy</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SEAPy package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
@@ -105,6 +94,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#seapy-do-bsiso-module">SEAPy.do_bsiso module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#seapy-do-sea-module">SEAPy.do_sea module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#seapy-main-module">SEAPy.main module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
@@ -126,7 +116,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SEAPy</a>
+          <a href="index.html">SEAPy_Climate</a>
         
       </nav>
 
@@ -157,6 +147,8 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
+          <li><a href="modules.html">SEAPy</a> &raquo;</li>
+        
       <li>SEAPy package</li>
     
     
@@ -176,9 +168,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="seapy-package">
+  <section id="seapy-package">
 <h1>SEAPy package<a class="headerlink" href="#seapy-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
+<section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -190,6 +182,7 @@
 <li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.src.html#seapy-mjo-src-diags-level2-module">SEAPy.mjo.src.diags_level2 module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.src.html#seapy-mjo-src-diags-level3-module">SEAPy.mjo.src.diags_level3 module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.src.html#seapy-mjo-src-diags-level4-module">SEAPy.mjo.src.diags_level4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.src.html#seapy-mjo-src-diags-level4-prop-module">SEAPy.mjo.src.diags_level4_prop module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.src.html#seapy-mjo-src-get-obs-data-module">SEAPy.mjo.src.get_obs_data module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.src.html#seapy-mjo-src-mjo-area-module">SEAPy.mjo.src.mjo_area module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SEAPy.mjo.src.html#seapy-mjo-src-mjo-plots-module">SEAPy.mjo.src.mjo_plots module</a></li>
@@ -211,6 +204,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SEAPy.src.html">SEAPy.src package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="SEAPy.src.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SEAPy.src.html#seapy-src-bsiso-utils-module">SEAPy.src.bsiso_utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SEAPy.src.html#seapy-src-const-module">SEAPy.src.const module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SEAPy.src.html#seapy-src-data-paths-module">SEAPy.src.data_paths module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SEAPy.src.html#seapy-src-diags-eqwaves-module">SEAPy.src.diags_eqwaves module</a></li>
@@ -233,20 +227,23 @@
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="submodules">
+</section>
+<section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="seapy-do-sea-module">
+</section>
+<section id="seapy-do-bsiso-module">
+<h2>SEAPy.do_bsiso module<a class="headerlink" href="#seapy-do-bsiso-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="seapy-do-sea-module">
 <h2>SEAPy.do_sea module<a class="headerlink" href="#seapy-do-sea-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="seapy-main-module">
+</section>
+<section id="seapy-main-module">
 <h2>SEAPy.main module<a class="headerlink" href="#seapy-main-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-contents">
+</section>
+<section id="module-contents">
 <h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -259,7 +256,7 @@
         <a href="SEAPy.mjo.html" class="btn btn-neutral float-right" title="SEAPy.mjo package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to SEAPy’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="SEAPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -268,7 +265,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Prince Xavier
+        &copy; Copyright 2022, Prince Xavier
 
     </p>
   </div>
