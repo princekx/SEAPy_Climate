@@ -1,7 +1,7 @@
-SEAPy
-=====
+src
+===
 
 .. toctree::
    :maxdepth: 4
 
-   SEAPy
+   src

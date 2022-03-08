@@ -12,6 +12,13 @@ from mjo.src import reg_lat_long_grid as reg_lat_long_grid
 mpl.use('Agg')
 
 def regrid_to_2p5degree_tropics(cube):
+    """
+
+    :param cube:
+    :type cube:
+    :return:
+    :rtype:
+    """
     # Extract region
     cube = cube.intersection(latitude=(-30, 30), longitude=(0, 360))
     # regrid often fails due to attributes mismatch!

@@ -6,12 +6,13 @@
 Welcome to SEAPy_Climate's documentation!
 =========================================
 
+TEST
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   readme
-   modules
+   SEAPy
 
 Indices and tables
 ==================

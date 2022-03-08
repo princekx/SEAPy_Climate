@@ -112,7 +112,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
 
         # Level 2 diagnostics
         # Equatorial waves
-        print(precip_cubes)
+        #print(precip_cubes)
         if eqw_level2:
             for cube in [precip_cubes, u_wind_850_cubes, v_wind_850_cubes]:
                 print(cube)
@@ -133,7 +133,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
             metrics.update(level3_metrics)
         '''
         if extreme_level4:
-            extreme.precip_extremes_cs(precip_cubes, runid=runid, percentile=95, compute=True, plot=True)
+            extreme.precip_extremes_cs(precip_cubes, runid=runid, percentile=95, compute=False, plot=True)
 
         '''
         # write metrics to csv file for each suite_id

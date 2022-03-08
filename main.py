@@ -8,6 +8,7 @@ import mjo.do_mjo as do_mjo
 if __name__ == '__main__':
     '''
     SEAPy configuration
+    Generate 
     
     '''
     control = {}
@@ -42,19 +43,19 @@ if __name__ == '__main__':
     varnames = ['U850', 'U200', 'OLR', 'V850', 'PRECIP', 'SST']
 
     # 1. Data download from MASS
-    retrieve.model_data_retrieve(varnames, control=control, expt=expt)
+    #retrieve.model_data_retrieve(varnames, control=control, expt=expt)
 
     # 2. Do MJO calculations
     # put obs=None if you do not wish to compute obs every time
-    do_mjo.mjo_compute(control=control, expt=expt1, obs=obs,
-                      level1=False, level2=False, level3=True,
-                      level4_prop=True)
+    #do_mjo.mjo_compute(control=control, expt=expt1, obs=obs,
+    #                  level1=False, level2=False, level3=True,
+    #                  level4_prop=True)
 
     # 3. Do SEA computations
     # put obs=None if you do not wish to compute obs every time
-    #do_sea.sea_compute(varnames, control=None, expt=expt, obs=None,
-    #                   cs_level1=True, eqw_level2=True,
-    #                   extreme_level4=False)
+    do_sea.sea_compute(varnames, control=None, expt=expt, obs=None,
+                       cs_level1=False, eqw_level2=False,
+                       extreme_level4=True)
 
     # BSISO computations on high res data
     #bsiso.bsiso_compute(control=None, expt=expt, obs=None,
