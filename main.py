@@ -7,9 +7,12 @@ import mjo.do_mjo as do_mjo
 
 if __name__ == '__main__':
     '''
-    SEAPy configuration
-    Generate 
+    SEAPy configuration and main file.
     
+    Edit the following sections and run as 
+    python main.py
+    
+    Generate dictionary of run meta data
     '''
     control = {}
     control['runid'] = 'u-bu357'
@@ -42,26 +45,60 @@ if __name__ == '__main__':
     print(control, expt)
     varnames = ['U850', 'U200', 'OLR', 'V850', 'PRECIP', 'SST']
 
+    '''
     # 1. Data download from MASS
-    #retrieve.model_data_retrieve(varnames, control=control, expt=expt)
+    This is relevant for Met Office only.
+    Data retrieved as daily data for the whole period for each variable
+    in to separate files e.g. runid_varname.pp in to the data_retrieve_dir folder
+    '''
+    retrieve.model_data_retrieve(varnames, control=control, expt=expt)
 
+    '''
     # 2. Do MJO calculations
-    # put obs=None if you do not wish to compute obs every time
-    #do_mjo.mjo_compute(control=control, expt=expt1, obs=obs,
-    #                  level1=False, level2=False, level3=True,
-    #                  level4_prop=True)
+    MJO computation is now part of SEAPy.
+     
+    It has 4 sections:
+    1. Mean and variance plots
+    2. Wavenumber-Frequency spectra
+    3. Wheeler-Hendon plots and phase composites
+    4. Propagation plots and statistics
+    
+    Set obs=None if you do not wish to compute obs every time
+    '''
+    do_mjo.mjo_compute(control=control, expt=expt1, obs=obs,
+                      level1=True, level2=True, level3=True,
+                      level4_prop=True)
 
+    '''
     # 3. Do SEA computations
-    # put obs=None if you do not wish to compute obs every time
+    This section does regional features assessment for SEAsia.
+    There are 3 main sections:
+    1. NDJFM mean, variance, and Cold surge types, statistics and composites
+    2. Equatorial waves - Wavenumber-frequency filtering, computation of variance in each
+       wave domain, ratio of wave variance to total variance, propagation composites
+    3. Extreme precip statistics, % changes due to cold surge types, MJO, equatorial waves
+    
+    Set obs=None if you do not wish to compute obs every time
+    '''
     do_sea.sea_compute(varnames, control=None, expt=expt, obs=None,
                        cs_level1=False, eqw_level2=False,
                        extreme_level4=True)
 
-    # BSISO computations on high res data
-    #bsiso.bsiso_compute(control=None, expt=expt, obs=None,
-    #                    stage1_filter_variance=False,
-    #                    stage2_iso_peaks=False,
-    #                    stage3_iso_lag_composite=True,
-    #                    stage4_compute_extremes=False,
-    #                    stage5_plot_comp=True)
+    '''
+    4. BSISO computations on high res data
+    This section does the computation of native data resolution (no regridding performed)
+    
+    Computes a simple index of NH summer ISO. 5 stages to this section
+    1. filters the data to 10-90? days band
+    2. compute peaks of area average time series and dates
+    3. lead-lag correlations with respect to peak dates
+    4. Compute extremes at different phases of ISO
+    5. Generate plots of composites
+    '''
+    bsiso.bsiso_compute(control=None, expt=expt, obs=None,
+                        stage1_filter_variance=False,
+                        stage2_iso_peaks=False,
+                        stage3_iso_lag_composite=True,
+                        stage4_compute_extremes=False,
+                        stage5_plot_comp=True)
 

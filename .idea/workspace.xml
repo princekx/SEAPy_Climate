@@ -2,29 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../MSMIP/retrieve_sst_sice/SST.a.filter" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MSMIP/retrieve_sst_sice/restore_data_onelevel_allyears_spice.py" beforeDir="false" afterPath="$PROJECT_DIR$/../MSMIP/retrieve_sst_sice/restore_data_onelevel_allyears_spice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/do_sea.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_sea.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/doctrees/environment.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/doctrees/environment.pickle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/doctrees/index.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/doctrees/index.doctree" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/doctrees/modules.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/doctrees/modules.doctree" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/SEAPy.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/SEAPy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/SEAPy.mjo.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/SEAPy.mjo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/SEAPy.mjo.src.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/SEAPy.mjo.src.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/SEAPy.src.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/SEAPy.src.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/_sources/index.rst.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/_sources/index.rst.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/_sources/modules.rst.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/_sources/modules.rst.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/genindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/genindex.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/modules.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/modules.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/objects.inv" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/objects.inv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build/html/searchindex.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/searchindex.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/source/index.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/index.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/source/modules.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/modules.rst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/do_mjo.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/do_mjo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642177884091</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Adding documentation in main">
+      <created>1646740278838</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1646740278838</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -164,7 +150,8 @@
     <MESSAGE value="Corrected the git origin" />
     <MESSAGE value="Updated README.md" />
     <MESSAGE value="Adding Sphinx documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding Sphinx documentation" />
+    <MESSAGE value="Adding documentation in main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding documentation in main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
