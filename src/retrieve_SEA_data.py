@@ -4,6 +4,15 @@ import uuid
 import iris
 
 def _pp2nc_regrid(combined_ppfile, ncfile):
+    '''
+    Regrids pp file and subsets for the tropics
+    :param combined_ppfile:
+    :type combined_ppfile:
+    :param ncfile:
+    :type ncfile:
+    :return:
+    :rtype:
+    '''
     cube = iris.load_cube(combined_ppfile)
 
     #regrid to 2.5 deg
@@ -15,6 +24,16 @@ def _pp2nc_regrid(combined_ppfile, ncfile):
     iris.save(cube, ncfile, netcdf_format="NETCDF3_CLASSIC")
 
 def _pp2nc_subset(combined_ppfile, ncfile):
+    '''
+    Convert pp file to netcdf
+
+    :param combined_ppfile:
+    :type combined_ppfile:
+    :param ncfile:
+    :type ncfile:
+    :return:
+    :rtype:
+    '''
     cube = iris.load_cube(combined_ppfile)
 
     # tropics alone
@@ -23,7 +42,20 @@ def _pp2nc_subset(combined_ppfile, ncfile):
     iris.save(cube, ncfile, netcdf_format="NETCDF3_CLASSIC")
 
 def model_data_retrieve(varnames, control=None, expt=None, netcdf=True):
-
+    '''
+    Met Office Specific
+    Retrieves data from MOOSE
+    :param varnames: list of variables
+    :type varnames:
+    :param control: Baseline model
+    :type control:
+    :param expt: Experiment model
+    :type expt:
+    :param netcdf: Convert to netcdf
+    :type netcdf: Logical
+    :return:
+    :rtype:
+    '''
     runs = [control, expt]
 
     for run in runs:
