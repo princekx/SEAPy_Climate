@@ -20,6 +20,40 @@ def bsiso_compute(control=None, expt=None, obs=None,
                   stage4_compute_extremes=True,
                   stage5_plot_comp=True):
     '''
+    This section does the computation of native data resolution (no regridding performed)
+
+    Computes a simple index of NH summer ISO. 5 stages to this section
+    1. filters the data to 10-90? days band
+    2. compute peaks of area average time series and dates
+    3. lead-lag correlations with respect to peak dates
+    4. Compute extremes at different phases of ISO
+    5. Generate plots of composites
+
+    :param control: Baseline model
+    :type control: Dictionary
+    :param expt: Experiment model
+    :type expt: Dictionary
+    :param obs: Observations data
+    :type obs: Dictionary
+
+    :param season_months: list of month numbers in the season
+    :type season_months: List
+    :param stage1_filter_variance: Compute BSISO variance
+    :type stage1_filter_variance: Logical
+    :param stage2_iso_peaks: Compute BSISO peak dates
+    :type stage2_iso_peaks: Logical
+    :param stage3_iso_lag_composite: Compute BSISO lead-lag composites
+    :type stage3_iso_lag_composite: Logical
+    :param stage4_compute_extremes: Compute precip extremes
+    :type stage4_compute_extremes: Logical
+    :param stage5_plot_comp: Generate plots
+    :type stage5_plot_comp: Logical
+    :return:
+    :rtype:
+    '''
+
+
+    '''
     :param varnames: U850, V850, PRECIP, SST in that order
     :param control: Control baseline experiment
     :param expt:

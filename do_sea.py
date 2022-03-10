@@ -1,8 +1,8 @@
 import os
 import sys
-#import matplotlib as mpl
+# import matplotlib as mpl
 # use Agg backend for running without X-server
-#mpl.use('Agg')
+# mpl.use('Agg')
 
 import iris
 from src import data_paths
@@ -10,20 +10,37 @@ from src import diags_sea_cold_surges as csl1
 from src import diags_eqwaves as eqw
 from src import diags_precip_extremes as extreme
 
+
 def sea_compute(varnames, control=None, expt=None, obs=None,
                 cs_level1=True,
                 eqw_level2=True,
-                extreme_level4=True):
+                extreme_level3=True):
     '''
-    :param varnames: U850, V850, PRECIP, SST in that order
-    :param control: Control baseline experiment
-    :param expt:
-    :param obs:
-    :param cs_level1: Level1 statistics of cold surges, CES, ES, MS etc
-    :param level2:
-    :param level3:
+    This section does regional features assessment for SEAsia.
+    There are 3 main sections:
+    1. NDJFM mean, variance, and Cold surge types, statistics and composites
+    2. Equatorial waves - Wavenumber-frequency filtering, computation of variance in each
+       wave domain, ratio of wave variance to total variance, propagation composites
+    3. Extreme precip statistics, % changes due to cold surge types, MJO, equatorial waves
+
+    :param varnames: list of U850, V850, PRECIP, SST in that order
+    :type varnames: list
+    :param control: Baseline model
+    :type control: Dictionary
+    :param expt: Experiment model
+    :type expt: Dictionary
+    :param obs: Observations data
+    :type obs: Dictionary
+    :param cs_level1: statistics of cold surges, CES, ES, MS etc
+    :type cs_level1: Logical
+    :param eqw_level2: Equatorial waves
+    :type eqw_level2: Logical
+    :param extreme_level3: Extreme precip statistics
+    :type extreme_level3: Logical
     :return:
+    :rtype:
     '''
+
     print('Computation starts...')
     runs = [control, expt, obs]
 
@@ -66,14 +83,14 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
         if os.path.exists(u850_file):
             u_wind_850_cubes = iris.load_cube(u850_file)
             u_wind_850_cubes.long_name = 'x_wind_850hPa'
-            #u_wind_850_cubes = u_wind_850_cubes.intersection(latitude=(-30, 30),
+            # u_wind_850_cubes = u_wind_850_cubes.intersection(latitude=(-30, 30),
             #                                                 longitude=(0, 360))
             var_cubes.append(u_wind_850_cubes)
 
         if os.path.exists(v850_file):
             v_wind_850_cubes = iris.load_cube(v850_file)
             v_wind_850_cubes.long_name = 'y_wind_850hPa'
-            #v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
+            # v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
             #                                                 longitude=(0, 360))
             # print(v_wind_850_cubes)
             var_cubes.append(v_wind_850_cubes)
@@ -81,11 +98,11 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
         if os.path.exists(precip_file):
             precip_cubes = iris.load_cube(precip_file)
             precip_cubes.long_name = 'precipitation_flux'
-            #precip_cubes = precip_cubes.intersection(latitude=(-30, 30),
+            # precip_cubes = precip_cubes.intersection(latitude=(-30, 30),
             #                                         longitude=(0, 360))
             # for model data, convert them to mm/day
             if not runid == 'obs':
-               precip_cubes.convert_units('kg m-2 day-1')
+                precip_cubes.convert_units('kg m-2 day-1')
 
             # print(precip_cubes)
             var_cubes.append(precip_cubes)
@@ -93,7 +110,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
         if os.path.exists(sst_file):
             sst_cubes = iris.load_cube(sst_file)
             sst_cubes.long_name = 'surface_temperature'
-            #sst_cubes = sst_cubes.intersection(latitude=(-30, 30),
+            # sst_cubes = sst_cubes.intersection(latitude=(-30, 30),
             #                                   longitude=(0, 360))
 
             # print(sst_cubes)
@@ -112,7 +129,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
 
         # Level 2 diagnostics
         # Equatorial waves
-        #print(precip_cubes)
+        # print(precip_cubes)
         if eqw_level2:
             for cube in [precip_cubes, u_wind_850_cubes, v_wind_850_cubes]:
                 print(cube)
@@ -132,7 +149,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
                 precip_cubes, runid, out_plot_dir)
             metrics.update(level3_metrics)
         '''
-        if extreme_level4:
+        if extreme_level3:
             extreme.precip_extremes_cs(precip_cubes, runid=runid, percentile=95, compute=False, plot=True)
 
         '''

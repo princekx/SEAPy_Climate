@@ -84,6 +84,24 @@ def create_dates_df(cube):
 
 def mean_var_season(cube, varname=None, runid=None, varlabel=None,
                     season_months=[5, 6, 7, 8, 9], writeout=True):
+    '''
+    Mean and variance for a given season
+
+    :param cube:
+    :type cube:
+    :param varname:
+    :type varname:
+    :param runid:
+    :type runid:
+    :param varlabel:
+    :type varlabel:
+    :param season_months:
+    :type season_months:
+    :param writeout:
+    :type writeout:
+    :return:
+    :rtype:
+    '''
     cube_dates_df = create_dates_df(cube)
     season_df = cube_dates_df.loc[(cube_dates_df['month'].isin(season_months))]
 
@@ -130,6 +148,20 @@ def low_pass_weights(window, cutoff):
 
 
 def lanczos_filter(cube, window=101, low=1. / 100., high=1. / 20.):
+    '''
+    Driver for a band-pass filter
+
+    :param cube:
+    :type cube:
+    :param window:
+    :type window:
+    :param low:
+    :type low:
+    :param high:
+    :type high:
+    :return:
+    :rtype:
+    '''
     wgts_high = low_pass_weights(window, high)
     wgts_low = low_pass_weights(window, low)
 
@@ -147,11 +179,31 @@ def lanczos_filter(cube, window=101, low=1. / 100., high=1. / 20.):
 
 
 def return_indices_of_a(a, b):
+    '''
+    Returns the indices of A that matches elements in B
+
+    :param a:
+    :type a:
+    :param b:
+    :type b:
+    :return:
+    :rtype:
+    '''
     b_set = set(b)
     return [int(i) for i, v in enumerate(a) if v in b_set]
 
 
 def return_indices_of_adf(adf, bdf):
+    '''
+    Returns the indices of DataFrame A that matches elements in DataFrame B
+
+    :param adf:
+    :type adf:
+    :param bdf:
+    :type bdf:
+    :return:
+    :rtype:
+    '''
     a = [year * 10000 + month * 100 + day for year, month, day in zip(adf.year, adf.month, adf.day)]
     b = [year * 10000 + month * 100 + day for year, month, day in zip(bdf.year, bdf.month, bdf.day)]
     b_set = set(b)
@@ -209,6 +261,16 @@ def make_composite(cube, peak_dates_df, runid=None, varname=None, lag=20, write_
 
 
 def indices_around_peaks(inds, days_around_peak=3):
+    '''
+    Indices of time series and 3 days around the peak
+
+    :param inds:
+    :type inds:
+    :param days_around_peak:
+    :type days_around_peak:
+    :return:
+    :rtype:
+    '''
     inds_around_peak = []
     for ind in inds:
         inds_around_peak.extend(list(np.arange(ind - days_around_peak, ind + days_around_peak)))
@@ -218,20 +280,51 @@ def indices_around_peaks(inds, days_around_peak=3):
 
 
 def compute_percentiles(cube, indices, percent=95):
+    '''
+    Percentile values for given time indices
+
+    :param cube:
+    :type cube:
+    :param indices:
+    :type indices:
+    :param percent:
+    :type percent:
+    :return:
+    :rtype:
+    '''
     # compute percentiles
     percentiles = cube[indices].collapsed('time', iris.analysis.PERCENTILE, percent=percent)
     return percentiles
 
 
 def make_hovmoller(cube, lon_range=(100, 120), lat_range=(-10, 25), average_along='longitude'):
+    '''
+    Collapse cube for given latitude-longitude range and along a given axis coordinate
+
+    :param cube:
+    :type cube:
+    :param lon_range:
+    :type lon_range:
+    :param lat_range:
+    :type lat_range:
+    :param average_along:
+    :type average_along:
+    :return:
+    :rtype:
+    '''
     return cube.intersection(longitude=lon_range, latitude=lat_range).collapsed(average_along, iris.analysis.MEAN)
 
 
 def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     '''
+    Plot composites
 
     :param runid:
     :type runid:
+    :param lat_range:
+    :type lat_range:
+    :param lon_range:
+    :type lon_range:
     :return:
     :rtype:
     '''

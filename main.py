@@ -42,7 +42,6 @@ if __name__ == '__main__':
     obs['end_date'] = '1998/12/01'
     obs['data_retrieve_dir'] = '/project/MJO_GCSS/hadgem3/data/obs/SEAPy_data'
 
-    print(control, expt)
     varnames = ['U850', 'U200', 'OLR', 'V850', 'PRECIP', 'SST']
 
     '''
@@ -82,7 +81,7 @@ if __name__ == '__main__':
     '''
     do_sea.sea_compute(varnames, control=None, expt=expt, obs=None,
                        cs_level1=False, eqw_level2=False,
-                       extreme_level4=True)
+                       extreme_level3=True)
 
     '''
     4. BSISO computations on high res data

@@ -9,22 +9,24 @@ from mjo.src import diags_level2 as diags_level2
 from mjo.src import diags_level3 as diags_level3
 from mjo.src import diags_level4_prop as diags_level4_prop
 from mjo.src import reg_lat_long_grid as reg_lat_long_grid
+
 mpl.use('Agg')
+
 
 def regrid_to_2p5degree_tropics(cube):
     """
+    Regrids data to 2.5 x 2.5 degree grid and extract tropics
 
-    :param cube:
+    :param cube: Initial cube
     :type cube:
-    :return:
+    :return: Regridded cube
     :rtype:
     """
     # Extract region
     cube = cube.intersection(latitude=(-30, 30), longitude=(0, 360))
     # regrid often fails due to attributes mismatch!
     # A very annoying feature of Iris. So removing all attributes
-    #cube.attributes = {}
-
+    # cube.attributes = {}
 
     # regrid to regular lat-long 2.5 degree grid
     ref_cube = reg_lat_long_grid.create_cube(latitudes=(-30, 30),
@@ -40,15 +42,43 @@ def regrid_to_2p5degree_tropics(cube):
         cube.coord('latitude').guess_bounds()
     return cube.regrid(ref_cube, iris.analysis.Linear())
 
+
 def mjo_compute(control=None, expt=None, obs=None,
                 level1=True,
                 level2=True,
                 level3=True,
                 level4_prop=True):
+    '''
+    Compute the MJO diagnostics
+    MJO computation is now part of SEAPy.
+
+    It has 4 sections:
+    1. Mean and variance plots
+    2. Wavenumber-Frequency spectra
+    3. Wheeler-Hendon plots and phase composites
+    4. Propagation plots and statistics
+
+    :param control: Baseline model
+    :type control: Dictionary
+    :param expt: Experiment model
+    :type expt: Dictionary
+    :param obs: Observations data
+    :type obs: Dictionary
+    :param level1: Compute level 1 diagnostics (Mean and variance plots)
+    :type level1: Logical
+    :param level2: Compute level 2 diagnostics (Wavenumber-Frequency spectra)
+    :type level2: Logical
+    :param level3: Compute level 3 diagnostics (Wheeler-Hendon plots and phase composites)
+    :type level3: Logical
+    :param level4_prop: Compute level 4 diagnostics (Propagation plots and statistics)
+    :type level4_prop: Logical
+    :return:
+    :rtype:
+    '''
 
     runs = [control, expt, obs]
 
-    # Pick up only non-None runs
+    # Pick up only 'non-None' (valid) runs
     runs = [r for r in runs if r != None]
 
     for run in runs:
@@ -67,13 +97,13 @@ def mjo_compute(control=None, expt=None, obs=None,
 
         for varname in varnames:
             combined_ppfile = os.path.join(data_root, runid + '_' + varname + '.pp.nc')
-            print(combined_ppfile)
+            # print(combined_ppfile)
 
             if varname == 'OLR':
                 outgoing_longwave_cubes = iris.load_cube(combined_ppfile)
                 outgoing_longwave_cubes.long_name = 'toa_outgoing_longwave_flux'
-                outgoing_longwave_cubes = outgoing_longwave_cubes.intersection(latitude=(-30,30),
-                                                                               longitude=(0,360))
+                outgoing_longwave_cubes = outgoing_longwave_cubes.intersection(latitude=(-30, 30),
+                                                                               longitude=(0, 360))
                 outgoing_longwave_cubes = regrid_to_2p5degree_tropics(outgoing_longwave_cubes)
 
             if varname == 'U850':
@@ -96,8 +126,8 @@ def mjo_compute(control=None, expt=None, obs=None,
                 precip_cubes = precip_cubes.intersection(latitude=(-30, 30),
                                                          longitude=(0, 360))
                 precip_cubes = regrid_to_2p5degree_tropics(precip_cubes)
-                #for cube in precip_cubes:
-                #precip_cubes.convert_units('kg m-2 day-1')
+                # for cube in precip_cubes:
+                # precip_cubes.convert_units('kg m-2 day-1')
                 if not runid == 'obs':
                     precip_cubes.convert_units('kg m-2 day-1')
             '''
@@ -108,7 +138,7 @@ def mjo_compute(control=None, expt=None, obs=None,
                                                          longitude=(0, 360))
                 sst_cubes = regrid_to_2p5degree_tropics(sst_cubes)
             '''
-        print(outgoing_longwave_cubes, u_wind_200_cubes, u_wind_850_cubes   )
+        print(outgoing_longwave_cubes, u_wind_200_cubes, u_wind_850_cubes)
 
         # Level 1 diagnostics
         # Mean, variance, filtered variance, filt variance/total variance
@@ -117,11 +147,10 @@ def mjo_compute(control=None, expt=None, obs=None,
                          u_wind_850_cubes]:
                 diags_level1.diagnos_level1(cube, out_plot_dir, runid)
 
-
         # Level 2 diagnostics
         # WK raw sym/antisym spectra, background spectra, (sym, antisym)/background
         if level2:
-            #for cube in [precip_cubes, outgoing_longwave_cubes, u_wind_200_cubes,
+            # for cube in [precip_cubes, outgoing_longwave_cubes, u_wind_200_cubes,
             #             u_wind_850_cubes]:
             for cube in [precip_cubes]:
                 print(cube)
@@ -139,7 +168,7 @@ def mjo_compute(control=None, expt=None, obs=None,
 
         if level4_prop:
             diags_level4_prop.diagnos_level4_prop(outgoing_longwave_cubes, u_wind_850_cubes, u_wind_200_cubes,
-                precip_cubes, run, out_plot_dir=out_plot_dir)
+                                                  precip_cubes, run, out_plot_dir=out_plot_dir)
 
         # write metrics to csv file for each suite_id
         with open(os.path.join(out_plot_dir, 'metrics.csv'), 'w') as fh:
