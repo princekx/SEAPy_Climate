@@ -7,7 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   SEAPy.mjo
+   mjo
    SEAPy.src
 
 Submodules

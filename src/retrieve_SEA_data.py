@@ -45,12 +45,13 @@ def model_data_retrieve(varnames, control=None, expt=None, netcdf=True):
     '''
     Met Office Specific
     Retrieves data from MOOSE
-    :param varnames: list of variables
-    :type varnames:
+
+    :param varnames: List of variables
+    :type varnames: List
     :param control: Baseline model
-    :type control:
+    :type control: Dictionary
     :param expt: Experiment model
-    :type expt:
+    :type expt: Dictionary
     :param netcdf: Convert to netcdf
     :type netcdf: Logical
     :return:
@@ -133,25 +134,3 @@ def model_data_retrieve(varnames, control=None, expt=None, netcdf=True):
                     print('%s file exist. Skipping retrieval...' %ncfile)
                     break
 
-if __name__ == '__main__':
-    control = {}
-    control['runid'] = 'u-ab680'
-    control['start_date'] = '1989/01/01'
-    control['end_date'] = '2009/12/29'
-    control['data_retrieve_dir'] = '/scratch/hadpx/hadgem3/data/SEAPy'
-
-    expt = {}
-    expt['runid'] = 'u-ab680'
-    expt['start_date'] = '1989/01/01'
-    expt['end_date'] = '2009/12/29'
-    expt['data_retrieve_dir'] = '/scratch/hadpx/hadgem3/data/SEAPy'
-
-    obs = {}
-    obs['runid'] = 'obs'
-    obs['start_date'] = '1989/01/01'
-    obs['end_date'] = '2009/12/29'
-    obs['data_retrieve_dir'] = '/project/MJO_GCSS/hadgem3/data/'
-
-    print(control, expt)
-    varnames = ['U850', 'V850', 'PRECIP', 'SST']
-    model_data_retrieve(varnames, control=control, expt=expt)
