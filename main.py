@@ -1,5 +1,4 @@
 #!/opt/scitools/environments/default/2018_05_22-1/bin/python
-import sys
 import src.retrieve_SEA_data as retrieve
 import do_sea as do_sea
 import do_bsiso as bsiso

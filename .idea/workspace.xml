@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/do_bsiso.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_bsiso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/do_sea.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_sea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/do_mjo.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/do_mjo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bsiso_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bsiso_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646923400684</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Updated docs in do_sea.py, do_bsiso.py">
+      <created>1646925093358</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1646925093358</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -196,7 +199,8 @@
     <MESSAGE value="Adding documentation in main" />
     <MESSAGE value="Adding documentation in retrieve_SEA_data.py" />
     <MESSAGE value="Update README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update README.md" />
+    <MESSAGE value="Updated docs in do_sea.py, do_bsiso.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated docs in do_sea.py, do_bsiso.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
