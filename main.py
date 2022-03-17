@@ -49,7 +49,7 @@ if __name__ == '__main__':
     Data retrieved as daily data for the whole period for each variable
     in to separate files e.g. runid_varname.pp in to the data_retrieve_dir folder
     '''
-    retrieve.model_data_retrieve(varnames, control=control, expt=expt)
+    retrieve.model_data_retrieve(varnames, control=control, expt=expt1)
 
     '''
     # 2. Do MJO calculations
@@ -63,9 +63,9 @@ if __name__ == '__main__':
     
     Set obs=None if you do not wish to compute obs every time
     '''
-    do_mjo.mjo_compute(control=control, expt=expt1, obs=obs,
-                      level1=True, level2=True, level3=True,
-                      level4_prop=True)
+    #do_mjo.mjo_compute(control=control, expt=expt1, obs=obs,
+    #                  level1=True, level2=True, level3=True,
+    #                  level4_prop=True)
 
     '''
     # 3. Do SEA computations
@@ -78,8 +78,8 @@ if __name__ == '__main__':
     
     Set obs=None if you do not wish to compute obs every time
     '''
-    do_sea.sea_compute(varnames, control=None, expt=expt, obs=None,
-                       cs_level1=False, eqw_level2=False,
+    do_sea.sea_compute(varnames, control=None, expt=None, obs=obs,
+                       cs_level1=True, eqw_level2=True,
                        extreme_level3=True)
 
     '''
@@ -93,10 +93,10 @@ if __name__ == '__main__':
     4. Compute extremes at different phases of ISO
     5. Generate plots of composites
     '''
-    bsiso.bsiso_compute(control=None, expt=expt, obs=None,
-                        stage1_filter_variance=False,
-                        stage2_iso_peaks=False,
+    bsiso.bsiso_compute(control=control, expt=expt1, obs=None,
+                        stage1_filter_variance=True,
+                        stage2_iso_peaks=True,
                         stage3_iso_lag_composite=True,
-                        stage4_compute_extremes=False,
+                        stage4_compute_extremes=True,
                         stage5_plot_comp=True)
 

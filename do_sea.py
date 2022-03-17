@@ -3,7 +3,7 @@ import sys
 # import matplotlib as mpl
 # use Agg backend for running without X-server
 # mpl.use('Agg')
-
+import csv
 import iris
 from src import data_paths
 from src import diags_sea_cold_surges as csl1
@@ -92,7 +92,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
             v_wind_850_cubes.long_name = 'y_wind_850hPa'
             # v_wind_850_cubes = v_wind_850_cubes.intersection(latitude=(-30, 30),
             #                                                 longitude=(0, 360))
-            # print(v_wind_850_cubes)
+            #print(v_wind_850_cubes)
             var_cubes.append(v_wind_850_cubes)
         print(precip_file)
         if os.path.exists(precip_file):
@@ -139,23 +139,12 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
 
         # Print metrics as csv
         csl1.print_dict(metrics, runid)
-        '''
-        # Level 3 diagnostics
-        # Real-time multivariate MJO Index (RMM) calculations, and Summer/Winter
-        # composites
-        if level3:
-            level3_metrics = diags_level3.diagnos_level3(
-                outgoing_longwave_cubes, u_wind_850_cubes, u_wind_200_cubes,
-                precip_cubes, runid, out_plot_dir)
-            metrics.update(level3_metrics)
-        '''
-        if extreme_level3:
-            extreme.precip_extremes_cs(precip_cubes, runid=runid, percentile=95, compute=False, plot=True)
 
-        '''
+        if extreme_level3:
+            extreme.precip_extremes_cs(precip_cubes, runid=runid, percentile=95, compute=True, plot=True)
+
         # write metrics to csv file for each suite_id
         with open(os.path.join(out_plot_dir, 'metrics.csv'), 'w') as fh:
             writer = csv.writer(fh)
             for metric in metrics.items():
                 writer.writerow(metric)
-'''
