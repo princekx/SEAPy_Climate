@@ -17,3 +17,6 @@ Run the code:
    
    This will generate a number of plots and netcdf files that can be
    used for model evaluation
+   
+A basic workflow of the code is below:
+![SEAPy_flowchart](https://user-images.githubusercontent.com/2921691/158994431-9ea0d0d1-e66c-46e7-8947-b5939d1718b5.png)
