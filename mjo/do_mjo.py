@@ -84,7 +84,7 @@ def mjo_compute(control=None, expt=None, obs=None,
     for run in runs:
         metrics = {}
         runid = run['runid']
-
+        label = run['label']
         # data
         data_root = os.path.join(run['data_retrieve_dir'], runid)
 
@@ -145,7 +145,7 @@ def mjo_compute(control=None, expt=None, obs=None,
         if level1:
             for cube in [precip_cubes, outgoing_longwave_cubes, u_wind_200_cubes,
                          u_wind_850_cubes]:
-                diags_level1.diagnos_level1(cube, out_plot_dir, runid)
+                diags_level1.diagnos_level1(cube, out_plot_dir, runid, label)
 
         # Level 2 diagnostics
         # WK raw sym/antisym spectra, background spectra, (sym, antisym)/background
@@ -154,7 +154,7 @@ def mjo_compute(control=None, expt=None, obs=None,
             #             u_wind_850_cubes]:
             for cube in [precip_cubes]:
                 print(cube)
-                level2_metrics = diags_level2.diagnos_level2(cube, out_plot_dir, runid)
+                level2_metrics = diags_level2.diagnos_level2(cube, out_plot_dir, runid, label)
                 metrics.update(level2_metrics)
 
         # Level 3 diagnostics
@@ -163,7 +163,7 @@ def mjo_compute(control=None, expt=None, obs=None,
         if level3:
             level3_metrics = diags_level3.diagnos_level3(
                 outgoing_longwave_cubes, u_wind_850_cubes, u_wind_200_cubes,
-                precip_cubes, runid, out_plot_dir)
+                precip_cubes, runid, label, out_plot_dir)
             metrics.update(level3_metrics)
 
         if level4_prop:

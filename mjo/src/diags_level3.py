@@ -46,7 +46,7 @@ def _makecube_lcorr(var, lags, lons):
 
 
 def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
-                   runid, out_dir):
+                   runid, label, out_dir):
     print('Starting Level 3 diagnostics...')
 
     # RMM - Real time multivariate MJO Index
@@ -85,7 +85,7 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
         lead_lag_corr, lags, longitudes = mu.LeadLagCorr(reference_time_series, cube)
 
         title = ' '.join(
-            [runid, "OLR [80-100E, 10S-10N] vs", varname, "Lead-Lag Correlation"]
+            [label, "OLR [80-100E, 10S-10N] vs", varname, "Lead-Lag Correlation"]
         )
 
         out_name = runid + "_" + varname + "_LeadLagCorr"
@@ -215,14 +215,14 @@ def diagnos_level3(olr_cube, x_wind_850_cube, x_wind_200_cube, precip_cube,
                       filtered_x_wind_850_cube,
                       filtered_x_wind_200_cube,
                       filtered_precip_cube]
-    composite_plots(filt_cube_list, runid, out_dir, rmmfile)
+    composite_plots(filt_cube_list, runid, label, out_dir, rmmfile)
 
     # Calculate metrics
     metrics = simplified_mjo_metrics(pcs[:, 0], pcs[:, 1])
     return metrics
 
 
-def composite_plots(filt_cube_list, runid, out_dir, rmmfile):
+def composite_plots(filt_cube_list, runid, label, out_dir, rmmfile):
     ### Phase frequency plots
     out_name = runid + "_phase_freq_plot"
     figname = os.path.join(out_dir, "%s.png" % out_name)
@@ -310,7 +310,7 @@ def composite_plots(filt_cube_list, runid, out_dir, rmmfile):
                     plt.gca().coastlines()
 
                 if phase == 1:
-                    plt.title(' '.join([runid, varname, season]))
+                    plt.title(' '.join([label, varname, season]))
                 plt.text(162, 22.5, 'Phase ' + str(phase), ha='right', va='center')
 
             plt_ax = plt.gca()

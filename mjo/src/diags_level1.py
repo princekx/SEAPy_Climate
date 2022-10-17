@@ -3,7 +3,7 @@ import os
 from . import mjo_utils as mu
 from . import mjo_plots as mjp
 
-def diagnos_level1(data, outplotdir, runid):
+def diagnos_level1(data, outplotdir, runid, label):
 
     varname = data.long_name
     print(varname)
@@ -62,7 +62,7 @@ def diagnos_level1(data, outplotdir, runid):
 
     ####################################################
     print('1. Plot Summer/winter mean')
-    title = runid + " " + varname + " mean summer"
+    title = label + " " + varname + " mean summer"
     forename = runid + "_" + varname + "_Mean_summer"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(summerMean, title, datamean_clevels, figname, colorReverse=datamean_colorReverse)
@@ -71,7 +71,7 @@ def diagnos_level1(data, outplotdir, runid):
     iris.save(summerMean, ncname)
 
 
-    title = runid + " " + varname + " mean winter"
+    title = label + " " + varname + " mean winter"
     forename = runid + "_" + varname + "_Mean_winter"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(winterMean, title, datamean_clevels, figname, colorReverse=datamean_colorReverse)
@@ -99,14 +99,14 @@ def diagnos_level1(data, outplotdir, runid):
     winterVar = winterVar.collapsed('time',iris.analysis.VARIANCE)
 
     print('2. Plot Summer/winter variance')
-    title = runid + " " + varname + " Var summer"
+    title = label + " " + varname + " Var summer"
     forename = runid + "_" + varname + "_Var_summer"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(summerVar, title, datavar_clevels , figname)
     ncname = os.path.join(outplotdir, "%s.nc" % forename)
     iris.save(summerVar, ncname)
 
-    title = runid + " " + varname + " Var winter"
+    title = label + " " + varname + " Var winter"
     forename = runid + "_" + varname + "_Var_winter"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(winterVar, title, datavar_clevels , figname)
@@ -130,7 +130,7 @@ def diagnos_level1(data, outplotdir, runid):
 
     original_varname = varname
     varname = varname + '_Filt'
-    title = runid + " " + varname + " Var summer"
+    title = label + " " + varname + " Var summer"
     forename = runid + "_" + varname + "_Var_summer"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(summerFiltVar, title, datavar_filt_clevels , figname)
@@ -138,7 +138,7 @@ def diagnos_level1(data, outplotdir, runid):
     iris.save(summerFiltVar, ncname)
 
 
-    title = runid + " " + varname + " Var winter"
+    title = label + " " + varname + " Var winter"
     forename = runid + "_" + varname + "_Var_winter"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(winterFiltVar, title, datavar_filt_clevels , figname)
@@ -150,14 +150,14 @@ def diagnos_level1(data, outplotdir, runid):
     summerRatio = summerFiltVar / summerVar * 100.
     winterRatio = winterFiltVar / winterVar * 100.
 
-    title = runid + "_" + varname + " VarRatio summer"
+    title = label + "_" + varname + " VarRatio summer"
     forename = runid + "_" + varname + "_VarRatio_summer"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(summerRatio, title, list(range(10, 60, 5)), figname)
     ncname = os.path.join(outplotdir, "%s.nc" % forename)
     iris.save(summerRatio, ncname)
 
-    title = runid + "_" + varname + " VarRatio winter"
+    title = label + "_" + varname + " VarRatio winter"
     forename = runid + "_" + varname + "_VarRatio_winter"
     figname = os.path.join(outplotdir, "%s.png" % forename)
     mjp.MapPlot(winterRatio, title, list(range(10, 60, 5)), figname)

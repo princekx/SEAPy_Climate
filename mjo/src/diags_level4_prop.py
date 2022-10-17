@@ -2,7 +2,7 @@ import iris
 import os, sys
 import numpy as np
 from scipy import stats
-from tqdm import tqdm
+#from tqdm import tqdm
 import matplotlib.pyplot as plt
 from . import mjo_utils as mu
 from . import mjo_plots as mjp
@@ -117,7 +117,8 @@ def find_EP_ED_ENS_STATS_OLR_3TS(var, run, out_plot_dir):
 
     for npd in npds:
         print('%s/%s' %(npd, len(npds)))
-        for i in tqdm(range(len(lon_ens))):
+        #for i in tqdm(range(len(lon_ens))):
+        for i in range(len(lon_ens)):
             lon_en = lon_ens[i]
 
             for lat_en in lat_ens:
@@ -368,7 +369,8 @@ def compute_lag_composite_3D(var, run, out_plot_dir, case='ALL'):
     comp_cube = var[inds[n2] - lag:inds[n2] + lag + 1].copy()
     comp_data = []
 
-    for i in tqdm(range(len(inds))):
+    #for i in tqdm(range(len(inds))):
+    for i in range(len(inds)):
         ind = inds[i]
         # print('Compositing for event %s/%s' %(i+1, len(inds)))
         try:
@@ -391,9 +393,10 @@ def compute_lag_composite_3D(var, run, out_plot_dir, case='ALL'):
     print('%s written.' % comp_out_file)
 
 
-def plot_prop_composites(var_names, run, out_plot_dir, cases=['ALL']):
+def plot_prop_composites(var_names, run, out_plot_dir, cases=['ALL'], perc_label=None):
 
     runid = run['runid']
+    label = run['label']
     for var_name in var_names:
         fig = plt.figure(figsize=(12, 3.75), dpi=80)
         for i, case in enumerate(cases):
@@ -409,7 +412,7 @@ def plot_prop_composites(var_names, run, out_plot_dir, cases=['ALL']):
             levels = plot_contour_levels(var_name).clevels
             cmap = plot_contour_levels(var_name).cmap
             CS = plt.contourf(L, T, hov.data, levels=levels, cmap=cmap, extend='both')
-            plt.title('%s %s events \n%s' % (runid, case, var_name))
+            plt.title('%s %s events \n%s' % (label, case, var_name))
             plt.xlabel('Longitude (degrees east)')
             if i == 0:
                 plt.ylabel('Lag/lead (days)')
@@ -426,7 +429,7 @@ def plot_prop_composites(var_names, run, out_plot_dir, cases=['ALL']):
 
 def compute_composites_forSFCData(vars, run, out_plot_dir):
     runid = run['runid']
-
+    label = run['label']
     for var in vars:
         # ALL
         all_comp = compute_lag_composite_3D(var, run, out_plot_dir, case='ALL')
@@ -444,6 +447,7 @@ def compute_composites_forSFCData(vars, run, out_plot_dir):
 def diagnos_level4_prop(outgoing_longwave_cubes, u_wind_850_cubes, u_wind_200_cubes,
                 precip_cubes, run, out_plot_dir=None):
     runid = run['runid']
+    label = run['label']
     varname = outgoing_longwave_cubes.long_name
 
     # filter OLR data

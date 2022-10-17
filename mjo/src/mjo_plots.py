@@ -420,7 +420,7 @@ def phasefreq_polar_plot(rmmfile, figname):
     ax.yaxis.grid(True)
     ax.xaxis.grid(False)
     ax.set_xticklabels([])
-    ax.spines['polar'].set_visible(False)
+    #ax.spines['polar'].set_visible(False)
     ax.patch.set_alpha(0)
 
     # No MJO probability

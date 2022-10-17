@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import iris.analysis.calculus as calculus
-from tqdm import tqdm
+#from tqdm import tqdm
 import datetime
 from src import data_paths
 
@@ -235,9 +235,10 @@ def make_composite(cube, peak_dates_df, runid=None, varname=None, lag=20, write_
         n2 = 5
     comp_cube = cube[inds[n2] - lag:inds[n2] + lag + 1].copy()
     comp_data = []
-    for i in tqdm(range(len(inds))):
+    #for i in tqdm(range(len(inds))):
+    for i in range(len(inds)):
         ind = inds[i]
-        # print('Compositing for event %s/%s' %(i+1, len(inds)))
+        print('Compositing %s for event %s/%s' %(varname, i+1, len(inds)))
         try:
             data_cut = cube[ind - lag:ind + lag + 1].data
             if len(data_cut) == len(comp_cube.data):
@@ -333,12 +334,16 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     print(out_plot_dir)
     precip_comp_file = os.path.join(out_plot_dir,
                                     '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'precipitation_flux'))
+    olr_comp_file = os.path.join(out_plot_dir,
+                                    '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'toa_outgoing_longwave_flux'))
     u850_comp_file = os.path.join(out_plot_dir,
                                   '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'x_wind_850'))
     v850_comp_file = os.path.join(out_plot_dir,
                                   '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'y_wind_850'))
     precip_comp_filt_file = os.path.join(out_plot_dir,
                                          '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'precipitation_flux_filt'))
+    olr_comp_filt_file = os.path.join(out_plot_dir,
+                                 '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'toa_outgoing_longwave_flux_filt'))
     sst_comp_filt_file = os.path.join(out_plot_dir,
                                       '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'sst_filt'))
     vort850_comp_filt_file = os.path.join(out_plot_dir,
@@ -346,8 +351,9 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     div850_comp_filt_file = os.path.join(out_plot_dir,
                                          '%s_MJJAS_ISO_lead_lag_%s_composite.nc' % (runid, 'divergence_850_filt'))
 
-    print(precip_comp_file, u850_comp_file, v850_comp_file)
+    print(precip_comp_file, olr_comp_file, u850_comp_file, v850_comp_file)
     precip_comp = iris.load_cube(precip_comp_file)
+    olr_comp = iris.load_cube(olr_comp_file)
     u850_comp = iris.load_cube(u850_comp_file)
     v850_comp = iris.load_cube(v850_comp_file)
 
@@ -356,16 +362,21 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
 
     sst_filt_comp = iris.load_cube(sst_comp_filt_file)
     precip_filt_comp = iris.load_cube(precip_comp_filt_file)
+    olr_filt_comp = iris.load_cube(olr_comp_filt_file)
     vort850_filt_comp = iris.load_cube(vort850_comp_filt_file)
     div850_filt_comp = iris.load_cube(div850_comp_filt_file)
 
     precip_comp_hov = make_hovmoller(precip_comp, lon_range=lon_range, lat_range=lat_range,
+                                     average_along='longitude')
+    olr_comp_hov = make_hovmoller(olr_comp, lon_range=lon_range, lat_range=lat_range,
                                      average_along='longitude')
     u850_comp_hov = make_hovmoller(u850_comp, lon_range=lon_range, lat_range=lat_range,
                                    average_along='longitude')
     v850_comp_hov = make_hovmoller(v850_comp, lon_range=lon_range, lat_range=lat_range,
                                    average_along='longitude')
     precip_comp_filt_hov = make_hovmoller(precip_filt_comp, lon_range=lon_range, lat_range=lat_range,
+                                          average_along='longitude')
+    olr_comp_filt_hov = make_hovmoller(olr_filt_comp, lon_range=lon_range, lat_range=lat_range,
                                           average_along='longitude')
     sst_comp_filt_hov = make_hovmoller(sst_filt_comp, lon_range=lon_range, lat_range=lat_range,
                                        average_along='longitude')
@@ -388,9 +399,17 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     t = times
     y = v850_comp_hov.coord('latitude').points
 
+    if (y[0] > y[1]):
+        # need to reverse latitude dimension
+        print('Reversing latitude')
+        u850_comp_hov = iris.util.reverse(u850_comp_hov, 'latitude')
+        v850_comp_hov = iris.util.reverse(v850_comp_hov, 'latitude')
+        y = v850_comp_hov.coord('latitude').points
+
     # y values need to be of equally spaced
     dy = y[1]-y[0]
     y = np.array([y[0]+i*dy for i in range(len(y))])
+    #print(y)
 
     u = u850_comp_hov.data.T
     v = v850_comp_hov.data.T
@@ -412,7 +431,7 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     plt.subplot(122)
     lats = precip_comp_filt_hov.coord('latitude').points
     T, L = np.meshgrid(times, lats)
-    CS = plt.contourf(T, L, precip_comp_filt_hov.data.T, levels=np.linspace(-10, 10, 11), cmap='RdBu', extend='both')
+    CS = plt.contourf(T, L, precip_comp_filt_hov.data.T, levels=np.linspace(-5, 5, 11), cmap='RdBu', extend='both')
     plt.colorbar(CS)
 
     lats = sst_comp_filt_hov.coord('latitude').points
@@ -435,7 +454,7 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     times = np.arange(-lag, lag + 1, 1)
     lats = precip_comp_filt_hov.coord('latitude').points
     T, L = np.meshgrid(times, lats)
-    CS = plt.contourf(T, L, precip_comp_filt_hov.data.T, levels=np.linspace(-10, 10, 11), cmap='RdBu', extend='both')
+    CS = plt.contourf(T, L, precip_comp_filt_hov.data.T, levels=np.linspace(-5, 5, 11), cmap='RdBu', extend='both')
     plt.colorbar(CS)
 
     lats = vort850_comp_filt_hov.coord('latitude').points

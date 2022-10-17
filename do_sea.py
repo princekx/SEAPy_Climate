@@ -50,6 +50,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
     for run in runs:
         metrics = {}
         runid = run['runid']
+        label = run['label']
         start_date = run['start_date']
         end_date = run['end_date']
 
@@ -125,7 +126,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
             csl1.cold_surge_composites(var_cubes,
                                        cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'],
                                        runid=runid)
-            csl1.plot_cold_surge_composites(cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'], runid=runid)
+            csl1.plot_cold_surge_composites(cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'], runid=runid, label=label)
 
         # Level 2 diagnostics
         # Equatorial waves

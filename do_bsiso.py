@@ -90,6 +90,7 @@ def bsiso_compute(control=None, expt=None, obs=None,
             start_date = '2000/06/01'
             end_date = '2020/12/31'
             precip_file = os.path.join(data_root, 'GPM_PRECIP_SEA_24h_mean_2000_2020.nc')
+            olr_file = os.path.join(data_root, 'NOAA_OLR_SEA_24h_mean_2000_2020.nc')
             u850_file = os.path.join(data_root, 'ERA5_U850_SEA_24h_mean_2000_2020.nc')
             v850_file = os.path.join(data_root, 'ERA5_V850_SEA_24h_mean_2000_2020.nc')
             sst_file = os.path.join(data_root, 'NOAA_OISST_SEA_24h_mean_2000_2020.nc')
@@ -100,6 +101,7 @@ def bsiso_compute(control=None, expt=None, obs=None,
             start_date = run['start_date']
             end_date = run['end_date']
             precip_file = os.path.join(data_root, runid + '_PRECIP.pp.nc')
+            olr_file = os.path.join(data_root, runid + '_OLR.pp.nc')
             u850_file = os.path.join(data_root, runid + '_U850.pp.nc')
             v850_file = os.path.join(data_root, runid + '_V850.pp.nc')
             sst_file = os.path.join(data_root, runid + '_SST.pp.nc')
@@ -123,8 +125,8 @@ def bsiso_compute(control=None, expt=None, obs=None,
         # filter the data and compute variance and mean
         # Step 1
         if stage1_filter_variance:
-            for file_name, var_name in zip([precip_file, u850_file, v850_file, sst_file, vort850_file, div850_file],
-                                           ['precipitation_flux', 'x_wind_850', 'y_wind_850', 'sst',
+            for file_name, var_name in zip([precip_file, olr_file, u850_file, v850_file, sst_file, vort850_file, div850_file],
+                                           ['precipitation_flux', 'toa_outgoing_longwave_flux', 'x_wind_850', 'y_wind_850', 'sst',
                                             'vorticity_850', 'divergence_850']):
                 cube = iris.load_cube(file_name)
                 if var_name == 'precipitation_flux':
@@ -153,28 +155,39 @@ def bsiso_compute(control=None, expt=None, obs=None,
 
         # Step 2 : Iso computation
         if stage2_iso_peaks:
-            precip_filt_filename = precip_file.split('.')[0] + '_filt.nc'
-            precip_cube_filt = iris.load_cube(precip_filt_filename)
-            precip_cube_filt_dates_df = bsiso_utils.create_dates_df(precip_cube_filt)
+            # precip_filt_filename = precip_file.split('.')[0] + '_filt.nc'
+            # precip_cube_filt = iris.load_cube(precip_filt_filename)
+            # precip_cube_filt_dates_df = bsiso_utils.create_dates_df(precip_cube_filt)
+
+            # redoing index with OLR
+            print('Using OLR for BSISO index.')
+
+            olr_filt_filename = olr_file.split('.')[0] + '_filt.nc'
+            olr_cube_filt = iris.load_cube(olr_filt_filename)
+            olr_cube_filt_dates_df = bsiso_utils.create_dates_df(olr_cube_filt)
 
             # Area averaged time series
-            area_ts = precip_cube_filt.intersection(longitude=(100, 105), latitude=(5, 10))
+            area_ts = olr_cube_filt.intersection(longitude=(100, 105), latitude=(5, 10))
             area_ts = area_ts.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
 
             # Normalise the series
             ts_std = (area_ts.data - np.ma.mean(area_ts.data)) / np.ma.std(area_ts.data)
 
+            # invert the index because it is OLR
+
+            ts_std *= -1
+
             # Find peaks above 1 stdev
             peaks, _ = signal.find_peaks(ts_std, height=0.75)
 
             # all summer seasons
-            season_df = precip_cube_filt_dates_df.loc[(precip_cube_filt_dates_df['month'].isin(season_months))]
+            season_df = olr_cube_filt_dates_df.loc[(olr_cube_filt_dates_df['month'].isin(season_months))]
             # Write the seasonal dates out as csv
             season_df.to_csv(season_dates_file, header=season_df.columns, index=False)
             print('Written %s' % season_dates_file)
 
             # select peaks in summer alone
-            peaks_df = precip_cube_filt_dates_df.loc[peaks]
+            peaks_df = olr_cube_filt_dates_df.loc[peaks]
             peaks_df = peaks_df.loc[(peaks_df['month'].isin(season_months))]
             peaks_df.columns = ['year', 'month', 'day']
 
@@ -186,8 +199,8 @@ def bsiso_compute(control=None, expt=None, obs=None,
         if stage3_iso_lag_composite:
             peaks_dates_df = pd.read_csv(bsiso_peak_dates_file)
             # Ccmposite of unfiltered data
-            for file_name, var_name in zip([precip_file, u850_file, v850_file, sst_file, vort850_file, div850_file],
-                                           ['precipitation_flux', 'x_wind_850', 'y_wind_850', 'sst',
+            for file_name, var_name in zip([precip_file, olr_file, u850_file, v850_file, sst_file, vort850_file, div850_file],
+                                           ['precipitation_flux', 'toa_outgoing_longwave_flux', 'x_wind_850', 'y_wind_850', 'sst',
                                             'vorticity_850', 'divergence_850']):
                 cube = iris.load_cube(file_name)
                 if var_name == 'precipitation_flux':
@@ -198,12 +211,14 @@ def bsiso_compute(control=None, expt=None, obs=None,
 
             # Ccmposite of filtered data
             for file_name, var_name in zip([precip_file.split('.')[0] + '_filt.nc',
+                                            olr_file.split('.')[0] + '_filt.nc',
                                             u850_file.split('.')[0] + '_filt.nc',
                                             v850_file.split('.')[0] + '_filt.nc',
                                             sst_file.split('.')[0] + '_filt.nc',
                                             vort850_file.split('.')[0] + '_filt.nc',
                                             div850_file.split('.')[0] + '_filt.nc'],
                                            ['precipitation_flux_filt',
+                                            'toa_outgoing_longwave_flux_filt',
                                             'x_wind_850_filt',
                                             'y_wind_850_filt',
                                             'sst_filt',

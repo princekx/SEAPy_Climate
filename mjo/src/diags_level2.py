@@ -404,7 +404,7 @@ def genDispersionCurves(nWaveType, nEquivDepth, nPlanetaryWave, rlat, Ahe, fillv
     return Afreq, Apzwn
 
 
-def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15):
+def wkSpaceTime(var, outdir, runid, label, latBound=15, spd=1, nDayWin=96, nDaySkip=15):
     """Create Wheeler-Kiladis Space-Time  plots.
 
      Note_1: The full logitudinal domain is used.
@@ -661,7 +661,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     elif varname == 'x_wind_200hPa':
         levels = np.arange(-3.3, 1.2, 0.3)
 
-    title = 'Anti-symmetric ' + runid + ' ' + varname + ' log(power) [15S-15N]'
+    title = 'Anti-symmetric ' + label + ' ' + varname + ' log(power) [15S-15N]'
     forename = runid + '_' + varname + '_Raw_Spec_Asym'
     figname = os.path.join(outdir, "%s.png" % forename)
     # mjp.PlotSpecRaw(psumanti, freq, wave, levels=levels,
@@ -669,7 +669,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
     ncname = os.path.join(outdir, "%s.nc" % forename)
     iris.save(psumanti_cube, ncname, netcdf_format="NETCDF3_CLASSIC")
 
-    title = 'Symmetric ' + runid + ' ' + varname + ' log(power) [15S-15N]'
+    title = 'Symmetric ' + label + ' ' + varname + ' log(power) [15S-15N]'
     forename = runid + '_' + varname + '_Raw_Spec_Sym'
     figname = os.path.join(outdir, "%s.png" % forename)
     # mjp.PlotSpecRaw(psumsym, freq, wave, levels=levels,
@@ -679,7 +679,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
 
     # Fig.2 - Background spectra
     #
-    title = 'Background power ' + runid + ' ' + varname + ' log(power) [15S-15N]'
+    title = 'Background power ' + label + ' ' + varname + ' log(power) [15S-15N]'
     forename = runid + '_' + varname + '_BG_Spec'
     figname = os.path.join(outdir, "%s.png" % forename)
     # mjp.PlotSpecRaw(psumb, freq, wave, levels=levels,
@@ -722,7 +722,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
         levels = np.array([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.2,
             1.3, 1.4, 1.5, 1.6,  1.7, 1.8, 2])
 
-    title = 'Anti-symmetric/Background ' + runid + ' ' + varname + ' log(power) [15S-15N]'
+    title = 'Anti-symmetric/Background ' + label + ' ' + varname + ' log(power) [15S-15N]'
     forename = runid + '_' + varname + '_Ratio_Spec_Asym'
     figname = os.path.join(outdir, "%s.png" % forename)
     mjp.plotAntiSymmetric(psumanti_nolog, freq, wave, Apzwn, Afreq, \
@@ -749,7 +749,7 @@ def wkSpaceTime(var, outdir, runid, latBound=15, spd=1, nDayWin=96, nDaySkip=15)
         levels = np.array([0.2, 0.4, 0.6, 0.8, 1., 1.2, 1.3, 1.4, 1.5, 1.6,
                            1.7, 1.8, 2, 2.2, 2.4, 2.6, 2.8])
 
-    title = 'Symmetric/Background ' + runid + ' ' + varname + ' log(power) [15S-15N]'
+    title = 'Symmetric/Background ' + label + ' ' + varname + ' log(power) [15S-15N]'
     forename = runid + '_' + varname + '_Ratio_Spec_Sym'
     figname = os.path.join(outdir, "%s.png" % forename)
     mjp.plotSymmetric(psumsym_nolog, freq, wave, Apzwn, Afreq, \
@@ -844,7 +844,7 @@ def mjo_wavenum_freq_season(var, seaName):
     return power, wave, freq
 
 
-def diagnos_level2(var, outdir, runid):
+def diagnos_level2(var, outdir, runid, label):
 
     varname = var.long_name
     if varname == 'x_wind':
@@ -863,7 +863,7 @@ def diagnos_level2(var, outdir, runid):
     spd = 1
     nDayWin = 96  #  Wheeler-Kiladis [WK] temporal window length (days)
     nDaySkip = -65
-    xs = wkSpaceTime(xvar, outdir, runid, latBound, spd, nDayWin, nDaySkip)
+    xs = wkSpaceTime(xvar, outdir, runid, label, latBound, spd, nDayWin, nDaySkip)
 
 
     ### Frequency spectra for each season
@@ -892,7 +892,7 @@ def diagnos_level2(var, outdir, runid):
         elif varname == 'x_wind_200hPa':
             levels = np.arange(0.05, 0.5, 0.05)
 
-        title = runid + ' ' + season + ' daily ' + varname + '[10S-10N]'
+        title = label + ' ' + season + ' daily ' + varname + '[10S-10N]'
         forename = runid + '_' + varname + '_wavenum_freq_season_' + season
         figname = os.path.join(outdir, "%s.png" % forename)
         mjp.mjo_wavenum_freq_season_plot(pow_cube, levels=levels, \

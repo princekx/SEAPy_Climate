@@ -271,7 +271,7 @@ def cold_surge_composites(vars, cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'], runid=
                 iris.save(comp, outfilename, netcdf_format="NETCDF3_CLASSIC")
 
 
-def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
+def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs', label='OBS'):
     # Output data/plots
     cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
     print(cs_index_out_dir)
@@ -346,7 +346,7 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
         gl = ax.gridlines(draw_labels=True, alpha=0.5)
         gl.xlabels_top = False
         gl.ylabels_right = False
-        plt.title('%s %s UV850, PRECIP' % (runid, cst))
+        plt.title('%s %s UV850, PRECIP' % (label, cst))
         plt.gca().coastlines()
         plt.savefig(figname, bbox_inches='tight', pad_inches=0)
         # plt.show()
@@ -371,7 +371,7 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs'):
         gl = ax.gridlines(draw_labels=True, alpha=0.5)
         gl.xlabels_top = False
         gl.ylabels_right = False
-        plt.title('%s %s UV850, SST' % (runid, cst))
+        plt.title('%s %s UV850, SST' % (label, cst))
         plt.gca().coastlines()
         plt.savefig(figname, bbox_inches='tight', pad_inches=0)
         # plt.show()
