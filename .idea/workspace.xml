@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="add labels to plots">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/do_bsiso.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_bsiso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/do_mjo.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/do_mjo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/Plot_perc_fractions.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Plot_perc_fractions.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bsiso_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bsiso_utils.py" afterDir="false" />
+    <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="Including MJO history in Met Office models. Turn this off if not from Met Office.">
+      <change afterPath="$PROJECT_DIR$/mjo/src/Plot_stats_ens.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mjo/src/mjo_history.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666010416023</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Including MJO history in Met Office models. Turn this off if not from Met Office.">
+      <created>1666108397208</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1666108397208</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,7 +244,8 @@
     <MESSAGE value="Updated docs in do_sea.py, do_bsiso.py" />
     <MESSAGE value="Metrics are written out." />
     <MESSAGE value="add labels to plots" />
-    <option name="LAST_COMMIT_MESSAGE" value="add labels to plots" />
+    <MESSAGE value="Including MJO history in Met Office models. Turn this off if not from Met Office." />
+    <option name="LAST_COMMIT_MESSAGE" value="Including MJO history in Met Office models. Turn this off if not from Met Office." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
