@@ -316,7 +316,7 @@ def make_hovmoller(cube, lon_range=(100, 120), lat_range=(-10, 25), average_alon
     return cube.intersection(longitude=lon_range, latitude=lat_range).collapsed(average_along, iris.analysis.MEAN)
 
 
-def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
+def plot_composite(runid, label, lat_range=(-10, 25), lon_range=(100, 120)):
     '''
     Plot composites
 
@@ -426,7 +426,7 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     plt.ylim([-10, 25])
     plt.ylabel('Latitude')
     plt.xlabel('Lead/Lag (days)')
-    plt.title('%s Precip., 850hPa winds [95-110E]' % runid)
+    plt.title('%s Precip., 850hPa winds [95-110E]' % label)
 
     plt.subplot(122)
     lats = precip_comp_filt_hov.coord('latitude').points
@@ -442,7 +442,7 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
     plt.ylim([-10, 25])
     plt.ylabel('Latitude')
     plt.xlabel('Lead/Lag (days)')
-    plt.title('%s Filtered precip., SST [95-110E]' % runid)
+    plt.title('%s Filtered precip., SST [95-110E]' % label)
     plt.savefig(fig_name)
     print('%s plotted.' % fig_name)
     plt.close()
@@ -465,7 +465,7 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
 
     plt.ylabel('Latitude')
     plt.xlabel('Lead/Lag (days)')
-    plt.title('Precip., 850hPa vorticity (*1e5) [95-110E]')
+    plt.title('%s Precip., 850hPa vorticity (*1e5) [95-110E]' %label)
 
     plt.subplot(122)
     times = np.arange(-lag, lag + 1, 1)
@@ -482,7 +482,7 @@ def plot_composite(runid, lat_range=(-10, 25), lon_range=(100, 120)):
 
     plt.ylabel('Latitude')
     plt.xlabel('Lead/Lag (days)')
-    plt.title('Precip., 850hPa divergence (*1e5) [95-110E]')
+    plt.title('%s Precip., 850hPa divergence (*1e5) [95-110E]' %label)
     plt.savefig(fig_name)
     plt.close()
     print('%s plotted.' % fig_name)

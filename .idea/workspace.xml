@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="Metrics are written out.">
-      <change afterPath="$PROJECT_DIR$/../MLearning/NNet/read_code_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../5k_global/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../5k_global/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../5k_global/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../5k_global/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../5k_global/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../5k_global/get_model/retrieve_model_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../5k_global/get_model/retrieve_op_model_data.py" beforeDir="false" />
+    <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="add labels to plots">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/do_bsiso.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_bsiso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/do_sea.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_sea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mjo/do_mjo.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/do_mjo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/src/diags_level1.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/src/diags_level1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/src/diags_level2.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/src/diags_level2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/src/diags_level3.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/src/diags_level3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/src/diags_level4_prop.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/src/diags_level4_prop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mjo/src/mjo_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/src/mjo_plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/Summer_variabiity.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Summer_variabiity.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Untitled.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Plot_perc_fractions.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Plot_perc_fractions.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bsiso_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bsiso_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,8 +203,26 @@
       <option name="project" value="LOCAL" />
       <updated>1647535007211</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="add labels to plots">
+      <created>1666010416023</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1666010416023</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added MJO to the computation&#10;added extreme precip computations and plots for cold surge types" />
@@ -238,7 +240,8 @@
     <MESSAGE value="Update README.md" />
     <MESSAGE value="Updated docs in do_sea.py, do_bsiso.py" />
     <MESSAGE value="Metrics are written out." />
-    <option name="LAST_COMMIT_MESSAGE" value="Metrics are written out." />
+    <MESSAGE value="add labels to plots" />
+    <option name="LAST_COMMIT_MESSAGE" value="add labels to plots" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

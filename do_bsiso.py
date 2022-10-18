@@ -71,7 +71,7 @@ def bsiso_compute(control=None, expt=None, obs=None,
     for run in runs:
         metrics = {}
         runid = run['runid']
-
+        label = run['label']
         # data
         data_root = os.path.join(run['data_retrieve_dir'], runid)
 
@@ -263,4 +263,4 @@ def bsiso_compute(control=None, expt=None, obs=None,
                 print('Written %s' % writeout_file)
         # Stage 5 plot iso composites
         if stage5_plot_comp:
-            bsiso_utils.plot_composite(runid)
+            bsiso_utils.plot_composite(runid, label, lat_range=(-10, 25), lon_range=(100, 120))

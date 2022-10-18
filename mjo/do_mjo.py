@@ -150,9 +150,9 @@ def mjo_compute(control=None, expt=None, obs=None,
         # Level 2 diagnostics
         # WK raw sym/antisym spectra, background spectra, (sym, antisym)/background
         if level2:
-            # for cube in [precip_cubes, outgoing_longwave_cubes, u_wind_200_cubes,
-            #             u_wind_850_cubes]:
-            for cube in [precip_cubes]:
+            for cube in [precip_cubes, outgoing_longwave_cubes, u_wind_200_cubes,
+                         u_wind_850_cubes]:
+            #for cube in [precip_cubes]:
                 print(cube)
                 level2_metrics = diags_level2.diagnos_level2(cube, out_plot_dir, runid, label)
                 metrics.update(level2_metrics)
@@ -175,3 +175,5 @@ def mjo_compute(control=None, expt=None, obs=None,
             writer = csv.writer(fh)
             for metric in metrics.items():
                 writer.writerow(metric)
+
+
