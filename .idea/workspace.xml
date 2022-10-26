@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="030d75c5-c384-4c39-a881-ec6550bec570" name="Default Changelist" comment="Including MJO history in Met Office models. Turn this off if not from Met Office.">
-      <change afterPath="$PROJECT_DIR$/mjo/src/Plot_stats_ens.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mjo/src/mjo_history.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/do_bsiso.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_bsiso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/do_sea.py" beforeDir="false" afterPath="$PROJECT_DIR$/do_sea.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mjo/do_mjo.py" beforeDir="false" afterPath="$PROJECT_DIR$/mjo/do_mjo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/.ipynb_checkpoints/Plot_monthly_climate_precip-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/.ipynb_checkpoints/Plot_monthly_climate_precip-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Plot_monthly_climate_precip.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Plot_monthly_climate_precip.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Plot_profiles.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Plot_profiles.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Precip_monthly_climate.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Precip_monthly_climate.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Summer_variabiity.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Summer_variabiity.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Summer_variabiity_writeout.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Summer_variabiity_writeout.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Untitled.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/obs_precip_winter_minus_summer_mean.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/obs_precip_winter_minus_summer_mean.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/obs_precip_winter_summer_ratio_variance.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/obs_precip_winter_summer_ratio_variance.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bsiso_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bsiso_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/diags_sea_cold_surges.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666108397208</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Including MJO history in Met Office models. Turn this off if not from Met Office.">
+      <created>1666108498983</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1666108498984</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

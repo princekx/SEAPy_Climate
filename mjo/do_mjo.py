@@ -83,6 +83,7 @@ def mjo_compute(control=None, expt=None, obs=None,
 
     for run in runs:
         metrics = {}
+        print(run)
         runid = run['runid']
         label = run['label']
         # data

@@ -102,6 +102,10 @@ def mean_var_season(cube, varname=None, runid=None, varlabel=None,
     :return:
     :rtype:
     '''
+
+    months_labels = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+    season_label = ''.join([months_labels[i - 1] for i in season_months])
+
     cube_dates_df = create_dates_df(cube)
     season_df = cube_dates_df.loc[(cube_dates_df['month'].isin(season_months))]
 
@@ -112,12 +116,12 @@ def mean_var_season(cube, varname=None, runid=None, varlabel=None,
     if writeout:
         cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
         writeout_file = os.path.join(cs_index_out_dir,
-                                     '%s_MJJAS_%s_mean.nc' % (runid, varname))
+                                     '%s_%s_%s_mean.nc' % (runid, season_label, varname))
         iris.save(seasonal_mean, writeout_file)
         print('Written %s' % writeout_file)
 
         writeout_file = os.path.join(cs_index_out_dir,
-                                     '%s_MJJAS_%s_variance.nc' % (runid, varname))
+                                     '%s_%s_%s_variance.nc' % (runid, season_label, varname))
         iris.save(seasonal_variance, writeout_file)
         print('Written %s' % writeout_file)
 

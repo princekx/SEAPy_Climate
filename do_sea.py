@@ -115,6 +115,7 @@ def sea_compute(varnames, control=None, expt=None, obs=None,
             #                                   longitude=(0, 360))
 
             # print(sst_cubes)
+            #sst_cubes.convert_units('K')
             var_cubes.append(sst_cubes)
 
         # Cold Surge Level 1 diagnostics

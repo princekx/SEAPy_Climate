@@ -297,6 +297,7 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs', la
             cst_sst_mean = ndjf_sst_mean
             cst_u850_mean = ndjf_u850_mean
             cst_v850_mean = ndjf_v850_mean
+            print('Min, Max:', cst_precip_mean.data.min(), cst_precip_mean.data.max())
         else:
             # Plot differences
             cst_precip_filename = os.path.join(cs_index_out_dir,
@@ -309,6 +310,8 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs', la
             if os.path.exists(cst_precip_filename):
                 cst_precip_mean = iris.load_cube(cst_precip_filename)
                 cst_precip_mean -= ndjf_precip_mean
+
+                print('Min, Max:', cst_precip_mean.data.min(), cst_precip_mean.data.max())
 
             if os.path.exists(cst_sst_filename):
                 cst_sst_mean = iris.load_cube(cst_sst_filename)
@@ -326,14 +329,26 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs', la
         y = cst_u850_mean.coord('latitude').points
         u, v = cst_u850_mean.data, cst_v850_mean.data
 
+        if runid == 'obs':
+            skip = 5
+            x = x[::skip]
+            y = y[::skip]
+            u = u[::skip, ::skip]
+            v = v[::skip, ::skip]
+
         # PRECIP and winds plot
         plt.figure()
         ax = plt.axes(projection=ccrs.PlateCarree())
         figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
         #cf = iplt.contourf(cst_precip_mean, cmap='RdBu', levels=np.arange(-5, 6, 1), extend='both')
 
-        levels = np.arange(-5, 6, 1)
-        cmap = plt.get_cmap('RdBu')
+        if cst == 'NDJF':
+            cmap = plt.get_cmap('BuGn')
+            levels = np.arange(0, 32, 4)
+        else:
+            cmap = plt.get_cmap('RdBu')
+            levels = np.arange(-10, 12, 2)
+
         norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
         cf = iplt.pcolormesh(cst_precip_mean, cmap=cmap, norm=norm)
 
@@ -357,8 +372,12 @@ def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs', la
         ax = plt.axes(projection=ccrs.PlateCarree())
         #cf = iplt.contourf(cst_sst_mean, cmap='RdBu_r', levels=np.arange(-1, 1, 0.1), extend='both')
 
-        levels=np.arange(-1, 1, 0.1)
+        if cst == 'NDJF':
+            levels = np.arange(22, 34, 1)
+        else:
+            levels = np.arange(-1, 1, 0.1)
         cmap = plt.get_cmap('RdBu_r')
+
         norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
         cf = iplt.pcolormesh(cst_sst_mean, cmap=cmap, norm=norm)
 

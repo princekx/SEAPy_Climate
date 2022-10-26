@@ -64,6 +64,10 @@ def bsiso_compute(control=None, expt=None, obs=None,
     :return:
     '''
     print('Computation starts...')
+
+    months_labels = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+    season_label = ''.join([months_labels[i - 1] for i in season_months])
+
     runs = [control, expt, obs]
 
     # Pick up only non-None runs
@@ -80,7 +84,7 @@ def bsiso_compute(control=None, expt=None, obs=None,
 
         # CSV file with dates of peak ISO phases
         bsiso_peak_dates_file = os.path.join(out_plot_dir, '%s_BSISO_peak_dates.csv' % runid)
-        season_dates_file = os.path.join(out_plot_dir, '%s_MJJAS_season_dates.csv' % runid)
+        season_dates_file = os.path.join(out_plot_dir, '%s_%s_season_dates.csv' % (runid, season_label))
 
         if not os.path.exists(out_plot_dir):
             os.makedirs(out_plot_dir)
@@ -253,12 +257,12 @@ def bsiso_compute(control=None, expt=None, obs=None,
 
                 # out_plot_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
                 writeout_file = os.path.join(out_plot_dir,
-                                             '%s_MJJAS_%s_ISO_peak_%sth_percentile.nc' % (runid, var_name, per))
+                                             '%s_%s_%s_ISO_peak_%sth_percentile.nc' % (runid, season_label, var_name, per))
                 iris.save(peak_extreme_cube, writeout_file)
                 print('Written %s' % writeout_file)
 
                 writeout_file = os.path.join(out_plot_dir,
-                                             '%s_MJJAS_%s_seasonal_%sth_percentile.nc' % (runid, var_name, per))
+                                             '%s_%s_%s_seasonal_%sth_percentile.nc' % (runid, season_label, var_name, per))
                 iris.save(season_extreme_cube, writeout_file)
                 print('Written %s' % writeout_file)
         # Stage 5 plot iso composites

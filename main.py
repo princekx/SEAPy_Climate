@@ -15,22 +15,22 @@ if __name__ == '__main__':
     Generate dictionary of run meta data
     '''
     control = {}
-    control['runid'] = 'u-co760'
-    control['label'] = 'GA8.0 N216O25'
+    control['runid'] = 'u-bs902'
+    control['label'] = 'GC4.0 N216O25'
     control['start_date'] = '1981/12/01'
     control['end_date'] = '2008/12/01'
     control['data_retrieve_dir'] = '/scratch/hadpx/hadgem3/data/SEAPy'
 
     expt = {}
-    expt['runid'] = 'u-co766'
-    expt['label'] = 'GAL9.0 N216O25'
+    expt['runid'] = 'u-co779'
+    expt['label'] = 'GC5.0 N216O25'
     expt['start_date'] = '1981/12/01'
     expt['end_date'] = '2008/12/01'
     expt['data_retrieve_dir'] = '/scratch/hadpx/hadgem3/data/SEAPy'
 
     obs = {}
     obs['runid'] = 'obs'
-    obs['label'] = 'ERAInt/TRMM'
+    obs['label'] = 'ERA5/GPM'
     obs['start_date'] = '1989/01/01'
     obs['end_date'] = '2008/12/01'
     obs['data_retrieve_dir'] = '/project/MJO_GCSS/hadgem3/data/obs/SEAPy_data'
@@ -57,12 +57,14 @@ if __name__ == '__main__':
     
     Set obs=None if you do not wish to compute obs every time
     '''
-    #do_mjo.mjo_compute(control=control, expt=expt, obs=obs,
-    #                  level1=True, level2=True, level3=True,
-    #                  level4_prop=True)
+    '''
+    do_mjo.mjo_compute(control=control, expt=expt, obs=None,
+                      level1=True, level2=True, level3=True,
+                      level4_prop=True)
 
     # plot the historical context of MJO in Met Office models
-    #mjo_history.mjo_history(control=control, expt=expt)
+    mjo_history.mjo_history(control=control, expt=expt)
+    '''
 
     '''
     # 3. Do SEA computations
@@ -75,7 +77,7 @@ if __name__ == '__main__':
     
     Set obs=None if you do not wish to compute obs every time
     '''
-    do_sea.sea_compute(varnames, control=control, expt=expt, obs=obs,
+    do_sea.sea_compute(varnames, control=None, expt=None, obs=obs,
                        cs_level1=True, eqw_level2=True,
                        extreme_level3=True)
 
@@ -90,10 +92,11 @@ if __name__ == '__main__':
     4. Compute extremes at different phases of ISO
     5. Generate plots of composites
     '''
-    #bsiso.bsiso_compute(control=control, expt=expt, obs=obs,
-    #                    stage1_filter_variance=True,
-    #                    stage2_iso_peaks=True,
-    #                    stage3_iso_lag_composite=True,
-    #                    stage4_compute_extremes=True,
-    #                    stage5_plot_comp=True)
+    bsiso.bsiso_compute(control=None, expt=None, obs=obs,
+                        season_months=[6, 7, 8],
+                        stage1_filter_variance=True,
+                        stage2_iso_peaks=False,
+                        stage3_iso_lag_composite=False,
+                        stage4_compute_extremes=False,
+                        stage5_plot_comp=False)
 
