@@ -8,59 +8,65 @@ from iris.coord_categorisation import add_month_number
 from iris.coord_categorisation import add_day_of_year
 from scipy.fftpack import rfft, irfft, fftfreq
 
+
 def WinterExtract(cube):
     if not cube.coords('month_number'):
         iris.coord_categorisation.add_month_number(cube, 'time', name='month_number')
     return cube.extract(iris.Constraint(month_number=lambda cell: cell >= 11 or cell <= 4))
+
 
 def SummerExtract(cube):
     if not cube.coords('month_number'):
         iris.coord_categorisation.add_month_number(cube, 'time', name='month_number')
     return cube.extract(iris.Constraint(month_number=lambda cell: cell >= 5 and cell <= 10))
 
+
 def clmDayTLL(cube):
     if not cube.coords('day'):
         iris.coord_categorisation.add_day_of_year(cube, 'time', name='day')
     # Daily climatology
     return cube.aggregated_by('day', iris.analysis.MEAN)
-    
+
+
 def smthClmDayTLL(cube, nhar):
     # Now do a smooth climatology
     ntim, nlat, nlon = cube.shape
     ft = rfft(cube.data, axis=0)
-    
-    #ft[nhar] = 0.5*ft[nhar]
-    #ft[nhar+1:] = 0.
-    
+
+    # ft[nhar] = 0.5*ft[nhar]
+    # ft[nhar+1:] = 0.
+
     ft[nhar:-nhar] = 0.
-    ft[nhar] = 0.5*ft[nhar]
-    
+    ft[nhar] = 0.5 * ft[nhar]
+
     cube_sm = cube.copy()
     cube_sm.data = irfft(ft, axis=0)
     return cube_sm
-    
+
+
 def calcDayAnomTLL(cube, clim):
     if not cube.coords('day'):
         iris.coord_categorisation.add_day_of_year(cube, 'time', name='day')
-    
+
     clim_days = clim.coord('day').points
     cube_days = cube.coord('day').points
     # Compute anomalies
     for n, day in enumerate(clim_days):
         inds = np.where(cube_days == day)
         cube.data[inds] -= clim.data[n]
-    return cube    
-    
+    return cube
+
+
 def regrid2obs(my_cubes):
     xdir = os.path.dirname(os.path.abspath(__file__))
     base_cube = iris.load_cube(os.path.join(xdir, 'obs_grid.nc'))[0]
-    
-    #print base_cube.regrid
+
+    # print base_cube.regrid
     base_cube.coord('latitude').coord_system = None
     base_cube.coord('longitude').coord_system = None
     my_cubes.coord('latitude').coord_system = None
     my_cubes.coord('longitude').coord_system = None
-    
+
     # For lat/lon regriding, make sure coordinates have bounds
     if my_cubes.coord('longitude').bounds is None:
         my_cubes.coord('longitude').guess_bounds()
@@ -73,6 +79,7 @@ def regrid2obs(my_cubes):
     reg_cube = my_cubes.regrid(base_cube, iris.analysis.Linear())
     return reg_cube
 
+
 def LanczosBandPassWeights(fc2, fc1, n):
     if n % 2 == 0:
         sys.exit("Number of weights should be an odd number!")
@@ -84,7 +91,7 @@ def LanczosBandPassWeights(fc2, fc1, n):
         else:
             w = np.zeros([n])
             k = np.arange(-n_2, n_2 + 1, 1)
-            k[n_2] = -999. # putting a dummy value
+            k[n_2] = -999.  # putting a dummy value
             sigma = np.sin(np.pi * k / n) / (np.pi * k / n)
             t01 = np.sin(2 * np.pi * fc2 * k) / (np.pi * k)
             t02 = np.sin(2 * np.pi * fc1 * k) / (np.pi * k)
@@ -93,45 +100,85 @@ def LanczosBandPassWeights(fc2, fc1, n):
             w[n_2] = 2 * (fc2 - fc1)
             return w
 
+
 def RollingTimeWindowFilter(var, wgts):
     n = wgts.size
-    n_2 = (n - 1) / 2
+    n_2 = (n - 1) // 2
     ntime, nlat, nlon = var.shape
     vardata = var.data
     varfdata = vardata
-    #varfdata[:,:,:] = -999.0
+    # varfdata[:,:,:] = -999.0
     times = np.arange(ntime)
-    #print 'Filtering...'
+    # print 'Filtering...'
     for la in range(nlat):
-        #print 'Lat = ' + str(la)
+        # print 'Lat = ' + str(la)
         for lo in range(nlon):
             varfdata[n_2:ntime - n_2, la, lo] = np.convolve(vardata[:, la, lo], wgts, 'valid')
             varfdata[:, la, lo] = ma.masked_where(times <= n_2, varfdata[:, la, lo])
             varfdata[:, la, lo] = ma.masked_where(times >= ntime - n_2, varfdata[:, la, lo])
-            #varfdata[:n_2+1,la,lo]  = -999.0
-            #varfdata[ntime-n_2:,la,lo]  = -999.0
+            # varfdata[:n_2+1,la,lo]  = -999.0
+            # varfdata[ntime-n_2:,la,lo]  = -999.0
     var.data = varfdata
     return var
+
+
+def low_pass_weights(window, cutoff):
+    """Calculate weights for a low pass Lanczos filter.
+
+    Args:
+
+    window: int
+        The length of the filter window.
+
+    cutoff: float
+        The cutoff frequency in inverse time steps.
+
+    """
+    order = ((window - 1) // 2) + 1
+    nwts = 2 * order + 1
+    w = np.zeros([nwts])
+    n = nwts // 2
+    w[n] = 2 * cutoff
+    k = np.arange(1., n)
+    sigma = np.sin(np.pi * k / n) * n / (np.pi * k)
+    firstfactor = np.sin(2. * np.pi * cutoff * k) / (np.pi * k)
+    w[n - 1:0:-1] = firstfactor * sigma
+    w[n + 1:-1] = firstfactor * sigma
+    return w[1:-1]
+
+
+def lanczos_filter(cube, window=101, low=1. / 100., high=1. / 20.):
+    wgts_high = low_pass_weights(window, high)
+    wgts_low = low_pass_weights(window, low)
+
+    cube = cube - cube.collapsed('time', iris.analysis.MEAN)
+    cube_filt = cube.copy()
+
+    cube_filt.data = np.apply_along_axis(lambda m: (np.convolve(m, wgts_high, mode='same') -
+                                                    np.convolve(m, wgts_low, mode='same')), axis=0, arr=cube.data)
+    return cube_filt
+
 
 def Filter(var):
     # Filtering using predetermined filter coeffecients
     # FilterCoef.dat provided with the fortran code.
     filt_var = var.copy()
-    beta = np.loadtxt(os.path.join('src','FilterCoef.dat'))
+    beta = np.loadtxt(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'FilterCoef.dat'))
     lag = len(beta)
     ntime, nlat, nlon = var.shape
     print(ntime, nlat, nlon)
     sum = var.data[0]
-    
+
     for it in range(ntime - 1):
         sum[:, :] = 0.
         for k in range(lag):
             k1 = ((ntime + it - k - 1) % (ntime))
-            k2 = ((it + k) % (ntime))  
-            #print k, k1, k2
+            k2 = ((it + k) % (ntime))
+            # print k, k1, k2
             sum += beta[k] * (var.data[k1] + var.data[k2])
         filt_var.data[it] = sum
     return filt_var
+
 
 def anomRemoveClimAnnualCycle(var):
     # remove a climatological annual cycle from the data
@@ -139,17 +186,18 @@ def anomRemoveClimAnnualCycle(var):
     time = var.coord('time')
     year, month, day = getDates(time)
     mmdd = np.array(['%02d' % month[i] + '%02d' % day[i] for i in range(len(year))])
-    
+
     anom = var.copy()
     # get unique values
     # taken from http://mattdickenson.com/2011/12/31/find-unique-values-in-list-python/
     mmdd_unique = np.array(sorted(list(set(mmdd))))
-    
+
     # removing the climatological mean value for each day.
     for md in mmdd_unique:
         inds = np.where(mmdd == md)
         anom.data[inds] = var.data[inds] - var[inds].collapsed('time', iris.analysis.MEAN).data
     return anom
+
 
 def splitTime(date):
     '''Split date string into yyyy, mm, dd integers'''
@@ -159,6 +207,7 @@ def splitTime(date):
     day = int(d[8:10])
     return year, month, day
 
+
 def getDates(time):
     '''splits the iris time coordinate into yyyy, mm, dd'''
     if time.units.calendar == 'gregorian':
@@ -167,7 +216,7 @@ def getDates(time):
         dates = unit.num2date(time.points, str(time.units), unit.CALENDAR_STANDARD)
     else:
         dates = unit.num2date(time.points, str(time.units), time.units.calendar)
-    try: 
+    try:
         dates
     except NameError:
         print(dates + " WASN'T defined after all!")
@@ -178,51 +227,56 @@ def getDates(time):
         for i, date in enumerate(dates):
             year[i], month[i], day[i] = splitTime(date)
     return year, month, day
-    
+
+
 def region(coords):
-    if len(coords) == 4 :
+    if len(coords) == 4:
         loni, lati, lonf, latf = coords
-        xy_slice = iris.Constraint(longitude=lambda cell:loni <= cell <= lonf,
-                                 latitude=lambda cell: lati <= cell <= latf)
-    else :
+        xy_slice = iris.Constraint(longitude=lambda cell: loni <= cell <= lonf,
+                                   latitude=lambda cell: lati <= cell <= latf)
+    else:
         print('Wrong number of elements in the coordinate array.')
     return xy_slice
+
+
 def pptocube(run, vardict, stashcode):
     import maverick.lib.loaddata as loaddata
     fname = vardict['fname']
-    #print 'Dealing with PP stashsplit...'
-    
+    # print 'Dealing with PP stashsplit...'
+
     if not os.path.exists(fname):
-        keys = dict() # This dictionary contains a series of pp header filters similiar to TIDLs ss() function including dt
+        keys = dict()  # This dictionary contains a series of pp header filters similiar to TIDLs ss() function including dt
         if vardict['varname'] == 'U850':
             keys['lblev'] = 850
         if vardict['varname'] == 'U200':
             keys['lblev'] = 200
-        period = 'daily' # can be 'annual', 'seasonal', 'monthly'
+        period = 'daily'  # can be 'annual', 'seasonal', 'monthly'
         msi_stash_str = 'm01s{0[0]:02d}i{0[1]:03d}'.format(divmod(stashcode, 1000))
         cube = loaddata.load_run_ss(run, period, msi_stash_str, **keys)
-        
+
         # Extract region
         coords = [0, -30, 360, 30]
         cube = cube.extract(region(coords))
-        
-        #print 'PP cube from Stashsplit'
-        #print cube
+
+        # print 'PP cube from Stashsplit'
+        # print cube
         # Regridding data to 2.5 x 2.5 grid...
         print('*' * 50)
         print('Regridding data to 2.5 x 2.5 grid...')
         print('*' * 50)
         cube = regrid2obs(cube)
-        #print 'Regridded cube'
-        #print cube
+        # print 'Regridded cube'
+        # print cube
         iris.save(cube, fname)
         print('%s written. ' % fname)
     else:
         print('%s exists. Reading Netcdf file...    ' % fname)
         cube = iris.load_cube(fname)
-        #print 'Netcdf cube'
-        #print cube
+        # print 'Netcdf cube'
+        # print cube
     return cube
+
+
 def AreaAverage(var, coords):
     # Generate area-weights array. As e1 and a1b are on the same grid we can
     # do this just once and re-use.
@@ -231,15 +285,16 @@ def AreaAverage(var, coords):
     ts = var.extract(region(coords))
     if ts.coord('latitude').bounds is None:
         ts.coord('latitude').guess_bounds()
-    if ts.coord('longitude').bounds is None:    
+    if ts.coord('longitude').bounds is None:
         ts.coord('longitude').guess_bounds()
     ts_grid_areas = iris.analysis.cartography.area_weights(ts)
-    
+
     # Now perform an area-weighted collapse for each dataset:
     ts_area_mean = ts.collapsed(['latitude', 'longitude'],
-                                                   iris.analysis.MEAN,
-                                                   weights=ts_grid_areas)
+                                iris.analysis.MEAN,
+                                weights=ts_grid_areas)
     return ts_area_mean
+
 
 def lagcorr(x, y, lag=None, verbose=False):
     '''Compute lead-lag correlations between 2 time series.
@@ -271,23 +326,23 @@ def lagcorr(x, y, lag=None, verbose=False):
     if len(x) != len(y):
         print('Input variables in lagcorr(x,y) are of different lengths.')
         sys.exit()
-    
-    #--------Unify types of <lag>-------------
+
+    # --------Unify types of <lag>-------------
     if np.isscalar(lag):
         if abs(lag) >= len(x):
-            raise('Maximum lag equal or larger than array.')
+            raise ('Maximum lag equal or larger than array.')
         if lag < 0:
             lag = -np.arange(abs(lag) + 1)
         elif lag == 0:
             lag = [0, ]
         else:
-            lag = np.arange(lag + 1)    
+            lag = np.arange(lag + 1)
     elif lag is None:
         lag = [0, ]
     else:
         lag = np.asarray(lag)
-    
-    #-------Loop over lags---------------------
+
+    # -------Loop over lags---------------------
     result = []
     if verbose:
         print('<lagcorr>: Computing lagged-correlations at lags:', lag)
@@ -304,29 +359,32 @@ def lagcorr(x, y, lag=None, verbose=False):
 
     return result
 
-def LeadLagCorr(ts, var_tx):    
+
+def LeadLagCorr(ts, var_tx):
     # lead-lag correlation
     ntime, nlon = var_tx.shape
     mxlag = 30
     lcorr = np.zeros([2 * mxlag + 1, nlon], dtype=float)
-    #lcorr       = var_tx[0:2*mxlag+1, :]
+    # lcorr       = var_tx[0:2*mxlag+1, :]
     lags = np.arange(-mxlag, mxlag + 1)
     lons = var_tx.coord('longitude').points
-    
+
     for lo in np.arange(nlon):
         dum = lagcorr(ts.data, var_tx[:, lo].data, lag=lags, verbose=False)
         lcorr[:, lo] = dum[:, 0]
-        
+
     return lcorr, lags, lons
-#def ceof(var):
+
+
+# def ceof(var):
 
 def RMM_phases(pcs):
     ntime, neofs = pcs.shape
-    
+
     pha = np.zeros(ntime, dtype=int)
     for it in np.arange(ntime):
-        pc1 = pcs[it, 0] 
-        pc2 = pcs[it, 1]    
+        pc1 = pcs[it, 0]
+        pc2 = pcs[it, 1]
         if pc1 != 0:
             tmp = np.arctan(pc2 / pc1)
             if pc2 * pc1 > 0:

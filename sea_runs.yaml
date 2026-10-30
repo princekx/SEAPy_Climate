@@ -1,0 +1,22 @@
+runs:
+  control:
+    runid: u-cv318
+    label: GC5.0 CPL C144
+    model: UM
+    start_date: 1981/12/01
+    end_date: 2008/12/01
+    data_retrieve_dir: /data/scratch/prince.xavier/SEAPy_climate/
+  experiment:
+    runid: u-ea703
+    label: GC6.0 CPL C144
+    model: LFRic
+    start_date: 1981/12/01
+    end_date: 2008/12/01
+    data_retrieve_dir: /data/scratch/prince.xavier/SEAPy_climate
+  obs:
+    runid: obs
+    label: ERA5 GPM
+    model: OBS
+    start_date: 2006/01/01
+    end_date: 2026/12/31
+    data_retrieve_dir: /data/users/prince.xavier/SEAPy_climate/SEAPy_obs_data/combined_data

@@ -1,400 +1,480 @@
-import os
-import numpy as np
-import matplotlib as mpl
-
-# use Agg backend for running without X-server
-mpl.use('Agg')
-
-from itertools import groupby
-from iris.coord_categorisation import add_year
-from iris.coord_categorisation import add_month_number
-from iris.coord_categorisation import add_day_of_month
-import iris
-import iris.quickplot as qplt
-import iris.plot as iplt
-import matplotlib.pyplot as plt
-from matplotlib.colors import BoundaryNorm
-import cartopy.crs as ccrs
 import csv
+import logging
+import os
+import warnings
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from src import data_paths
+import matplotlib
+matplotlib.use('Agg', force=True)
 
+import cartopy.crs as ccrs
+import iris
+import iris.plot as iplt
+import iris.quickplot as qplt
+import matplotlib.pyplot as plt
+from .plot_utils import save_figure
+import numpy as np
+from iris.coord_categorisation import add_day_of_month, add_month_number, add_year
+from iris.warnings import IrisUserWarning, IrisVagueMetadataWarning
+from matplotlib.colors import BoundaryNorm
 
-def prepare_data(u850, v850, box_type):
-    # Setting up the dates on data
-    if not u850.coords('year'):
-        iris.coord_categorisation.add_year(u850, 'time', name='year')
-    if not u850.coords('month_number'):
-        iris.coord_categorisation.add_month_number(u850, 'time', name='month_number')
-    if not u850.coords('day_of_month'):
-        iris.coord_categorisation.add_day_of_month(u850, 'time', name='day_of_month')
+warnings.filterwarnings('ignore', category=IrisVagueMetadataWarning)
+warnings.filterwarnings('ignore', category=IrisUserWarning)
+warnings.filterwarnings('ignore', category=Warning, module=r'iris$')
+warnings.filterwarnings('ignore', category=Warning, module=r'iris\..*')
+warnings.filterwarnings(
+    'ignore',
+    message='.*legacy-style attribute handling.*',
+    category=Warning,
+)
 
-    if not v850.coords('year'):
-        iris.coord_categorisation.add_year(v850, 'time', name='year')
-    if not v850.coords('month_number'):
-        iris.coord_categorisation.add_month_number(v850, 'time', name='month_number')
-    if not v850.coords('day_of_month'):
-        iris.coord_categorisation.add_day_of_month(v850, 'time', name='day_of_month')
+if hasattr(iris, 'FUTURE'):
+    iris.FUTURE.date_microseconds = True
+    iris.FUTURE.save_split_attrs = True
 
-    # regrid
-    #u850 = u850.regrid(v850, iris.analysis.Linear())
+logger = logging.getLogger(__name__)
 
-    speed = u850.copy()
-    speed.data = np.sqrt(u850.data ** 2 + v850.data ** 2)
-
-    # box averages
-    u850_ba = u850.intersection(latitude=(box_type[2], box_type[3]), longitude=(box_type[0], box_type[1]))
-    u850_ba = u850_ba.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
-
-    v850_ba = v850.intersection(latitude=(box_type[2], box_type[3]), longitude=(box_type[0], box_type[1]))
-    v850_ba = v850_ba.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
-
-    speed_ba = speed.intersection(latitude=(box_type[2], box_type[3]), longitude=(box_type[0], box_type[1]))
-    speed_ba = speed_ba.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
-
-    # Normalise
-    # speed_ba_ts = (speed_ba.data - np.mean(speed_ba.data)) / np.std(speed_ba.data)
-    speed_ba_ts = speed_ba.data
-    return u850_ba, v850_ba, speed_ba_ts
+DEFAULT_OUTPUT_ROOT = '/data/users/prince.xavier/SEAPy_climate/SEAPy_output'
 
 
-def consecutive_cs_days(cs_points):
-    # Counting number of consecutive cs days
-    all_cs_count = np.array([len(list(g[1])) for g in groupby(cs_points) if g[0] == 1])
-    cs_stats = all_cs_count[np.where(all_cs_count > 2)]
-    return cs_stats
+def _output_root():
+    """Return the active root output directory, preferring the workflow setting."""
+    return os.environ.get('SEAPY_OUTPUT_DIR', DEFAULT_OUTPUT_ROOT)
 
 
-def print_dict(metrics, runid):
-    cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
-    metrics_csv_file = os.path.join(cs_index_out_dir, '%s_metrics.csv' % runid)
-    # write metrics to csv file for each suite_id
-    with open(metrics_csv_file, 'w') as fh:
-        writer = csv.writer(fh)
-        for metric in metrics.items():
-            writer.writerow(metric)
+def _resolve_output_dir(run=None, out_plot_dir=None):
+    """Resolve the run-specific output directory for cold-surge products."""
+    if out_plot_dir:
+        return out_plot_dir
 
-    print('Written %s' % metrics_csv_file)
+    run = run or {}
+    runid = str(run.get('runid', '')).strip()
+    dir_label = str(run.get('dir_label', run.get('label', ''))).replace(' ', '_')
+    output_root = _output_root()
+    if runid and dir_label:
+        return os.path.join(output_root, f'{runid}_{dir_label}')
+    if dir_label:
+        return os.path.join(output_root, dir_label)
+    if runid:
+        return os.path.join(output_root, runid)
+    return output_root
 
 
-def get_yyyymmdd(cube):
+def _ensure_dir(path):
+    """Create a directory tree if needed and return it."""
+    os.makedirs(path, exist_ok=True)
+    return path
+
+
+def _write_date_file(file_path, dates):
+    """Write a one-date-per-line text file using YYYYMMDD integers."""
+    values = [str(int(date)) for date in dates]
+    with open(file_path, 'w', encoding='utf-8') as handle:
+        if values:
+            handle.write('\n'.join(values) + '\n')
+
+
+def _read_date_file(file_path):
+    """Read a plain-text YYYYMMDD date list back into integers."""
+    if not os.path.exists(file_path):
+        return []
+    with open(file_path, 'r', encoding='utf-8') as handle:
+        return [int(line.strip()) for line in handle if line.strip()]
+
+
+def _normalise_time_coord(cube):
+    """Accept Iris files whose time axis is called valid_time instead of time."""
+    try:
+        cube.coord('time')
+        return cube
+    except iris.exceptions.CoordinateNotFoundError:
+        for coord in cube.coords():
+            if coord.name() in {'time', 'valid_time'} or coord.standard_name == 'time':
+                if coord.name() != 'time':
+                    coord.rename('time')
+                return cube
+        raise
+
+
+def _add_time_coords(cube):
+    """Ensure that year, month and day coordinates are present for a time axis."""
+    cube = _normalise_time_coord(cube)
     if not cube.coords('year'):
-        iris.coord_categorisation.add_year(cube, 'time', name='year')
+        add_year(cube, 'time', name='year')
     if not cube.coords('month_number'):
-        iris.coord_categorisation.add_month_number(cube, 'time', name='month_number')
+        add_month_number(cube, 'time', name='month_number')
     if not cube.coords('day_of_month'):
-        iris.coord_categorisation.add_day_of_month(cube, 'time', name='day_of_month')
+        add_day_of_month(cube, 'time', name='day_of_month')
+    return cube
 
+
+def _cube_date_keys(cube):
+    """Convert the time coordinate to integer YYYYMMDD keys for date matching."""
+    cube = _add_time_coords(cube)
     years = cube.coord('year').points
     months = cube.coord('month_number').points
     days = cube.coord('day_of_month').points
+    return np.asarray([int(years[i] * 10000 + months[i] * 100 + days[i]) for i in range(len(years))], dtype=int)
 
-    yyyymmdd = [years[i] * 10000 + months[i] * 100 + days[i] for i in range(len(years))]
-    return yyyymmdd
+
+def _load_cube_if_exists(file_path):
+    """Load a NetCDF cube if the file exists, otherwise return None."""
+    if not os.path.exists(file_path):
+        return None
+    try:
+        return iris.load_cube(file_path)
+    except Exception:
+        logger.exception('Failed to load cube from %s', file_path)
+        return None
+
+
+def _box_mean(cube, box_type):
+    """Average a field over the specified latitude-longitude box."""
+    subset = cube.intersection(latitude=(box_type[2], box_type[3]), longitude=(box_type[0], box_type[1]))
+    return subset.collapsed(('latitude', 'longitude'), iris.analysis.MEAN)
+
+
+def prepare_data(u850, v850, box_type):
+    """Compute box-mean wind and wind-speed time series for a selected region."""
+    for cube in (u850, v850):
+        _add_time_coords(cube)
+
+    # Use the wind-speed magnitude directly rather than recalculating it repeatedly.
+    speed_cube = u850.copy(data=np.hypot(u850.data, v850.data))
+    u850_ba = _box_mean(u850, box_type)
+    v850_ba = _box_mean(v850, box_type)
+    speed_ba = _box_mean(speed_cube, box_type)
+    return u850_ba, v850_ba, speed_ba.data
+
+
+def consecutive_cs_days(cs_points):
+    """Return lengths of contiguous cold-surge runs longer than 2 days."""
+    values = np.asarray(cs_points, dtype=int)
+    lengths = []
+    current = 0
+    for value in values:
+        if value == 1:
+            current += 1
+        elif current > 2:
+            lengths.append(current)
+            current = 0
+        else:
+            current = 0
+
+    if current > 2:
+        lengths.append(current)
+
+    return np.asarray(lengths, dtype=float)
+
+
+def print_dict(metrics, run, cs_index_out_dir):
+    """Write a metrics dictionary to a CSV file for a given run."""
+    runid = run.get('runid', 'unknown')
+    _ensure_dir(cs_index_out_dir)
+    metrics_csv_file = os.path.join(cs_index_out_dir, f'{runid}_metrics.csv')
+    try:
+        with open(metrics_csv_file, 'w', newline='') as handle:
+            writer = csv.writer(handle)
+            writer.writerows(metrics.items())
+    except Exception:
+        logger.exception('Failed to write metrics CSV for %s', runid)
+        raise
+
+    logger.info('Written %s', metrics_csv_file)
+
+
+def get_yyyymmdd(cube):
+    """Return the time axis as integer YYYYMMDD values."""
+    cube = _add_time_coords(cube)
+    years = cube.coord('year').points
+    months = cube.coord('month_number').points
+    days = cube.coord('day_of_month').points
+    return [int(years[i] * 10000 + months[i] * 100 + days[i]) for i in range(len(years))]
 
 
 def find_array_match_inds(long_array, short_array):
-    return long_array.searchsorted(short_array)
+    """Find insertion indices for matching values in a sorted array."""
+    return np.asarray(long_array).searchsorted(np.asarray(short_array))
 
 
-def cold_surge_stats(u850, v850, runid='obs'):
-    metrics = {}
-    cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
-
-    allfile = open(os.path.join(cs_index_out_dir, "%s_NDJF_dates.txt" % runid), "w")
-    csfile = open(os.path.join(cs_index_out_dir, "%s_CS_dates.txt" % runid), "w")
-    msfile = open(os.path.join(cs_index_out_dir, "%s_MS_dates.txt" % runid), "w")
-    esfile = open(os.path.join(cs_index_out_dir, "%s_ES_dates.txt" % runid), "w")
-    cesfile = open(os.path.join(cs_index_out_dir, "%s_CES_dates.txt" % runid), "w")
-
-    # 1. CS :Cold surge
-    # Cold surge identification
-    ######################################
-    chang_box = [107, 115, 5, 10]  # CP Chang's 2nd domain
-    chang_threshold = 9.0  # 10 # wind speed m/s
-    cs_threshold = 0.75
-
-    u850_ba, v850_ba, speed_ba_ts = prepare_data(u850, v850, chang_box)
-
-    years = u850_ba.coord('year').points
-    months = u850_ba.coord('month_number').points
-    days = u850_ba.coord('day_of_month').points
-
-    # 0. Write NDJF dates for seasonal means
-    ###########################################
-    allinds = [i for i in range(len(months)) if months[i] >= 11 or months[i] <= 2]
-
-    for i in allinds:
-        allfile.write(str(years[i] * 10000 + months[i] * 100 + days[i]) + '\n')
-    allfile.close()
-    ###########################################
-
-    cs_points = np.zeros(len(speed_ba_ts.data))
-    csinds = np.where((speed_ba_ts >= chang_threshold) & (u850_ba.data < 0.) & (v850_ba.data < 0.))[0]
-    cs_points[csinds] = 1
-
-    for i in csinds:
-        csfile.write(str(years[i] * 10000 + months[i] * 100 + days[i]) + '\n')
-        # print str(years[i]*10000+months[i]*100+days[i])+'\n'
-    csfile.close()
-
-    # 2. CES :Hattori box for cross equatorial surges
-    ######################################
-    hattori_box = [105, 115, -5, 5]
-    hattori_threshold = -2.0  # m/s meridional wind
-
-    u850_ha, v850_ha, speed_ha_ts = prepare_data(u850, v850, hattori_box)
-    ces_points = np.zeros(len(speed_ba_ts.data))
-    cesinds = np.where((speed_ba_ts >= cs_threshold) &
-                       (u850_ba.data < 0.) &
-                       (v850_ba.data < 0.) &
-                       (v850_ha.data <= hattori_threshold))[0]
-
-    ces_points[cesinds] = 1
-    for i in cesinds:
-        cesfile.write(str(years[i] * 10000 + months[i] * 100 + days[i]) + '\n')
-        # print str(years[i]*10000+months[i]*100+days[i])+'\n'
-    cesfile.close()
-
-    # 3. MS: MERIDIONAL SURGE (COLD SURGE)
-    ######################################
-    # Chang et. al. (2005)
-    # Averaged meridional wind between110° and 117.5 °E, along 15 °N.
-    ms_box = [110, 117.5, 14, 16]
-    ms_es_threshold = -8.0
-    u850_ba, v850_ba, speed_ba_ts = prepare_data(u850, v850, ms_box)
-    ms_points = np.zeros(len(speed_ba_ts.data))
-    msinds = np.where(v850_ba.data < ms_es_threshold)[0]
-    ms_points[msinds] = 1
-
-    #plt.plot(v850_ba.data)
-    #plt.plot(ms_points * -8)
-    #plt.show()
-
-    for i in msinds:
-        msfile.write(str(years[i] * 10000 + months[i] * 100 + days[i]) + '\n')
-        # print str(years[i]*10000+months[i]*100+days[i])+'\n'
-    msfile.close()
-
-    #
-    # 4. ES: EASTERLY SURGE
-    ######################################
-    # Hai et al. (2017)
-    # Averaged zonal wind between 7.5° and 15 °N, along 120 °E.
-    es_box = [119, 121, 7.5, 15]
-    ms_es_threshold = -8.0
-    u850_ba, v850_ba, speed_ba_ts = prepare_data(u850, v850, es_box)
-    es_points = np.zeros(len(speed_ba_ts.data))
-    esinds = np.where(u850_ba.data < ms_es_threshold)[0]
-    es_points[esinds] = 1
-
-    for i in esinds:
-        esfile.write(str(years[i] * 10000 + months[i] * 100 + days[i]) + '\n')
-        # print str(years[i]*10000+months[i]*100+days[i])+'\n'
-    esfile.close()
-
-    # Counting number of consecutive ces days
-    cs_stats = consecutive_cs_days(cs_points)
-
-    # Counting number of consecutive ces days
-    ces_stats = consecutive_cs_days(ces_points)
-
-    # Counting number of consecutive ms days
-    ms_stats = consecutive_cs_days(ms_points)
-
-    # Counting number of consecutive es days
-    es_stats = consecutive_cs_days(es_points)
-
-    print(len(cs_stats))
-    print(len(es_stats))
-    print(len(ms_stats))
-    print(len(ces_stats))
-
-    # Metric 1: average length of cold surges
-    cs_mean_length = np.mean(cs_stats)
-    # Metric 1: average length of CES
-    ces_mean_length = np.mean(ces_stats)
-    # Metric 1: average length of MS
-    ms_mean_length = np.mean(ms_stats)
-    # Metric 1: average length of ES
-    es_mean_length = np.mean(es_stats)
-
-    # Metric 2: average number of cold surge events in a season
-    cs_mean_number = len(cs_stats) / float((years[-1] - years[0] + 1))
-    ces_mean_number = len(ces_stats) / float((years[-1] - years[0] + 1))
-    ms_mean_number = len(ms_stats) / float((years[-1] - years[0] + 1))
-    es_mean_number = len(es_stats) / float((years[-1] - years[0] + 1))
-    # print cs_mean_number #, len(cs_stats), (years[-1] - years[0]+1)
-
-    metrics['Average length of Cold Surges (CS)'] = round(cs_mean_length, 2)
-    metrics['Average length of Cross-Equatorial Surges (CES)'] = round(ces_mean_length, 2)
-    metrics['Average length of Meridional Surges (MS)'] = round(ms_mean_length, 2)
-    metrics['Average length of Easterly Surges (ES)'] = round(es_mean_length, 2)
-
-    metrics['Average number of CS in a season'] = round(cs_mean_number, 2)
-    metrics['Average number of CES in a season'] = round(ces_mean_number, 2)
-    metrics['Average number of MS in a season'] = round(ms_mean_number, 2)
-    metrics['Average number of ES in a season'] = round(es_mean_number, 2)
-
-    print('Output written to %s' % cs_index_out_dir)
-
-    print_dict(metrics, runid)
-
-    return metrics
+def return_indices_of_a(a, b):
+    """Return positions in a where any member of b matches."""
+    a_arr = np.asarray(a)
+    b_set = set(int(v) for v in b)
+    return np.nonzero(np.isin(a_arr, list(b_set)))[0].tolist()
 
 
-def cold_surge_composites(vars, cstype=['NDJF', 'CS', 'CES', 'MS', 'ES'], runid='obs'):
-    # Output data/plots
-    cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
-
-    for cube in vars:
-        for cst in cstype:
-            print('Computing composite of %s' % cst)
-            cs_dates_file = os.path.join(cs_index_out_dir, "%s_%s_dates.txt" % (runid, cst))
-            if os.path.exists(cs_dates_file):
-                allfile = open(cs_dates_file, "r")
-                lines = allfile.readlines()
-                cs_dates = [int(line.split()[0]) for line in lines]
-                # if runid == 'obs' or (runid == 'u-ab674' and (varname == 'PRECIP' or varname == 'SST')):
-                #     # ERA reanlysis has a p coordinate
-                #     cube = cube[:, 0]
-                # if cube.coords('t'):
-                #     cube.coord('t').rename('time')
-                # print
-                # cube
-                #
-                all_dates = get_yyyymmdd(cube)
-                inds = find_array_match_inds(np.array(all_dates), np.array(cs_dates))
-                comp = cube[inds].collapsed('time', iris.analysis.MEAN)
-                varname = cube.long_name
-                outfilename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, varname))
-                iris.save(comp, outfilename, netcdf_format="NETCDF3_CLASSIC")
+def _mean_or_nan(values):
+    """Mean of a numeric array, returning NaN when there are no valid values."""
+    return float(np.mean(values)) if values.size else np.nan
 
 
-def plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs', label='OBS'):
-    # Output data/plots
-    cs_index_out_dir = os.path.join(data_paths.dirs('data_out_dir'), runid)
-    print(cs_index_out_dir)
-    ndjf_precip_filename = os.path.join(cs_index_out_dir,
-                                        "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'precipitation_flux'))
-    ndjf_sst_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'surface_temperature'))
-    ndjf_u850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'x_wind_850hPa'))
-    ndjf_v850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, 'NDJF', 'y_wind_850hPa'))
+def _count_per_year(values, years):
+    """Average number of detected events per season, scaled by the total years in the series."""
+    if years.size == 0:
+        return np.nan
+    season_years = int(years[-1] - years[0] + 1)
+    return float(len(values)) / float(season_years) if season_years else np.nan
 
-    if os.path.exists(ndjf_precip_filename):
-        ndjf_precip_mean = iris.load_cube(ndjf_precip_filename)
-    if os.path.exists(ndjf_sst_filename):
-        ndjf_sst_mean = iris.load_cube(ndjf_sst_filename)
-    if os.path.exists(ndjf_u850_filename):
-        ndjf_u850_mean = iris.load_cube(ndjf_u850_filename)
-    if os.path.exists(ndjf_v850_filename):
-        ndjf_v850_mean = iris.load_cube(ndjf_v850_filename)
+
+def cold_surge_stats(u850, v850, run=None, out_plot_dir=None):
+    """Compute cold-surge statistics and write date-index files for each event class.
+
+    The routine identifies NDJF dates, cold surges, cross-equatorial surges,
+    meridional surges and easterly surges using simple box-based thresholds.
+    """
+    try:
+        run = run or {}
+        runid = run.get('runid', 'unknown')
+        cs_index_out_dir = _ensure_dir(_resolve_output_dir(run=run, out_plot_dir=out_plot_dir))
+
+        chang_box = [107, 115, 5, 10]
+        chang_threshold = 9.0
+        cs_threshold = 0.75
+
+        u850_ba, v850_ba, speed_ba_ts = prepare_data(u850, v850, chang_box)
+        years = _add_time_coords(u850_ba).coord('year').points
+        months = u850_ba.coord('month_number').points
+        date_keys = _cube_date_keys(u850_ba)
+
+        ndjf_mask = (months >= 11) | (months <= 2)
+        _write_date_file(os.path.join(cs_index_out_dir, f'{runid}_NDJF_dates.txt'), date_keys[ndjf_mask])
+
+        csinds = np.where((speed_ba_ts >= chang_threshold) & (u850_ba.data < 0.0) & (v850_ba.data < 0.0))[0]
+        cs_points = np.zeros(speed_ba_ts.shape, dtype=int)
+        cs_points[csinds] = 1
+        _write_date_file(os.path.join(cs_index_out_dir, f'{runid}_CS_dates.txt'), date_keys[csinds])
+
+        hattori_box = [105, 115, -5, 5]
+        hattori_threshold = -2.0
+        u850_ha, v850_ha, _ = prepare_data(u850, v850, hattori_box)
+        cesinds = np.where(
+            (speed_ba_ts >= cs_threshold)
+            & (u850_ba.data < 0.0)
+            & (v850_ba.data < 0.0)
+            & (v850_ha.data <= hattori_threshold)
+        )[0]
+        ces_points = np.zeros(speed_ba_ts.shape, dtype=int)
+        ces_points[cesinds] = 1
+        _write_date_file(os.path.join(cs_index_out_dir, f'{runid}_CES_dates.txt'), date_keys[cesinds])
+
+        ms_box = [110, 117.5, 14, 16]
+        ms_es_threshold = -8.0
+        _, v850_ms, _ = prepare_data(u850, v850, ms_box)
+        msinds = np.where(v850_ms.data < ms_es_threshold)[0]
+        ms_points = np.zeros(v850_ms.shape, dtype=int)
+        ms_points[msinds] = 1
+        _write_date_file(os.path.join(cs_index_out_dir, f'{runid}_MS_dates.txt'), date_keys[msinds])
+
+        es_box = [119, 121, 7.5, 15]
+        u850_es, _, _ = prepare_data(u850, v850, es_box)
+        esinds = np.where(u850_es.data < ms_es_threshold)[0]
+        es_points = np.zeros(u850_es.shape, dtype=int)
+        es_points[esinds] = 1
+        _write_date_file(os.path.join(cs_index_out_dir, f'{runid}_ES_dates.txt'), date_keys[esinds])
+
+        cs_stats = consecutive_cs_days(cs_points)
+        ces_stats = consecutive_cs_days(ces_points)
+        ms_stats = consecutive_cs_days(ms_points)
+        es_stats = consecutive_cs_days(es_points)
+
+        metrics = {
+            'Average length of Cold Surges (CS)': round(_mean_or_nan(cs_stats), 2),
+            'Average length of Cross-Equatorial Surges (CES)': round(_mean_or_nan(ces_stats), 2),
+            'Average length of Meridional Surges (MS)': round(_mean_or_nan(ms_stats), 2),
+            'Average length of Easterly Surges (ES)': round(_mean_or_nan(es_stats), 2),
+            'Average number of CS in a season': round(_count_per_year(cs_stats, years), 2),
+            'Average number of CES in a season': round(_count_per_year(ces_stats, years), 2),
+            'Average number of MS in a season': round(_count_per_year(ms_stats, years), 2),
+            'Average number of ES in a season': round(_count_per_year(es_stats, years), 2),
+        }
+
+        print(f'Output written to {cs_index_out_dir}')
+        print_dict(metrics, run, cs_index_out_dir)
+        return metrics
+    except Exception:
+        logger.exception('Cold surge stats failed for %s', run.get('runid', 'unknown'))
+        raise
+
+
+def _composite_one_variable(cube, cstype, runid, cs_index_out_dir):
+    """Compute the composites for a single variable, returning (outfile, cube) pairs."""
+    subset = cube.intersection(latitude=(-10, 25), longitude=(95, 130))
+    all_dates = _cube_date_keys(subset)
+    var_name = subset.long_name or subset.name()
+    results = []
 
     for cst in cstype:
-        if cst == 'NDJF':
-            # Plot the whole fields
-            cst_precip_mean = ndjf_precip_mean
-            cst_sst_mean = ndjf_sst_mean
-            cst_u850_mean = ndjf_u850_mean
-            cst_v850_mean = ndjf_v850_mean
-            print('Min, Max:', cst_precip_mean.data.min(), cst_precip_mean.data.max())
-        else:
-            # Plot differences
-            cst_precip_filename = os.path.join(cs_index_out_dir,
-                                               "%s_%s_%s_composite.nc" % (runid, cst, 'precipitation_flux'))
-            cst_sst_filename = os.path.join(cs_index_out_dir,
-                                            "%s_%s_%s_composite.nc" % (runid, cst, 'surface_temperature'))
-            cst_u850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, 'x_wind_850hPa'))
-            cst_v850_filename = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.nc" % (runid, cst, 'y_wind_850hPa'))
+        logger.info('Computing composite of %s for %s', cst, var_name)
+        cs_dates_file = os.path.join(cs_index_out_dir, f'{runid}_{cst}_dates.txt')
+        if not os.path.exists(cs_dates_file):
+            continue
 
-            if os.path.exists(cst_precip_filename):
-                cst_precip_mean = iris.load_cube(cst_precip_filename)
-                cst_precip_mean -= ndjf_precip_mean
+        cs_dates = np.asarray(_read_date_file(cs_dates_file), dtype=int)
+        if cs_dates.size == 0:
+            continue
 
-                print('Min, Max:', cst_precip_mean.data.min(), cst_precip_mean.data.max())
+        inds = return_indices_of_a(all_dates, cs_dates)
+        if not inds:
+            logger.warning('No matching dates found for %s in %s; skipping composite.', cst, runid)
+            continue
 
-            if os.path.exists(cst_sst_filename):
-                cst_sst_mean = iris.load_cube(cst_sst_filename)
-                cst_sst_mean -= ndjf_sst_mean
+        comp = subset[inds].collapsed('time', iris.analysis.MEAN)
+        _ = comp.data  # realise in the worker thread so only the write stays serial
+        outfile = os.path.join(cs_index_out_dir, f'{runid}_{cst}_{var_name}_composite.nc')
+        results.append((outfile, comp))
 
-            if os.path.exists(cst_u850_filename):
-                cst_u850_mean = iris.load_cube(cst_u850_filename)
-                cst_u850_mean -= ndjf_u850_mean
+    return results
 
-            if os.path.exists(cst_v850_filename):
-                cst_v850_mean = iris.load_cube(cst_v850_filename)
-                cst_v850_mean -= ndjf_v850_mean
 
-        x = cst_u850_mean.coord('longitude').points
-        y = cst_u850_mean.coord('latitude').points
-        u, v = cst_u850_mean.data, cst_v850_mean.data
+def cold_surge_composites(vars, cstype=None, run=None, out_plot_dir=None, max_workers=None):
+    """Build time-mean composites for each identified cold-surge category.
 
-        if runid == 'obs':
-            skip = 5
-            x = x[::skip]
-            y = y[::skip]
-            u = u[::skip, ::skip]
-            v = v[::skip, ::skip]
+    Each input cube is restricted to the Southeast Asia domain and then averaged
+    over the dates listed in the corresponding *_dates.txt files. Variables are
+    composited in parallel threads; the NetCDF writes stay serial because the
+    underlying HDF5 library is not thread-safe.
+    """
+    try:
+        run = run or {}
+        runid = run.get('runid', 'unknown')
+        cstype = cstype or ['NDJF', 'CS', 'CES', 'MS', 'ES']
+        cs_index_out_dir = _ensure_dir(_resolve_output_dir(run=run, out_plot_dir=out_plot_dir))
 
-        # PRECIP and winds plot
-        plt.figure()
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'precip_winds850'))
-        #cf = iplt.contourf(cst_precip_mean, cmap='RdBu', levels=np.arange(-5, 6, 1), extend='both')
+        cubes = list(vars)
+        if not cubes:
+            return
 
-        if cst == 'NDJF':
-            cmap = plt.get_cmap('BuGn')
-            levels = np.arange(0, 32, 4)
-        else:
-            cmap = plt.get_cmap('RdBu')
-            levels = np.arange(-10, 12, 2)
+        workers = max_workers or min(len(cubes), os.cpu_count() or 1)
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = {
+                executor.submit(_composite_one_variable, cube, cstype, runid, cs_index_out_dir): cube
+                for cube in cubes
+            }
+            for future in as_completed(futures):
+                for outfile, comp in future.result():
+                    iris.save(comp, outfile)
+                    logger.info('Written %s', outfile)
+    except Exception:
+        logger.exception('Cold surge composites failed for %s', run.get('runid', 'unknown'))
+        raise
 
-        norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
-        cf = iplt.pcolormesh(cst_precip_mean, cmap=cmap, norm=norm)
 
-        plt.colorbar(cf, orientation='vertical')
-        q = plt.quiver(x, y, u, v, units='width')
-        ax.quiverkey(q, X=132, Y=-12, U=5, coordinates='data',
-                     label='5 m/s', labelpos='E')
-        plt.ylim([-10, 25])
-        plt.xlim([95, 130])
-        gl = ax.gridlines(draw_labels=True, alpha=0.5)
-        gl.xlabels_top = False
-        gl.ylabels_right = False
-        plt.title('%s %s UV850, PRECIP' % (label, cst))
-        plt.gca().coastlines()
-        plt.savefig(figname, bbox_inches='tight', pad_inches=0)
-        # plt.show()
+def _load_composite_file(cs_index_out_dir, runid, cst, var_name):
+    """Helper for loading a previously written composite on demand."""
+    return _load_cube_if_exists(os.path.join(cs_index_out_dir, f'{runid}_{cst}_{var_name}_composite.nc'))
 
-        # SST and winds plot
-        figname = os.path.join(cs_index_out_dir, "%s_%s_%s_composite.pdf" % (runid, cst, 'sst_winds850'))
-        plt.figure()
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        #cf = iplt.contourf(cst_sst_mean, cmap='RdBu_r', levels=np.arange(-1, 1, 0.1), extend='both')
 
-        if cst == 'NDJF':
-            levels = np.arange(22, 34, 1)
-        else:
-            levels = np.arange(-1, 1, 0.1)
-        cmap = plt.get_cmap('RdBu_r')
+def plot_cold_surge_composites(cstype=None, run=None, out_plot_dir=None, format='png'):
+    """Plot precipitation and 850 hPa winds for composite cold-surge anomalies.
 
-        norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
-        cf = iplt.pcolormesh(cst_sst_mean, cmap=cmap, norm=norm)
+    The NDJF background state is used as the reference for anomaly composites,
+    then each event category is displayed with a common Southeast Asia map layout.
+    """
+    try:
+        run = run or {}
+        runid = run.get('runid', 'unknown')
+        cstype = cstype or ['CS', 'CES', 'MS', 'ES']
+        dir_label = str(run.get('dir_label', run.get('label', ''))).replace(' ', '_')
+        cs_index_out_dir = _ensure_dir(_resolve_output_dir(run=run, out_plot_dir=out_plot_dir))
 
-        plt.colorbar(cf, orientation='vertical')
-        q = plt.quiver(x, y, u, v, units='width')
-        ax.quiverkey(q, X=132, Y=-12, U=5, coordinates='data',
-                     label='5 m/s', labelpos='E')
-        plt.ylim([-10, 25])
-        plt.xlim([95, 130])
-        gl = ax.gridlines(draw_labels=True, alpha=0.5)
-        gl.xlabels_top = False
-        gl.ylabels_right = False
-        plt.title('%s %s UV850, SST' % (label, cst))
-        plt.gca().coastlines()
-        plt.savefig(figname, bbox_inches='tight', pad_inches=0)
-        # plt.show()
+        ndjf_precip = _load_composite_file(cs_index_out_dir, runid, 'NDJF', 'precipitation_flux')
+        ndjf_sst = _load_composite_file(cs_index_out_dir, runid, 'NDJF', 'surface_temperature')
+        ndjf_u850 = _load_composite_file(cs_index_out_dir, runid, 'NDJF', 'x_wind_850hPa')
+        ndjf_v850 = _load_composite_file(cs_index_out_dir, runid, 'NDJF', 'y_wind_850hPa')
+
+        if ndjf_sst.data.max() > 100:
+            ndjf_sst.data -= 273.15
+
+        if ndjf_precip is None or ndjf_u850 is None or ndjf_v850 is None:
+            logger.warning('Missing NDJF composites for %s; skipping plot generation', runid)
+            return
+
+        for cst in cstype:
+            if cst == 'NDJF':
+                cst_precip_mean = ndjf_precip
+                cst_sst_mean = ndjf_sst
+                cst_u850_mean = ndjf_u850
+                cst_v850_mean = ndjf_v850
+            else:
+                cst_precip_mean = _load_composite_file(cs_index_out_dir, runid, cst, 'precipitation_flux')
+                cst_sst_mean = _load_composite_file(cs_index_out_dir, runid, cst, 'surface_temperature')
+                cst_u850_mean = _load_composite_file(cs_index_out_dir, runid, cst, 'x_wind_850hPa')
+                cst_v850_mean = _load_composite_file(cs_index_out_dir, runid, cst, 'y_wind_850hPa')
+
+                if cst_precip_mean is None or cst_sst_mean is None or cst_u850_mean is None or cst_v850_mean is None:
+                    logger.warning('Missing composites for %s %s; skipping plot', runid, cst)
+                    continue
+
+                # Check if SST is in Kelvin and convert to Celsius if necessary
+                if cst_sst_mean.data.max() > 100:
+                    cst_sst_mean.data -= 273.15
+
+
+                cst_precip_mean = cst_precip_mean - ndjf_precip
+                cst_sst_mean = cst_sst_mean - ndjf_sst
+                cst_u850_mean = cst_u850_mean - ndjf_u850
+                cst_v850_mean = cst_v850_mean - ndjf_v850
+
+            skip = 2 if runid == 'obs' else 2
+            u = cst_u850_mean[::skip, ::skip]
+            v = cst_v850_mean[::skip, ::skip]
+
+            # Precip wind plots
+            plt.figure()
+            ax = plt.axes(projection=ccrs.PlateCarree())
+            figname = os.path.join(cs_index_out_dir, f'{runid}_{cst}_precip_winds850_composite.{format}')
+
+            cmap = plt.get_cmap('BuGn') if cst == 'NDJF' else plt.get_cmap('RdBu')
+            levels = np.arange(0, 32, 4) if cst == 'NDJF' else np.arange(-10, 12, 2)
+            norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
+            cf = iplt.pcolormesh(cst_precip_mean, cmap=cmap, norm=norm)
+            plt.colorbar(cf, orientation='vertical')
+
+            q = iplt.quiver(u, v, scale=2, scale_units='xy')
+            ax.quiverkey(q, X=132, Y=-12, U=5, label='5 m/s', labelpos='E', coordinates='data')
+            plt.ylim([-10, 25])
+            plt.xlim([95, 130])
+            gl = ax.gridlines(draw_labels=True, alpha=0.5)
+            gl.top_labels = False
+            gl.right_labels = False
+            gl.xlabel_style = {'size': 8}
+            gl.ylabel_style = {'size': 8}
+            plt.title(f'{dir_label} {cst} UV850, PRECIP')
+            plt.gca().coastlines()
+            save_figure(figname, bbox_inches='tight', pad_inches=0)
+            plt.close()
+
+
+            # SST Wind plot
+            plt.figure()
+            logger.info(f"Plotting SST wind composite for {runid} {cst}")
+            logger.info(f"SST composite min, max value for {runid} {cst}: {cst_sst_mean.data.min()}, {cst_sst_mean.data.max()}")
+            ax = plt.axes(projection=ccrs.PlateCarree())
+            figname = os.path.join(cs_index_out_dir, f'{runid}_{cst}_sst_winds850_composite.{format}')
+            cmap = plt.get_cmap('hot_r') if cst == 'NDJF' else plt.get_cmap('RdBu_r')
+            levels = np.arange(25, 30, 0.25) if cst == 'NDJF' else np.arange(-1, 1.1, 0.1)
+            norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
+            cf = iplt.pcolormesh(cst_sst_mean, cmap=cmap, norm=norm)
+            plt.colorbar(cf, orientation='vertical')
+
+            q = iplt.quiver(u, v, scale=2, scale_units='xy')
+            ax.quiverkey(q, X=132, Y=-12, U=5, label='5 m/s', labelpos='E', coordinates='data')
+            plt.ylim([-10, 25])
+            plt.xlim([95, 130])
+            gl = ax.gridlines(draw_labels=True, alpha=0.5)
+            gl.top_labels = False
+            gl.right_labels = False
+            gl.xlabel_style = {'size': 8}
+            gl.ylabel_style = {'size': 8}
+            plt.title(f'{dir_label} {cst} UV850, SST')
+            plt.gca().coastlines()
+            save_figure(figname, bbox_inches='tight', pad_inches=0)
+            plt.close()
+    except Exception:
+        logger.exception('Cold surge plotting failed for %s', run.get('runid', 'unknown'))
+        raise
 
 
 if __name__ == '__main__':
-    plot_cold_surge_composites(cstype=['CS', 'CES', 'MS', 'ES'], runid='obs')
+    logger.warning('This module is intended to be imported, not run directly.')

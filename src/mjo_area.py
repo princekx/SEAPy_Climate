@@ -19,10 +19,10 @@ import mjo_utils as mu
 import mjo_plots as mjp
 import reg_lat_long_grid
 
-import diags_level1
-import diags_level2
-import diags_level3
-#import diags_level4
+import diags_mjo_mean
+import diags_mjo_spectra
+import diags_mjo_composites
+#import diags_mjo_prop
 
 
 AUTOASSESS_PARSER = argparse.ArgumentParser(description='Description')
@@ -159,7 +159,7 @@ def main():
             for cube in [precip_cube, outgoing_longwave_cube, u_wind_200_cube,
                     u_wind_850_cube]:
 
-                diags_level1.diagnos_level1(cube, out_dir, suite_id, tmp_dir)
+                diags_mjo_mean.diagnos_level1(cube, out_dir, suite_id, tmp_dir)
 
         level2 = True
         # Level 2 diagnostics
@@ -168,7 +168,7 @@ def main():
             for cube in [precip_cube, outgoing_longwave_cube, u_wind_200_cube,
                     u_wind_850_cube]:
 
-                level2_metrics = diags_level2.diagnos_level2(cube, out_dir, suite_id)
+                level2_metrics = diags_mjo_spectra.diagnos_level2(cube, out_dir, suite_id)
                 metrics.update(level2_metrics)
 
         level3 = False
@@ -176,7 +176,7 @@ def main():
         # Real-time multivariate MJO Index (RMM) calculations, and Summer/Winter
         # composites
         if level3:
-            level3_metrics = diags_level3.diagnos_level3(
+            level3_metrics = diags_mjo_composites.diagnos_level3(
                     outgoing_longwave_cube, u_wind_850_cube, u_wind_200_cube,
                     precip_cube, suite_id, out_dir
                     )

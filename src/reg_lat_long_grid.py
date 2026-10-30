@@ -24,7 +24,7 @@ def create_cube(latitudes=(-90, 90), longitudes=(0, 360), spacing=1):
     # lat coord
     lower_bound = latitudes[0] + spacing / 2.
     upper_bound = latitudes[1] - spacing / 2.
-    number_of_points = (upper_bound - lower_bound) / spacing + 1
+    number_of_points = int(round((upper_bound - lower_bound) / spacing)) + 1
     lat_coord = iris.coords.DimCoord(np.linspace(lower_bound, upper_bound, number_of_points),
                                      standard_name='latitude',
                                      units='degrees',
@@ -34,7 +34,7 @@ def create_cube(latitudes=(-90, 90), longitudes=(0, 360), spacing=1):
     # long coord
     lower_bound = longitudes[0] + spacing / 2.
     upper_bound = longitudes[1] - spacing / 2.
-    number_of_points = (upper_bound - lower_bound) / spacing + 1
+    number_of_points = int(round((upper_bound - lower_bound) / spacing)) + 1
     lon_coord = iris.coords.DimCoord(np.linspace(lower_bound, upper_bound, number_of_points),
                                      standard_name='longitude',
                                      units='degrees',
@@ -58,7 +58,7 @@ def create_cube(latitudes=(-90, 90), longitudes=(0, 360), spacing=1):
 
 if __name__ == '__main__':
     cube = create_cube()
-    print cube
-    print cube.coord_system()
-    print cube.coord('latitude')
-    print cube.coord('longitude')
+    print(cube)
+    print(cube.coord_system())
+    print(cube.coord('latitude'))
+    print(cube.coord('longitude'))

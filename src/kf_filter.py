@@ -95,7 +95,7 @@ class KFfilter:
         freq = self.freq
 
         # wavenumber cut-off
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
         if kmin != None:
             mask = mask | (knum < kmin)
         if kmax != None:
@@ -153,7 +153,7 @@ class KFfilter:
         nf, nlat, nk = fftdata.shape
 
         # filtering ############################################################
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
         # wavenumber cut-off
         if kmin != None:
             mask = mask | (knum < kmin)
@@ -209,7 +209,7 @@ class KFfilter:
         nf, nlat, nk = fftdata.shape
 
         # filtering ############################################################
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
         # wavenumber cut-off
         if kmin != None:
             mask = mask | (knum < kmin)
@@ -265,7 +265,7 @@ class KFfilter:
         nf, nlat, nk = fftdata.shape
 
         # filtering ############################################################
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
         # wavenumber cut-off
         if kmin != None:
             mask = mask | (knum < kmin)
@@ -318,7 +318,7 @@ class KFfilter:
         nf, nlat, nk = fftdata.shape
 
         # filtering ############################################################
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
         # wavenumber cut-off
         if kmin != None:
             mask = mask | (knum < kmin)
@@ -371,7 +371,7 @@ class KFfilter:
         nf, nlat, nk = fftdata.shape
 
         # filtering ############################################################
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
         # wavenumber cut-off
         if kmin != None:
             mask = mask | (knum < kmin)
@@ -415,7 +415,7 @@ class KFfilter:
         knum = self.knum
         freq = self.freq
         nf, nlat, nk = fftdata.shape
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
 
         # wavenumber cut-off
         if kmin != None:
@@ -453,7 +453,7 @@ class KFfilter:
         knum = self.knum
         freq = self.freq
         nf, nlat, nk = fftdata.shape
-        mask = numpy.zeros((nf, nk), dtype=numpy.bool)
+        mask = numpy.zeros((nf, nk), dtype=bool)
 
         # wavenumber cut-off
         if kmin != None:
